@@ -127,13 +127,6 @@ def parse_front_matter(markdown_text: str) -> dict:
 def parse_posts(markdown_text: str) -> list[dict]:
     """
     Mengambil semua post dari file Markdown.
-
-    Setiap post memiliki:
-
-    - post_id
-    - author
-    - date
-    - body
     """
 
     post_pattern = re.compile(
@@ -145,7 +138,6 @@ def parse_posts(markdown_text: str) -> list[dict]:
     )
 
     posts = []
-
 
     for match in post_pattern.finditer(markdown_text):
         raw_body = match.group("body").strip()
@@ -162,6 +154,8 @@ def parse_posts(markdown_text: str) -> list[dict]:
         }
 
         posts.append(post)
+
+    return posts
 
 
 def parse_thread(file_path: Path) -> dict:
