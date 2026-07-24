@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "thread_id": 221,
+    "title": "http://www.trialsports.de/",
+    "source_url": "https://kat-forum.de/viewtopic.php?t=221",
+    "forum_name": "Werkstätten mit KAT-Kenntnissen",
+    "forum_url": "https://kat-forum.de/viewforum.php?f=7",
+    "page_starts": [
+      0
+    ],
+    "page_count": 1,
+    "post_count": 1,
+    "attachment_count": 0,
+    "source_language": "de",
+    "processing_stage": "raw_extraction"
+  },
+  "posts": [
+    {
+      "post_id": "1677",
+      "author": "egn",
+      "date_raw": "2012-09-28T12:32:57+00:00",
+      "text": "TRIALSPORTS - extreme offroad\nWGS84 N49°00.638' E012°07.346'\nInh. Holger Thome\nGuericke Str. 41\n93053 Regensburg\nTelefon: 0941-80370\nTelefax: 0941-80032\npost@trialsports.de\nhttp://www.trialsports.de/",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=221&start=0"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "source": "kat-forum.de",
+  "thread_count": 6,
+  "failed_count": 0,
+  "threads": [
+    {
+      "thread_id": 3891,
+      "title": "MWB Langen",
+      "source_url": "https://kat-forum.de/viewtopic.php?t=3891",
+      "forum_name": "Werkstätten mit KAT-Kenntnissen",
+      "forum_url": "https://kat-forum.de/viewforum.php?f=7",
+      "page_starts": [
+        0
+      ],
+      "page_count": 1,
+      "post_count": 1,
+      "attachment_count": 2,
+      "source_language": "de",
+      "processing_stage": "raw_extraction"
+    },
+    {
+      "thread_id": 95,
+      "title": "Nutzfahrzeug AG Zentralschweiz",
+      "source_url": "https://kat-forum.de/viewtopic.php?t=95",
+      "forum_name": "Werkstätten mit KAT-Kenntnissen",
+      "forum_url": "https://kat-forum.de/viewforum.php?f=7",
+      "page_starts": [
+        0
+      ],
+      "page_count": 1,
+      "post_count": 1,
+      "attachment_count": 0,
+      "source_language": "de",
+      "processing_stage": "raw_extraction"
+    },
+    {
+      "thread_id": 221,
+      "title": "http://www.trialsports.de/",
+      "source_url": "https://kat-forum.de/viewtopic.php?t=221",
+      "forum_name": "Werkstätten mit KAT-Kenntnissen",
+      "forum_url": "https://kat-forum.de/viewforum.php?f=7",
+      "page_starts": [
+        0
+      ],
+      "page_count": 1,
+      "post_count": 1,
+      "attachment_count": 0,
+      "source_language": "de",
+      "processing_stage": "raw_extraction"
+    },
+    {
+      "thread_id": 5735,
+      "title": "MAN KAT 1 A1 1990",
+      "source_url": "https://kat-forum.de/viewtopic.php?t=5735",
+      "forum_name": "Neuanschaffung",
+      "forum_url": "https://kat-forum.de/viewforum.php?f=12",
+      "page_starts": [
+        0
+      ],
+      "page_count": 1,
+      "post_count": 3,
+      "attachment_count": 10,
+      "source_language": "de",
+      "processing_stage": "raw_extraction"
+    },
+    {
+      "thread_id": 6032,
+      "title": "BASISFAHRZEUG KAT - VARIANTEN",
+      "source_url": "https://kat-forum.de/viewtopic.php?t=6032",
+      "forum_name": "Neuanschaffung",
+      "forum_url": "https://kat-forum.de/viewforum.php?f=12",
+      "page_starts": [
+        0
+      ],
+      "page_count": 1,
+      "post_count": 24,
+      "attachment_count": 3,
+      "source_language": "de",
+      "processing_stage": "raw_extraction"
+    },
+    {
+      "thread_id": 6260,
+      "title": "Kat 1A1.1 6x6",
+      "source_url": "https://kat-forum.de/viewtopic.php?t=6260",
+      "forum_name": "Neuanschaffung",
+      "forum_url": "https://kat-forum.de/viewforum.php?f=12",
+      "page_starts": [
+        0,
+        25
+      ],
+      "page_count": 2,
+      "post_count": 39,
+      "attachment_count": 9,
+      "source_language": "de",
+      "processing_stage": "raw_extraction"
+    }
+  ],
+  "failures": []
+}
