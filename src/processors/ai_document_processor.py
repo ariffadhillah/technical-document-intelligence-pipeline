@@ -23,7 +23,7 @@ from src.schemas.document_intelligence import (
 )
 
 
-AI_PROCESSING_VERSION = "1.1.1"
+AI_PROCESSING_VERSION = "1.2.0"
 
 
 @dataclass
