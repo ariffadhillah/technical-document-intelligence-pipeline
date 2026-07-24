@@ -1,8 +1,8 @@
 from pathlib import Path
 import json
 
-from thread_parser import parse_thread
-from thread_validator import validate_thread
+from src.parsers.thread_parser import parse_thread
+from src.parsers.thread_validator import validate_thread
 
 
 def save_parsed_thread(

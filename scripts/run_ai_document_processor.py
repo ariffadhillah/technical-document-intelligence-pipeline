@@ -3,6 +3,10 @@ import argparse
 import json
 import sys
 
+from src.config.settings import get_settings
+from src.processors.ai_document_processor import AIDocumentProcessor
+from src.providers.openai_provider import OpenAIProvider
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 

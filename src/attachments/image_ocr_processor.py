@@ -1,19 +1,23 @@
 from pathlib import Path
 
-from image_loader import find_images, load_image
-from image_preprocessor import preprocess_image
-from ocr_engine import (
+from src.attachments.image_loader import (
+    find_images,
+    load_image,
+)
+from src.attachments.image_preprocessor import (
+    preprocess_image,
+)
+from src.attachments.ocr_engine import (
     calculate_confidence,
     configure_tesseract,
     extract_text,
     get_available_languages,
     select_ocr_language,
 )
-from ocr_result_builder import (
+from src.attachments.ocr_result_builder import (
     build_ocr_result,
     save_json,
 )
-
 
 def process_image(
     image_path: Path,
