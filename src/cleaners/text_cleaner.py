@@ -74,14 +74,23 @@ def clean_text(text: str) -> str:
 
 def clean_post(post: dict) -> dict:
     """
-    Membersihkan body satu post tanpa mengubah data aslinya.
-    """
+    Clean one post while preserving the original downloader fields.
 
+    The new raw dataset uses `text`, while the legacy pipeline used
+    `body`. Both fields are maintained for backward compatibility.
+    """
     cleaned_post = post.copy()
 
-    original_body = post.get("body", "")
+    original_text = (
+        post.get("text")
+        or post.get("body")
+        or ""
+    )
 
-    cleaned_post["body"] = clean_text(original_body)
+    cleaned_text = clean_text(original_text)
+
+    cleaned_post["text"] = cleaned_text
+    cleaned_post["body"] = cleaned_text
 
     return cleaned_post
 

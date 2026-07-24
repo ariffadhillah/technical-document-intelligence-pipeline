@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "thread_id": 3891,
+    "title": "MWB Langen",
+    "source_url": "https://kat-forum.de/viewtopic.php?t=3891",
+    "forum_name": "Werkstätten mit KAT-Kenntnissen",
+    "forum_url": "https://kat-forum.de/viewforum.php?f=7",
+    "page_starts": [
+      0
+    ],
+    "page_count": 1,
+    "post_count": 1,
+    "attachment_count": 2,
+    "source_language": "de",
+    "processing_stage": "raw_extraction",
+    "raw_directory": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_3891",
+    "source_json_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_3891\\thread.json"
+  },
+  "posts": [
+    {
+      "post_id": "42320",
+      "author": "cguenther",
+      "date_raw": "2017-11-19T13:14:53+00:00",
+      "text": "Hallo,\nich habe, zusammen mit einem Kumpel, einen KAT vor 2 Jahren direkt von MWB gekauft (und noch ein Kollege, VIN #4 wenn ich mich recht entsinne\n). MWB möchte sich dem Privatmarkt öffnen. So bietet die Firma z.B. komplette Aufbereitungen von Wolf/Unimog/KAT-Rahmen an - oder auch ein ganz eigenes Szenario, einen festgelegten Arbeitsumfang auch selbst - als Mitschrauber mit EIGENEM FAHRZEUG- begleiten zu können. Und ja, man könnte auch schonmal auf dem eigenen Sabber ausrutschen, so viel supergeiles grünes Zeug steht bei MWB ansonsten noch rum\nZum Event Schmidtenhöhe 2017 hat MWB Flyer verteilt, die auf dieses Angebot hinwiesen. Für 2018 ist angekündigt, z.B. übers KAT-FORUM direkt auf evtl. Interessenten zuzugehen, und z.B. Schrauber-Seminare speziell für KAT anzubieten... und das zu lohnenswerten Preisen. ... habe schon meinen Finger und den meines Kumpels dafür gehoben\nMWB_FLYER_1.pdf\n(619.64 KiB) 849-mal heruntergeladen\nMWB_FLYER_2.pdf\n(528.23 KiB) 663-mal heruntergeladen\nLG\nCarsten",
+      "attachments": [
+        {
+          "kind": "pdf",
+          "original_name": "MWB_FLYER_1.pdf",
+          "stored_name": "thread_3891_post_42320_pdf_001_MWB_FLYER_1.pdf",
+          "relative_path": "thread_3891/attachments/pdf/thread_3891_post_42320_pdf_001_MWB_FLYER_1.pdf",
+          "source_url": "https://kat-forum.de/download/file.php?id=10561",
+          "content_type": "application/octet-stream",
+          "size_bytes": 634512,
+          "sha256": "cffc812bacce9a5a6d5a8c1b1727a0aecfe7c855466a4e861231e71f273e1cb3",
+          "filename": "thread_3891_post_42320_pdf_001_MWB_FLYER_1.pdf",
+          "type": "pdf",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_3891\\attachments\\pdf\\thread_3891_post_42320_pdf_001_MWB_FLYER_1.pdf",
+          "file_status": "available"
+        },
+        {
+          "kind": "pdf",
+          "original_name": "MWB_FLYER_2.pdf",
+          "stored_name": "thread_3891_post_42320_pdf_002_MWB_FLYER_2.pdf",
+          "relative_path": "thread_3891/attachments/pdf/thread_3891_post_42320_pdf_002_MWB_FLYER_2.pdf",
+          "source_url": "https://kat-forum.de/download/file.php?id=10560",
+          "content_type": "application/octet-stream",
+          "size_bytes": 540910,
+          "sha256": "f2fb8910b1d114cb7a3de56d5c5dd3ad4ef4773ee4f26a2aea394935d99b84a4",
+          "filename": "thread_3891_post_42320_pdf_002_MWB_FLYER_2.pdf",
+          "type": "pdf",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_3891\\attachments\\pdf\\thread_3891_post_42320_pdf_002_MWB_FLYER_2.pdf",
+          "file_status": "available"
+        }
+      ],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=3891&start=0",
+      "date": "2017-11-19T13:14:53+00:00",
+      "body": "Hallo,\nich habe, zusammen mit einem Kumpel, einen KAT vor 2 Jahren direkt von MWB gekauft (und noch ein Kollege, VIN #4 wenn ich mich recht entsinne\n). MWB möchte sich dem Privatmarkt öffnen. So bietet die Firma z.B. komplette Aufbereitungen von Wolf/Unimog/KAT-Rahmen an - oder auch ein ganz eigenes Szenario, einen festgelegten Arbeitsumfang auch selbst - als Mitschrauber mit EIGENEM FAHRZEUG- begleiten zu können. Und ja, man könnte auch schonmal auf dem eigenen Sabber ausrutschen, so viel supergeiles grünes Zeug steht bei MWB ansonsten noch rum\nZum Event Schmidtenhöhe 2017 hat MWB Flyer verteilt, die auf dieses Angebot hinwiesen. Für 2018 ist angekündigt, z.B. übers KAT-FORUM direkt auf evtl. Interessenten zuzugehen, und z.B. Schrauber-Seminare speziell für KAT anzubieten... und das zu lohnenswerten Preisen. ... habe schon meinen Finger und den meines Kumpels dafür gehoben\nMWB_FLYER_1.pdf\n(619.64 KiB) 849-mal heruntergeladen\nMWB_FLYER_2.pdf\n(528.23 KiB) 663-mal heruntergeladen\nLG\nCarsten"
+    }
+  ],
+  "raw_sources": {
+    "markdown": "---\nthread_id: 3891\ntitle: \"MWB Langen\"\nsource_url: https://kat-forum.de/viewtopic.php?t=3891\nforum_name: \"Werkstätten mit KAT-Kenntnissen\"\nforum_url: https://kat-forum.de/viewforum.php?f=7\nsource_language: \"de\"\nprocessing_stage: \"raw_extraction\"\npost_count: 1\nattachment_count: 2\narchival: true\n---\n\n# MWB Langen\n\n## Post 1\n\n- Post ID: `42320`\n- Author: cguenther\n- Date: 2017-11-19T13:14:53+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=3891&start=0\n\n### Original Text\n\nHallo,\nich habe, zusammen mit einem Kumpel, einen KAT vor 2 Jahren direkt von MWB gekauft (und noch ein Kollege, VIN #4 wenn ich mich recht entsinne\n). MWB möchte sich dem Privatmarkt öffnen. So bietet die Firma z.B. komplette Aufbereitungen von Wolf/Unimog/KAT-Rahmen an - oder auch ein ganz eigenes Szenario, einen festgelegten Arbeitsumfang auch selbst - als Mitschrauber mit EIGENEM FAHRZEUG- begleiten zu können. Und ja, man könnte auch schonmal auf dem eigenen Sabber ausrutschen, so viel supergeiles grünes Zeug steht bei MWB ansonsten noch rum\nZum Event Schmidtenhöhe 2017 hat MWB Flyer verteilt, die auf dieses Angebot hinwiesen. Für 2018 ist angekündigt, z.B. übers KAT-FORUM direkt auf evtl. Interessenten zuzugehen, und z.B. Schrauber-Seminare speziell für KAT anzubieten... und das zu lohnenswerten Preisen. ... habe schon meinen Finger und den meines Kumpels dafür gehoben\nMWB_FLYER_1.pdf\n(619.64 KiB) 849-mal heruntergeladen\nMWB_FLYER_2.pdf\n(528.23 KiB) 663-mal heruntergeladen\nLG\nCarsten\n\n### Attachments\n\n- `pdf`: [thread_3891_post_42320_pdf_001_MWB_FLYER_1.pdf](thread_3891/attachments/pdf/thread_3891_post_42320_pdf_001_MWB_FLYER_1.pdf)\n- `pdf`: [thread_3891_post_42320_pdf_002_MWB_FLYER_2.pdf](thread_3891/attachments/pdf/thread_3891_post_42320_pdf_002_MWB_FLYER_2.pdf)\n",
+    "plain_text": "TITLE: MWB Langen\nTHREAD ID: 3891\nSOURCE URL: https://kat-forum.de/viewtopic.php?t=3891\nFORUM: Werkstätten mit KAT-Kenntnissen\n\n========================================================================\nPOST 1\nPOST ID: 42320\nAUTHOR: cguenther\nDATE: 2017-11-19T13:14:53+00:00\n\nHallo,\nich habe, zusammen mit einem Kumpel, einen KAT vor 2 Jahren direkt von MWB gekauft (und noch ein Kollege, VIN #4 wenn ich mich recht entsinne\n). MWB möchte sich dem Privatmarkt öffnen. So bietet die Firma z.B. komplette Aufbereitungen von Wolf/Unimog/KAT-Rahmen an - oder auch ein ganz eigenes Szenario, einen festgelegten Arbeitsumfang auch selbst - als Mitschrauber mit EIGENEM FAHRZEUG- begleiten zu können. Und ja, man könnte auch schonmal auf dem eigenen Sabber ausrutschen, so viel supergeiles grünes Zeug steht bei MWB ansonsten noch rum\nZum Event Schmidtenhöhe 2017 hat MWB Flyer verteilt, die auf dieses Angebot hinwiesen. Für 2018 ist angekündigt, z.B. übers KAT-FORUM direkt auf evtl. Interessenten zuzugehen, und z.B. Schrauber-Seminare speziell für KAT anzubieten... und das zu lohnenswerten Preisen. ... habe schon meinen Finger und den meines Kumpels dafür gehoben\nMWB_FLYER_1.pdf\n(619.64 KiB) 849-mal heruntergeladen\nMWB_FLYER_2.pdf\n(528.23 KiB) 663-mal heruntergeladen\nLG\nCarsten\n"
+  }
+}

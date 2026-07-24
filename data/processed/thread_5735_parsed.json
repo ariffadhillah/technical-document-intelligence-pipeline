@@ -1,0 +1,196 @@
+{
+  "metadata": {
+    "thread_id": 5735,
+    "title": "MAN KAT 1 A1 1990",
+    "source_url": "https://kat-forum.de/viewtopic.php?t=5735",
+    "forum_name": "Neuanschaffung",
+    "forum_url": "https://kat-forum.de/viewforum.php?f=12",
+    "page_starts": [
+      0
+    ],
+    "page_count": 1,
+    "post_count": 3,
+    "attachment_count": 10,
+    "source_language": "de",
+    "processing_stage": "raw_extraction",
+    "raw_directory": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_5735",
+    "source_json_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_5735\\thread.json"
+  },
+  "posts": [
+    {
+      "post_id": "59973",
+      "author": "HAYEXA",
+      "date_raw": "2022-01-19T06:50:49+00:00",
+      "text": "Hallo,\nHello,\nWe are from Spain and are new owners of the MAN KAT 1 A1 1990. The problem is that we do not have a user manual for the vehicle and we have some doubts about the function of 2 switches in the cab. We have searched the internet for answers but until now we have had no luck. I was informed by a second had military vehicle dealer to try this forum.\nThe reason why I am posting is to see if anyone on this forum can help us to explain the function of the two switches circled in the photo. (please see the files attached)\nAlso we would really like to buy a manual so if anyone has a copy they are selling or if they know where we could buy one we would be very grateful for your help.\nKind regards\nDanke schön",
+      "attachments": [
+        {
+          "kind": "image",
+          "original_name": "attachment",
+          "stored_name": "thread_5735_post_59973_image_001_attachment.php",
+          "relative_path": "thread_5735/attachments/images/thread_5735_post_59973_image_001_attachment.php",
+          "source_url": "https://kat-forum.de/download/file.php?id=17107&mode=view",
+          "content_type": "image/jpeg",
+          "size_bytes": 79782,
+          "sha256": "0ea428ec2e37e3084a4da677ab9f74a9419540b90d5ffedaf184bf54d1178107",
+          "filename": "thread_5735_post_59973_image_001_attachment.php",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_5735\\attachments\\images\\thread_5735_post_59973_image_001_attachment.php",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "attachment",
+          "stored_name": "thread_5735_post_59973_image_002_attachment.php",
+          "relative_path": "thread_5735/attachments/images/thread_5735_post_59973_image_002_attachment.php",
+          "source_url": "https://kat-forum.de/download/file.php?id=17106&mode=view",
+          "content_type": "image/jpeg",
+          "size_bytes": 70091,
+          "sha256": "28825ffdcdae9a1b880cff4c6ea6f20b7960875f5a2384b0bcbdbe4a1e5c0419",
+          "filename": "thread_5735_post_59973_image_002_attachment.php",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_5735\\attachments\\images\\thread_5735_post_59973_image_002_attachment.php",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "attachment",
+          "stored_name": "thread_5735_post_59973_image_003_attachment.php",
+          "relative_path": "thread_5735/attachments/images/thread_5735_post_59973_image_003_attachment.php",
+          "source_url": "https://kat-forum.de/download/file.php?id=17105&mode=view",
+          "content_type": "image/jpeg",
+          "size_bytes": 98817,
+          "sha256": "b9106c7fe1ede9be9811a9f8ff29de20fd648eab223bc27622b35fe9da85999b",
+          "filename": "thread_5735_post_59973_image_003_attachment.php",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_5735\\attachments\\images\\thread_5735_post_59973_image_003_attachment.php",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "attachment",
+          "stored_name": "thread_5735_post_59973_image_004_attachment.php",
+          "relative_path": "thread_5735/attachments/images/thread_5735_post_59973_image_004_attachment.php",
+          "source_url": "https://kat-forum.de/download/file.php?id=17104&mode=view",
+          "content_type": "image/jpeg",
+          "size_bytes": 1925824,
+          "sha256": "fb9dbb14969dc9c296e74c75d27bc3c01a4ca6da22aa52fa1d935b0b3543b419",
+          "filename": "thread_5735_post_59973_image_004_attachment.php",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_5735\\attachments\\images\\thread_5735_post_59973_image_004_attachment.php",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "attachment",
+          "stored_name": "thread_5735_post_59973_image_005_attachment.php",
+          "relative_path": "thread_5735/attachments/images/thread_5735_post_59973_image_005_attachment.php",
+          "source_url": "https://kat-forum.de/download/file.php?id=17103&mode=view",
+          "content_type": "image/jpeg",
+          "size_bytes": 1730682,
+          "sha256": "e1393a4a670101af18f4affaa6e7588b65709b403bc9a878236f3d4ece806f21",
+          "filename": "thread_5735_post_59973_image_005_attachment.php",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_5735\\attachments\\images\\thread_5735_post_59973_image_005_attachment.php",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "WhatsApp Image 2022-01-05 at 11.27.09.jpeg",
+          "stored_name": "thread_5735_post_59973_image_006_WhatsApp_Image_2022-01-05_at_11.27.09.jpeg",
+          "relative_path": "thread_5735/attachments/images/thread_5735_post_59973_image_006_WhatsApp_Image_2022-01-05_at_11.27.09.jpeg",
+          "source_url": "https://kat-forum.de/download/file.php?id=17107&t=1",
+          "content_type": "image/jpeg",
+          "size_bytes": 29030,
+          "sha256": "3fc82ab8a67d60d1ec266305d503ce9efdacea5ddb177b04010079d9f22fd020",
+          "filename": "thread_5735_post_59973_image_006_WhatsApp_Image_2022-01-05_at_11.27.09.jpeg",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_5735\\attachments\\images\\thread_5735_post_59973_image_006_WhatsApp_Image_2022-01-05_at_11.27.09.jpeg",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "WhatsApp Image 2022-01-05 at 11.27.09 (1).jpeg",
+          "stored_name": "thread_5735_post_59973_image_007_WhatsApp_Image_2022-01-05_at_11.27.09_(1).jpeg",
+          "relative_path": "thread_5735/attachments/images/thread_5735_post_59973_image_007_WhatsApp_Image_2022-01-05_at_11.27.09_(1).jpeg",
+          "source_url": "https://kat-forum.de/download/file.php?id=17106&t=1",
+          "content_type": "image/jpeg",
+          "size_bytes": 24688,
+          "sha256": "ddfceaa01e8f8eaae383c20842443131ef17245d149f11c2b5c0fbde0c53f893",
+          "filename": "thread_5735_post_59973_image_007_WhatsApp_Image_2022-01-05_at_11.27.09_(1).jpeg",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_5735\\attachments\\images\\thread_5735_post_59973_image_007_WhatsApp_Image_2022-01-05_at_11.27.09_(1).jpeg",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "WhatsApp Image 2021-12-23 at 14.00.21.jpeg",
+          "stored_name": "thread_5735_post_59973_image_008_WhatsApp_Image_2021-12-23_at_14.00.21.jpeg",
+          "relative_path": "thread_5735/attachments/images/thread_5735_post_59973_image_008_WhatsApp_Image_2021-12-23_at_14.00.21.jpeg",
+          "source_url": "https://kat-forum.de/download/file.php?id=17105&t=1",
+          "content_type": "image/jpeg",
+          "size_bytes": 33055,
+          "sha256": "0aabc6450b5cee254513f781259ea9abf999dbfd62ff9c5704b8e814a2dba1b1",
+          "filename": "thread_5735_post_59973_image_008_WhatsApp_Image_2021-12-23_at_14.00.21.jpeg",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_5735\\attachments\\images\\thread_5735_post_59973_image_008_WhatsApp_Image_2021-12-23_at_14.00.21.jpeg",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "MAN KAT 1 A1 1990.jpg",
+          "stored_name": "thread_5735_post_59973_image_009_MAN_KAT_1_A1_1990.jpg",
+          "relative_path": "thread_5735/attachments/images/thread_5735_post_59973_image_009_MAN_KAT_1_A1_1990.jpg",
+          "source_url": "https://kat-forum.de/download/file.php?id=17104&t=1",
+          "content_type": "image/jpeg",
+          "size_bytes": 29760,
+          "sha256": "8968bb50a4129e5873691dac0724a1b99ae6a3eddc3dbe39b7b05e4a046c07b2",
+          "filename": "thread_5735_post_59973_image_009_MAN_KAT_1_A1_1990.jpg",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_5735\\attachments\\images\\thread_5735_post_59973_image_009_MAN_KAT_1_A1_1990.jpg",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "MAN KAT 1 A1 1990 FRONTAL.jpg",
+          "stored_name": "thread_5735_post_59973_image_010_MAN_KAT_1_A1_1990_FRONTAL.jpg",
+          "relative_path": "thread_5735/attachments/images/thread_5735_post_59973_image_010_MAN_KAT_1_A1_1990_FRONTAL.jpg",
+          "source_url": "https://kat-forum.de/download/file.php?id=17103&t=1",
+          "content_type": "image/jpeg",
+          "size_bytes": 29667,
+          "sha256": "d0d781dee30ba47086b142281934512f6cd2d75d3697120aafba316902fd11e7",
+          "filename": "thread_5735_post_59973_image_010_MAN_KAT_1_A1_1990_FRONTAL.jpg",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_5735\\attachments\\images\\thread_5735_post_59973_image_010_MAN_KAT_1_A1_1990_FRONTAL.jpg",
+          "file_status": "available"
+        }
+      ],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=5735&start=0",
+      "date": "2022-01-19T06:50:49+00:00",
+      "body": "Hallo,\nHello,\nWe are from Spain and are new owners of the MAN KAT 1 A1 1990. The problem is that we do not have a user manual for the vehicle and we have some doubts about the function of 2 switches in the cab. We have searched the internet for answers but until now we have had no luck. I was informed by a second had military vehicle dealer to try this forum.\nThe reason why I am posting is to see if anyone on this forum can help us to explain the function of the two switches circled in the photo. (please see the files attached)\nAlso we would really like to buy a manual so if anyone has a copy they are selling or if they know where we could buy one we would be very grateful for your help.\nKind regards\nDanke schön"
+    },
+    {
+      "post_id": "60013",
+      "author": "HAYEXA",
+      "date_raw": "2022-01-21T10:56:15+00:00",
+      "text": "Hello,\nDoes any one have a manual that they can copy and print, we will be happy to pay for this. thank you.\nHallo,\nHat jemand ein Handbuch, das er kopieren und ausdrucken kann, wir sind gerne bereit, dafür zu bezahlen. danke.",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=5735&start=0",
+      "date": "2022-01-21T10:56:15+00:00",
+      "body": "Hello,\nDoes any one have a manual that they can copy and print, we will be happy to pay for this. thank you.\nHallo,\nHat jemand ein Handbuch, das er kopieren und ausdrucken kann, wir sind gerne bereit, dafür zu bezahlen. danke."
+    },
+    {
+      "post_id": "60028",
+      "author": "chabbes",
+      "date_raw": "2022-01-22T08:54:59+00:00",
+      "text": "Hola,\ngreetings to spain, congratulations for your nice truck.\nIf you still looking for the documents, send me your email via PN and I will send you a download link to A1 documemnts.\nBut they are all in German languagge.\nsalute\nHolger",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=5735&start=0",
+      "date": "2022-01-22T08:54:59+00:00",
+      "body": "Hola,\ngreetings to spain, congratulations for your nice truck.\nIf you still looking for the documents, send me your email via PN and I will send you a download link to A1 documemnts.\nBut they are all in German languagge.\nsalute\nHolger"
+    }
+  ],
+  "raw_sources": {
+    "markdown": "---\nthread_id: 5735\ntitle: \"MAN KAT 1 A1 1990\"\nsource_url: https://kat-forum.de/viewtopic.php?t=5735\nforum_name: \"Neuanschaffung\"\nforum_url: https://kat-forum.de/viewforum.php?f=12\nsource_language: \"de\"\nprocessing_stage: \"raw_extraction\"\npost_count: 3\nattachment_count: 10\narchival: true\n---\n\n# MAN KAT 1 A1 1990\n\n## Post 1\n\n- Post ID: `59973`\n- Author: HAYEXA\n- Date: 2022-01-19T06:50:49+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=5735&start=0\n\n### Original Text\n\nHallo,\nHello,\nWe are from Spain and are new owners of the MAN KAT 1 A1 1990. The problem is that we do not have a user manual for the vehicle and we have some doubts about the function of 2 switches in the cab. We have searched the internet for answers but until now we have had no luck. I was informed by a second had military vehicle dealer to try this forum.\nThe reason why I am posting is to see if anyone on this forum can help us to explain the function of the two switches circled in the photo. (please see the files attached)\nAlso we would really like to buy a manual so if anyone has a copy they are selling or if they know where we could buy one we would be very grateful for your help.\nKind regards\nDanke schön\n\n### Attachments\n\n- `image`: [thread_5735_post_59973_image_001_attachment.php](thread_5735/attachments/images/thread_5735_post_59973_image_001_attachment.php)\n- `image`: [thread_5735_post_59973_image_002_attachment.php](thread_5735/attachments/images/thread_5735_post_59973_image_002_attachment.php)\n- `image`: [thread_5735_post_59973_image_003_attachment.php](thread_5735/attachments/images/thread_5735_post_59973_image_003_attachment.php)\n- `image`: [thread_5735_post_59973_image_004_attachment.php](thread_5735/attachments/images/thread_5735_post_59973_image_004_attachment.php)\n- `image`: [thread_5735_post_59973_image_005_attachment.php](thread_5735/attachments/images/thread_5735_post_59973_image_005_attachment.php)\n- `image`: [thread_5735_post_59973_image_006_WhatsApp_Image_2022-01-05_at_11.27.09.jpeg](thread_5735/attachments/images/thread_5735_post_59973_image_006_WhatsApp_Image_2022-01-05_at_11.27.09.jpeg)\n- `image`: [thread_5735_post_59973_image_007_WhatsApp_Image_2022-01-05_at_11.27.09_(1).jpeg](thread_5735/attachments/images/thread_5735_post_59973_image_007_WhatsApp_Image_2022-01-05_at_11.27.09_(1).jpeg)\n- `image`: [thread_5735_post_59973_image_008_WhatsApp_Image_2021-12-23_at_14.00.21.jpeg](thread_5735/attachments/images/thread_5735_post_59973_image_008_WhatsApp_Image_2021-12-23_at_14.00.21.jpeg)\n- `image`: [thread_5735_post_59973_image_009_MAN_KAT_1_A1_1990.jpg](thread_5735/attachments/images/thread_5735_post_59973_image_009_MAN_KAT_1_A1_1990.jpg)\n- `image`: [thread_5735_post_59973_image_010_MAN_KAT_1_A1_1990_FRONTAL.jpg](thread_5735/attachments/images/thread_5735_post_59973_image_010_MAN_KAT_1_A1_1990_FRONTAL.jpg)\n\n## Post 2\n\n- Post ID: `60013`\n- Author: HAYEXA\n- Date: 2022-01-21T10:56:15+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=5735&start=0\n\n### Original Text\n\nHello,\nDoes any one have a manual that they can copy and print, we will be happy to pay for this. thank you.\nHallo,\nHat jemand ein Handbuch, das er kopieren und ausdrucken kann, wir sind gerne bereit, dafür zu bezahlen. danke.\n\n## Post 3\n\n- Post ID: `60028`\n- Author: chabbes\n- Date: 2022-01-22T08:54:59+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=5735&start=0\n\n### Original Text\n\nHola,\ngreetings to spain, congratulations for your nice truck.\nIf you still looking for the documents, send me your email via PN and I will send you a download link to A1 documemnts.\nBut they are all in German languagge.\nsalute\nHolger\n",
+    "plain_text": "TITLE: MAN KAT 1 A1 1990\nTHREAD ID: 5735\nSOURCE URL: https://kat-forum.de/viewtopic.php?t=5735\nFORUM: Neuanschaffung\n\n========================================================================\nPOST 1\nPOST ID: 59973\nAUTHOR: HAYEXA\nDATE: 2022-01-19T06:50:49+00:00\n\nHallo,\nHello,\nWe are from Spain and are new owners of the MAN KAT 1 A1 1990. The problem is that we do not have a user manual for the vehicle and we have some doubts about the function of 2 switches in the cab. We have searched the internet for answers but until now we have had no luck. I was informed by a second had military vehicle dealer to try this forum.\nThe reason why I am posting is to see if anyone on this forum can help us to explain the function of the two switches circled in the photo. (please see the files attached)\nAlso we would really like to buy a manual so if anyone has a copy they are selling or if they know where we could buy one we would be very grateful for your help.\nKind regards\nDanke schön\n\n========================================================================\nPOST 2\nPOST ID: 60013\nAUTHOR: HAYEXA\nDATE: 2022-01-21T10:56:15+00:00\n\nHello,\nDoes any one have a manual that they can copy and print, we will be happy to pay for this. thank you.\nHallo,\nHat jemand ein Handbuch, das er kopieren und ausdrucken kann, wir sind gerne bereit, dafür zu bezahlen. danke.\n\n========================================================================\nPOST 3\nPOST ID: 60028\nAUTHOR: chabbes\nDATE: 2022-01-22T08:54:59+00:00\n\nHola,\ngreetings to spain, congratulations for your nice truck.\nIf you still looking for the documents, send me your email via PN and I will send you a download link to A1 documemnts.\nBut they are all in German languagge.\nsalute\nHolger\n"
+  }
+}

@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 
 
 SUPPORTED_IMAGE_EXTENSIONS = {
@@ -8,66 +10,85 @@ SUPPORTED_IMAGE_EXTENSIONS = {
     ".jpeg",
     ".png",
     ".webp",
+    ".gif",
     ".tif",
     ".tiff",
+    ".bmp",
 }
 
 
-def validate_image_path(image_path: Path) -> None:
+def validate_image_path(
+    image_path: Path,
+) -> None:
     """
-    Memastikan file gambar tersedia dan formatnya didukung.
-    """
+    Validate an image using Pillow instead of relying only
+    on the filename extension.
 
+    This supports forum images saved as attachment.php.
+    """
     if not image_path.exists():
         raise FileNotFoundError(
-            f"File gambar tidak ditemukan: {image_path}"
+            f"Image file not found: {image_path}"
         )
 
     if not image_path.is_file():
         raise ValueError(
-            f"Path bukan file: {image_path}"
+            f"Image path is not a file: {image_path}"
         )
 
-    if image_path.suffix.lower() not in SUPPORTED_IMAGE_EXTENSIONS:
+    try:
+        with Image.open(image_path) as image:
+            image.verify()
+    except (
+        UnidentifiedImageError,
+        OSError,
+    ) as error:
         raise ValueError(
-            f"Format gambar tidak didukung: {image_path.name}"
-        )
+            f"Unsupported or corrupted image: "
+            f"{image_path.name}"
+        ) from error
 
 
-def load_image(image_path: Path) -> Image.Image:
-    """
-    Membuka gambar dan membuat salinan ke memori.
-
-    Salinan dibuat agar file asli dapat langsung ditutup.
-    """
-
+def load_image(
+    image_path: Path,
+) -> Image.Image:
+    """Open an image and copy it safely into memory."""
     validate_image_path(image_path)
 
     with Image.open(image_path) as source_image:
-        return source_image.copy()
+        return source_image.convert("RGB").copy()
 
 
-def find_images(directory: Path) -> list[Path]:
+def find_images(
+    directory: Path,
+) -> list[Path]:
     """
-    Mencari seluruh file gambar dalam sebuah folder.
-    """
+    Recursively discover real images.
 
+    Detection is based on image content, so .php attachment
+    filenames are supported.
+    """
     if not directory.exists():
         raise FileNotFoundError(
-            f"Folder tidak ditemukan: {directory}"
+            f"Directory not found: {directory}"
         )
 
     if not directory.is_dir():
         raise NotADirectoryError(
-            f"Path bukan folder: {directory}"
+            f"Path is not a directory: {directory}"
         )
 
-    return sorted(
-        file_path
-        for file_path in directory.iterdir()
-        if (
-            file_path.is_file()
-            and file_path.suffix.lower()
-            in SUPPORTED_IMAGE_EXTENSIONS
-        )
-    )
+    images: list[Path] = []
+
+    for file_path in sorted(directory.rglob("*")):
+        if not file_path.is_file():
+            continue
+
+        try:
+            validate_image_path(file_path)
+        except ValueError:
+            continue
+
+        images.append(file_path)
+
+    return images

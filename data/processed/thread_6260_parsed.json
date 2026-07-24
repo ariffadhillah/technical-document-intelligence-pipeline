@@ -1,313 +1,544 @@
 {
   "metadata": {
-    "document_type": "raw_forum_thread",
-    "source_platform": "phpBB",
-    "source_domain": "kat-forum.de",
-    "source_url": "https://kat-forum.de/viewtopic.php?t=6260",
-    "forum_section": "KAT-Interessierte / Neuanschaffung",
     "thread_id": 6260,
-    "thread_title": "Kat 1A1.1 6x6",
-    "source_language": "de",
+    "title": "Kat 1A1.1 6x6",
+    "source_url": "https://kat-forum.de/viewtopic.php?t=6260",
+    "forum_name": "Neuanschaffung",
+    "forum_url": "https://kat-forum.de/viewforum.php?f=12",
+    "page_starts": [
+      0,
+      25
+    ],
+    "page_count": 2,
     "post_count": 39,
-    "collection_scope": "publicly accessible thread pages",
-    "attachments_downloaded": false,
-    "processing_status": "cleaned_raw_sample"
+    "attachment_count": 9,
+    "source_language": "de",
+    "processing_stage": "raw_extraction",
+    "raw_directory": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_6260",
+    "source_json_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_6260\\thread.json"
   },
   "posts": [
     {
-      "post_id": "6260-001",
+      "post_id": "64202",
       "author": "Jache",
-      "date": "Di 24. Jun 2025, 22:20",
-      "body": "Hallo,\n\nIch beabsichtige mir einen Kat 1A1.1 aus dem Jahr 1996 zuzulegen und diesen anschließend mittels einer Leerkabine selbst zu einem Expeditionsmobil auszubauen.\n\nEin KAT 1 war schon immer mein Traum, nun soll er in Erfüllung gehen. Ich habe ein Angebot bekommen für Änderungen am Fahrgestell und Finalisierung dessen. Vielleicht kann ja mal jemand von den Profis drüber schauen, ob das so passt oder etwas nicht zusammen passt, bzw. etwas von mir vergessen wurde.\n\nPreise, Firma, etc. wurde entfernt.\n\nWürde mich sehr freuen.\n\nViele Grüße\nJochen",
+      "date_raw": "2025-06-24T20:20:41+00:00",
+      "text": "Hallo,\nIch beabsichtige mir einen Kat 1A1.1 aus dem Jahr 1996 zuzulegen und diesen anschließend mittels einer Leerkabine selbst zu einem Expeditionsmobil auszubauen.\nEin KAT 1 war schon immer mein Traum, nun soll er in Erfüllung gehen.\nIch habe ein Angebot bekommen für Änderungen am Fahrgestell und finaliserung dessen.\nVielleicht kann ja mal jemand von den Profis drüber schauen, ob das so passt oder etwas nicht zusammen passt, bzw. etwas von mir vergessen wurde.\nPreise, Firma, etc. wurde entfernt.\nWürde mich sehr freuen.\nViele Grüße\nJochen",
       "attachments": [
         {
-          "filename": "IMG_0235.jpeg",
-          "type": "image"
+          "kind": "image",
+          "original_name": "attachment",
+          "stored_name": "thread_6260_post_64202_image_001_attachment.php",
+          "relative_path": "thread_6260/attachments/images/thread_6260_post_64202_image_001_attachment.php",
+          "source_url": "https://kat-forum.de/download/file.php?id=19011&mode=view",
+          "content_type": "image/jpeg",
+          "size_bytes": 934054,
+          "sha256": "77b992f5284a418226e70b366c4bb9aa898f1c9b4fd0d559f6b7a7b4a69a861f",
+          "filename": "thread_6260_post_64202_image_001_attachment.php",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_6260\\attachments\\images\\thread_6260_post_64202_image_001_attachment.php",
+          "file_status": "available"
         },
         {
-          "filename": "IMG_0234.jpeg",
-          "type": "image"
+          "kind": "image",
+          "original_name": "attachment",
+          "stored_name": "thread_6260_post_64202_image_002_attachment.php",
+          "relative_path": "thread_6260/attachments/images/thread_6260_post_64202_image_002_attachment.php",
+          "source_url": "https://kat-forum.de/download/file.php?id=19013&mode=view",
+          "content_type": "image/jpeg",
+          "size_bytes": 1348340,
+          "sha256": "b6b95391da49a111e79389e615d871b93d9c33d50ef97d267a5890fc29af8c25",
+          "filename": "thread_6260_post_64202_image_002_attachment.php",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_6260\\attachments\\images\\thread_6260_post_64202_image_002_attachment.php",
+          "file_status": "available"
         },
         {
-          "filename": "IMG_0236.jpeg",
-          "type": "image"
+          "kind": "image",
+          "original_name": "attachment",
+          "stored_name": "thread_6260_post_64202_image_003_attachment.php",
+          "relative_path": "thread_6260/attachments/images/thread_6260_post_64202_image_003_attachment.php",
+          "source_url": "https://kat-forum.de/download/file.php?id=19012&mode=view",
+          "content_type": "image/jpeg",
+          "size_bytes": 1354179,
+          "sha256": "25883e423b065a0209dddb3ebd415b70ffd4cabb27df646747184dd09853e256",
+          "filename": "thread_6260_post_64202_image_003_attachment.php",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_6260\\attachments\\images\\thread_6260_post_64202_image_003_attachment.php",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "IMG_0235.jpeg",
+          "stored_name": "thread_6260_post_64202_image_004_IMG_0235.jpeg",
+          "relative_path": "thread_6260/attachments/images/thread_6260_post_64202_image_004_IMG_0235.jpeg",
+          "source_url": "https://kat-forum.de/download/file.php?id=19011&t=1",
+          "content_type": "image/jpeg",
+          "size_bytes": 22756,
+          "sha256": "876648810f69441e9f23dc3193e299a8e9ce2ceb2062e8a19667618913146daf",
+          "filename": "thread_6260_post_64202_image_004_IMG_0235.jpeg",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_6260\\attachments\\images\\thread_6260_post_64202_image_004_IMG_0235.jpeg",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "IMG_0234.jpeg",
+          "stored_name": "thread_6260_post_64202_image_005_IMG_0234.jpeg",
+          "relative_path": "thread_6260/attachments/images/thread_6260_post_64202_image_005_IMG_0234.jpeg",
+          "source_url": "https://kat-forum.de/download/file.php?id=19013&t=1",
+          "content_type": "image/jpeg",
+          "size_bytes": 29623,
+          "sha256": "40ee2cb1a154274152cd0a6a706a8ee0d037e3913410040dc3cc3591dc42cd18",
+          "filename": "thread_6260_post_64202_image_005_IMG_0234.jpeg",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_6260\\attachments\\images\\thread_6260_post_64202_image_005_IMG_0234.jpeg",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "IMG_0236.jpeg",
+          "stored_name": "thread_6260_post_64202_image_006_IMG_0236.jpeg",
+          "relative_path": "thread_6260/attachments/images/thread_6260_post_64202_image_006_IMG_0236.jpeg",
+          "source_url": "https://kat-forum.de/download/file.php?id=19012&t=1",
+          "content_type": "image/jpeg",
+          "size_bytes": 31065,
+          "sha256": "377aaa282f105edc547237ac17430b2e7fd6dcd01d369792e538cd3794439613",
+          "filename": "thread_6260_post_64202_image_006_IMG_0236.jpeg",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_6260\\attachments\\images\\thread_6260_post_64202_image_006_IMG_0236.jpeg",
+          "file_status": "available"
         }
-      ]
+      ],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-24T20:20:41+00:00",
+      "body": "Hallo,\nIch beabsichtige mir einen Kat 1A1.1 aus dem Jahr 1996 zuzulegen und diesen anschließend mittels einer Leerkabine selbst zu einem Expeditionsmobil auszubauen.\nEin KAT 1 war schon immer mein Traum, nun soll er in Erfüllung gehen.\nIch habe ein Angebot bekommen für Änderungen am Fahrgestell und finaliserung dessen.\nVielleicht kann ja mal jemand von den Profis drüber schauen, ob das so passt oder etwas nicht zusammen passt, bzw. etwas von mir vergessen wurde.\nPreise, Firma, etc. wurde entfernt.\nWürde mich sehr freuen.\nViele Grüße\nJochen"
     },
     {
-      "post_id": "6260-002",
+      "post_id": "64203",
       "author": "KAT MAN",
-      "date": "Mi 25. Jun 2025, 09:00",
-      "body": "[Post enthält zwei eingebettete Screenshots ohne zusätzlichen Fließtext.]\n\nLiebe Grüße\nKAT MAN",
+      "date_raw": "2025-06-25T07:00:21+00:00",
+      "text": "Screenshot 2025-06-25 085646.png (2.78 KiB) 24423 mal betrachtet",
       "attachments": [
         {
-          "filename": "Screenshot 2025-06-25 085646.png",
-          "type": "image"
+          "kind": "image",
+          "original_name": "attachment",
+          "stored_name": "thread_6260_post_64203_image_001_attachment.php",
+          "relative_path": "thread_6260/attachments/images/thread_6260_post_64203_image_001_attachment.php",
+          "source_url": "https://kat-forum.de/download/file.php?id=19016&mode=view",
+          "content_type": "image/png",
+          "size_bytes": 289680,
+          "sha256": "69d8f6042d70e4628315920201e50c4414833fde64e38baf93dbdd2028c9c9da",
+          "filename": "thread_6260_post_64203_image_001_attachment.php",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_6260\\attachments\\images\\thread_6260_post_64203_image_001_attachment.php",
+          "file_status": "available"
         },
         {
-          "filename": "Screenshot 2025-06-25 085756.png",
-          "type": "image"
+          "kind": "image",
+          "original_name": "Screenshot 2025-06-25 085646.png",
+          "stored_name": "thread_6260_post_64203_image_002_Screenshot_2025-06-25_085646.png",
+          "relative_path": "thread_6260/attachments/images/thread_6260_post_64203_image_002_Screenshot_2025-06-25_085646.png",
+          "source_url": "https://kat-forum.de/download/file.php?id=19014",
+          "content_type": "image/png",
+          "size_bytes": 2850,
+          "sha256": "c793d53ce7088fc01256a0cb6017487500470cc4716412f345fc6ff31818aaa1",
+          "filename": "thread_6260_post_64203_image_002_Screenshot_2025-06-25_085646.png",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_6260\\attachments\\images\\thread_6260_post_64203_image_002_Screenshot_2025-06-25_085646.png",
+          "file_status": "available"
+        },
+        {
+          "kind": "image",
+          "original_name": "Screenshot 2025-06-25 085756.png",
+          "stored_name": "thread_6260_post_64203_image_003_Screenshot_2025-06-25_085756.png",
+          "relative_path": "thread_6260/attachments/images/thread_6260_post_64203_image_003_Screenshot_2025-06-25_085756.png",
+          "source_url": "https://kat-forum.de/download/file.php?id=19016&t=1",
+          "content_type": "image/png",
+          "size_bytes": 33946,
+          "sha256": "8ff663759eaa0e0fa53121102a886b2e8bc42e0d83341d73194eefae20fc934a",
+          "filename": "thread_6260_post_64203_image_003_Screenshot_2025-06-25_085756.png",
+          "type": "image",
+          "local_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_6260\\attachments\\images\\thread_6260_post_64203_image_003_Screenshot_2025-06-25_085756.png",
+          "file_status": "available"
         }
-      ]
+      ],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-25T07:00:21+00:00",
+      "body": "Screenshot 2025-06-25 085646.png (2.78 KiB) 24423 mal betrachtet"
     },
     {
-      "post_id": "6260-003",
+      "post_id": "64204",
       "author": "Jache",
-      "date": "Mi 25. Jun 2025, 09:28",
-      "body": "Danke dir.\n\nSorry, das vergesse ich oft – danke fürs Reinkopieren.\nMir wurde in dem anderen Forum empfohlen, hier mal reinzuschauen – deshalb bin ich jetzt hier.",
-      "attachments": []
+      "date_raw": "2025-06-25T07:28:33+00:00",
+      "text": "Danke dir\nSorry, das vergesse ich oft - danke fürs reinkopieren.\nMir wurde in dem anderen Forum empfohlen hier mal reinzuschauen - deshalb bin ich jetzt hier.",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-25T07:28:33+00:00",
+      "body": "Danke dir\nSorry, das vergesse ich oft - danke fürs reinkopieren.\nMir wurde in dem anderen Forum empfohlen hier mal reinzuschauen - deshalb bin ich jetzt hier."
     },
     {
-      "post_id": "6260-004",
+      "post_id": "64207",
       "author": "stahlma",
-      "date": "Mi 25. Jun 2025, 13:27",
-      "body": "- Der A1.1 braucht keinen gelagerten Zwischenrahmen.\n- Run-flat in den Hutchinsons ist Unsinn, weil dann der Reifen bei niedrigen Drücken nicht mehr funktioniert.\n- Ein zweizylindriger Luftkompressor ist sinnvoll.\n- Lichtanlage?\n\nWas soll der ganze Umbau kosten?\n\nViele Grüße\nMartin",
-      "attachments": []
+      "date_raw": "2025-06-25T11:27:28+00:00",
+      "text": "Hi,\n[*] Der A1.1 braucht keinen gelagerten Zwischenrahmen\n[*] Run-flat in den Hutchinsons ist unsinn, weil dann der Reifen bei niedrigen Drücken nicht mehr funktioniert\n[*] Zweizylindriger Luftkompressor ist sinnvoll\n[*] Lichtanlage?\nWas soll der ganze Umbau kosten?\nViele Grüße\nMartin",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-25T11:27:28+00:00",
+      "body": "Hi,\n[*] Der A1.1 braucht keinen gelagerten Zwischenrahmen\n[*] Run-flat in den Hutchinsons ist unsinn, weil dann der Reifen bei niedrigen Drücken nicht mehr funktioniert\n[*] Zweizylindriger Luftkompressor ist sinnvoll\n[*] Lichtanlage?\nWas soll der ganze Umbau kosten?\nViele Grüße\nMartin"
     },
     {
-      "post_id": "6260-005",
+      "post_id": "64208",
       "author": "Jache",
-      "date": "Mi 25. Jun 2025, 13:53",
-      "body": "Hallo,\n\ndanke dir.\n\nDas mit den Run-Flat-Reifen ist ein guter Punkt. Das kläre ich noch einmal.\n\nKannst du mir erklären, wieso ich keinen Zwischenrahmen brauche? Würde der Aufbau dann direkt auf den Hauptrahmen kommen?\n\nDie Lichtanlage habe ich nicht aufgenommen, da ich ein H-Kennzeichen möchte.",
-      "attachments": []
+      "date_raw": "2025-06-25T11:53:31+00:00",
+      "text": "Hallo,\nDanke dir.\nDas mit den Run Flat ein guter Punkt. Das kläre ich nochmal.\nKannst du mir erklären wieso ich keinen Zwischenrahmen brauche. Würde der Aufbau dann direkt auf den Hauptrahmen kommen?\nLichtanlage habe ich nicht drinnen, da ich ein H Kennzeichen möchte.",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-25T11:53:31+00:00",
+      "body": "Hallo,\nDanke dir.\nDas mit den Run Flat ein guter Punkt. Das kläre ich nochmal.\nKannst du mir erklären wieso ich keinen Zwischenrahmen brauche. Würde der Aufbau dann direkt auf den Hauptrahmen kommen?\nLichtanlage habe ich nicht drinnen, da ich ein H Kennzeichen möchte."
     },
     {
-      "post_id": "6260-006",
+      "post_id": "64209",
       "author": "stahlma",
-      "date": "Mi 25. Jun 2025, 14:00",
-      "body": "Der A1.1-Rahmen ist sehr verwindungssteif. Je nachdem, wie du die Kabine baust, brauchst du einen Zwischenrahmen, aber keinen gelagerten.\n\nEine Lichtanlage ist nicht grundsätzlich schädlich für ein H-Kennzeichen; solche Anlagen gab es 1996 ebenfalls.",
-      "attachments": []
+      "date_raw": "2025-06-25T12:00:05+00:00",
+      "text": "Der A1.1 Rahmen ist sehr verwindungssteif. Je nachdem wie Du die Kabine baust, brauchst du einen Zwischenrahmen, aberr keinen gelagerten.\nLichtanlage ist nicht grundsätzlich H-schädlich, die gab es 1996 auch schon...",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-25T12:00:05+00:00",
+      "body": "Der A1.1 Rahmen ist sehr verwindungssteif. Je nachdem wie Du die Kabine baust, brauchst du einen Zwischenrahmen, aberr keinen gelagerten.\nLichtanlage ist nicht grundsätzlich H-schädlich, die gab es 1996 auch schon..."
     },
     {
-      "post_id": "6260-007",
+      "post_id": "64210",
       "author": "Jache",
-      "date": "Mi 25. Jun 2025, 14:04",
-      "body": "Ja, der Zwischenrahmen soll auch nicht gelagert montiert werden, sondern fest auf dem Hauptrahmen.\n\nHier bin ich mir selbst noch unsicher, ob ich überhaupt einen benötige.\n\nWegen des LED-Lichtumbaus kläre ich ebenfalls noch einmal, ob er mit einem H-Kennzeichen vereinbar wäre.",
-      "attachments": []
+      "date_raw": "2025-06-25T12:04:34+00:00",
+      "text": "Ja, der Zwischenrahmen soll auch nicht gelagert montiert werden, sondern fest auf dem Hauptrahmen.\nAber hier bin ich mir selbst noch unsicher, ob ich einen benötige oder nicht…\nWegen dem LED Lichtumbau kläre ich dann auch nochmal. Das wäre sehr gut, wenn es H Kennzeichen tauglich wäre.",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-25T12:04:34+00:00",
+      "body": "Ja, der Zwischenrahmen soll auch nicht gelagert montiert werden, sondern fest auf dem Hauptrahmen.\nAber hier bin ich mir selbst noch unsicher, ob ich einen benötige oder nicht…\nWegen dem LED Lichtumbau kläre ich dann auch nochmal. Das wäre sehr gut, wenn es H Kennzeichen tauglich wäre."
     },
     {
-      "post_id": "6260-008",
+      "post_id": "64213",
       "author": "Wolfgang",
-      "date": "Do 26. Jun 2025, 13:02",
-      "body": "Als was möchtest du das Fahrzeug zukünftig anmelden, wenn du ein H-Kennzeichen haben möchtest?",
-      "attachments": []
+      "date_raw": "2025-06-26T11:02:18+00:00",
+      "text": "Als was möchtest du den das Fahrzeug zukünftig anmelden wenn du ein H- Kennzeichen haben möchtest?\nWolfgang",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-26T11:02:18+00:00",
+      "body": "Als was möchtest du den das Fahrzeug zukünftig anmelden wenn du ein H- Kennzeichen haben möchtest?\nWolfgang"
     },
     {
-      "post_id": "6260-009",
+      "post_id": "64214",
       "author": "Jache",
-      "date": "Do 26. Jun 2025, 13:28",
-      "body": "Am liebsten als Wohnmobil.",
-      "attachments": []
+      "date_raw": "2025-06-26T11:28:03+00:00",
+      "text": "Am liebsten als Wohnmobil.",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-26T11:28:03+00:00",
+      "body": "Am liebsten als Wohnmobil."
     },
     {
-      "post_id": "6260-010",
+      "post_id": "64215",
       "author": "fun-ski",
-      "date": "Do 26. Jun 2025, 16:14",
-      "body": "Der Zwischenrahmen ist deswegen obsolet, weil du die originale Pritsche als Zwischenrahmen nutzen könntest. Diese wäre perfekt auf das Fahrzeug abgestimmt.\n\nContainerlocks könnten bei Bedarf eingebaut werden; es wäre also eher ein Umbau der vorhandenen Pritsche.\n\nGruß\nDirk",
-      "attachments": []
+      "date_raw": "2025-06-26T14:14:00+00:00",
+      "text": "Der Zwischenrahmen ist deswegen obsolet weil du die originale Prische als zwischenrahmen nutzen könntest\nDieser wäre auch perfekt auf das Fahrzeug abgestimmt.\nContainerlocks könnten bei Bedarf eingebaut werden, also eher ein umbau der vorhandenen Pritsche",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-26T14:14:00+00:00",
+      "body": "Der Zwischenrahmen ist deswegen obsolet weil du die originale Prische als zwischenrahmen nutzen könntest\nDieser wäre auch perfekt auf das Fahrzeug abgestimmt.\nContainerlocks könnten bei Bedarf eingebaut werden, also eher ein umbau der vorhandenen Pritsche"
     },
     {
-      "post_id": "6260-011",
+      "post_id": "64216",
       "author": "supi532",
-      "date": "Do 26. Jun 2025, 21:50",
-      "body": "Der A1.1 hat doch gar keine Pritsche; das sind doch ehemalige US-Fahrzeuge.\n\nJörg",
-      "attachments": []
+      "date_raw": "2025-06-26T19:50:00+00:00",
+      "text": "Der .1 hat doch gar keine Pritsche, sind doch ama's.......\nJörg",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-26T19:50:00+00:00",
+      "body": "Der .1 hat doch gar keine Pritsche, sind doch ama's.......\nJörg"
     },
     {
-      "post_id": "6260-012",
+      "post_id": "64217",
       "author": "alex30193",
-      "date": "Fr 27. Jun 2025, 07:35",
-      "body": "Hallo,\n\neinen KAT als Wohnmobil mit H-Kennzeichen zuzulassen, wird schwierig; das gab es ursprünglich nicht.\n\nUnser 4x4 verlor das H-Kennzeichen beim Eintragen der Hutchinson-Felgen. Anschließend ließ ich ihn als Wohnmobil umschreiben. Beim 6x6 waren die Hutchinson-Felgen bereits eingetragen, und bisher hat niemand das H-Kennzeichen beanstandet.\n\nGruß\nAlex und Doro aus dem Neckartal",
-      "attachments": []
+      "date_raw": "2025-06-27T05:35:16+00:00",
+      "text": "Hallo,\neinen Kat als Wohnmobil mit H wird schwierig, das gab es nie.\nUnser 4x4 hat das H beim Hutschison eintragen verloren dann habe ich Ihn zum Wohnobil umschreiben lassen.\nDer 6x6 hatte die Hutschison schon eingetragen und es hat bis jetzt niemand am H genörgelt.",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-27T05:35:16+00:00",
+      "body": "Hallo,\neinen Kat als Wohnmobil mit H wird schwierig, das gab es nie.\nUnser 4x4 hat das H beim Hutschison eintragen verloren dann habe ich Ihn zum Wohnobil umschreiben lassen.\nDer 6x6 hatte die Hutschison schon eingetragen und es hat bis jetzt niemand am H genörgelt."
     },
     {
-      "post_id": "6260-013",
+      "post_id": "64218",
       "author": "fun-ski",
-      "date": "Fr 27. Jun 2025, 08:07",
-      "body": "Das stimmt so nicht. Meiner ist so zugelassen.\n\nGruß\nDirk",
-      "attachments": []
+      "date_raw": "2025-06-27T06:07:21+00:00",
+      "text": "Das stimmt so nicht\nMeiner ist so zugelassen",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-27T06:07:21+00:00",
+      "body": "Das stimmt so nicht\nMeiner ist so zugelassen"
     },
     {
-      "post_id": "6260-014",
+      "post_id": "64219",
       "author": "fun-ski",
-      "date": "Fr 27. Jun 2025, 08:08",
-      "body": "Entschuldigung, bei dem neumodischen Kram bin ich wohl nicht ganz so gut informiert.\n\nGruß\nDirk",
-      "attachments": []
+      "date_raw": "2025-06-27T06:08:31+00:00",
+      "text": "Sorry\nda bin ich bei dem neumodischen Kram wohl nicht ganz so gut Informiert",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-27T06:08:31+00:00",
+      "body": "Sorry\nda bin ich bei dem neumodischen Kram wohl nicht ganz so gut Informiert"
     },
     {
-      "post_id": "6260-015",
+      "post_id": "64221",
       "author": "A N D R E A S",
-      "date": "Sa 28. Jun 2025, 10:10",
-      "body": "Manche Arbeiten, wie der Wechsel aller Buchsen, werden den Preis deutlich erhöhen. Ob das wirklich notwendig ist?\n\nAls Rahmenschutz empfehle ich Owatrol. Frag Dirk/fun-ski dazu; der Vorbereitungsaufwand ist geringer.",
-      "attachments": []
+      "date_raw": "2025-06-28T08:10:20+00:00",
+      "text": "Manche Arbeiten wie Wechsel aller Buchsen werden den Preis ganz schön treiben. Ob das wirklich notwendig ist?!\nAls Rahmenschutz empfehle ich Ovatrol, frag Dirk/fun-ski dazu. Der Vorbereitungsaufwand ist geringer.",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-28T08:10:20+00:00",
+      "body": "Manche Arbeiten wie Wechsel aller Buchsen werden den Preis ganz schön treiben. Ob das wirklich notwendig ist?!\nAls Rahmenschutz empfehle ich Ovatrol, frag Dirk/fun-ski dazu. Der Vorbereitungsaufwand ist geringer."
     },
     {
-      "post_id": "6260-016",
+      "post_id": "64225",
       "author": "manny",
-      "date": "Mo 30. Jun 2025, 11:11",
-      "body": "Moin,\n\ndas wird ein großer Umfang.\n\nAus Sicht der Instandhaltung würde ich überlegen, ob vorsorglich wirklich alles zerlegt werden muss. Die Fahrzeuge haben meist kaum Laufleistung. Wenn die Gummiteile nicht vertrauenerweckend sind und das Budget vorhanden ist, kann man es tun. Man sollte aber bedenken, dass die Qualität heutiger Ersatzteile nicht zwingend besser ist als die ursprünglich nach langen Tests eingesetzten Teile.\n\nKonzeptionell würde ich ernsthaft prüfen, ob sich der große Aufwand für einen kaum nutzbaren Notdurchstieg lohnt. Dadurch entfällt möglicherweise ein platzsparender Lagerort für das große 16er-Rad.\n\nBei Überlegungen zur Fahrerhausbeladung ist zu beachten, dass der Kühler von oben versorgt wird und die Fahrerhauslagerung für das Fahrerhaus mit Ersatzrad, drei Soldaten sowie Gepäck und Bewaffnung ausgelegt wurde – nicht für mehrere hundert Kilogramm zusätzliche Dachlast.\n\nAuch die Möglichkeit, das Fahrerhaus ohne größere Vorbereitungen kippen zu können, hat Vorteile.\n\nMein Rat als langjähriger KAT-1-Fahrer: so viel wie möglich original lassen; die Fahrzeuge sind sehr durchdacht.\n\nGruß\nManny",
-      "attachments": []
+      "date_raw": "2025-06-30T09:11:54+00:00",
+      "text": "Moin,\ndas wird ein Großer Umfang...\nVon der Instandhaltung her würde ich mir, wie die Vorschreiber schon anmerken, überlegen ob man alles vorsorglich auseinanderreißen muss. Die Fahrzeuge haben immerhin kaum Laufleistung. Klar wenn die Gummis nicht vertrauenerweckend sind und man sich das Leisten kann... -Man muss auch immer bedenken das die Qualität der heutigen Ersatzteile nicht unbedingt besser sein muss als die Teile die man damals nach langem Testen eingesetzt hat.\nKonzeptionell würde ich mir ernsthaft überlegen ob ich so viel Aufwand für einen kaum nutzbaren Notdurchstieg treiben würde, zumal du dann keinen platzsparenden und durchdachten Lagerort für das riesige 16er Rad hast...\nUnd bedenke bei den Faherhausbeladeüberlegungen dass der Kühler sich von oben versorgt und deine Fahrerhauslagerung genau für das Fahrerhaus mit Ersatzrad drei Soldaten mit Gepäck und Bewaffnung gebaut ist, nicht für hunderte KG zusätzliche Dachlast.\nUnd mal schnell ohne größere Vorbereitungen das Fahrerhaus kippen können hat schon auch Vorteile...\nUnd noch ein kleiner Tip eines Jahrelangen KAT 1 Fahrers, lass an dem Fahrzeug so viel Original wie möglich, die Kisten sind schon sehr durchdacht!\nGruß\nund herzlich Wilkommen!\nManny",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-30T09:11:54+00:00",
+      "body": "Moin,\ndas wird ein Großer Umfang...\nVon der Instandhaltung her würde ich mir, wie die Vorschreiber schon anmerken, überlegen ob man alles vorsorglich auseinanderreißen muss. Die Fahrzeuge haben immerhin kaum Laufleistung. Klar wenn die Gummis nicht vertrauenerweckend sind und man sich das Leisten kann... -Man muss auch immer bedenken das die Qualität der heutigen Ersatzteile nicht unbedingt besser sein muss als die Teile die man damals nach langem Testen eingesetzt hat.\nKonzeptionell würde ich mir ernsthaft überlegen ob ich so viel Aufwand für einen kaum nutzbaren Notdurchstieg treiben würde, zumal du dann keinen platzsparenden und durchdachten Lagerort für das riesige 16er Rad hast...\nUnd bedenke bei den Faherhausbeladeüberlegungen dass der Kühler sich von oben versorgt und deine Fahrerhauslagerung genau für das Fahrerhaus mit Ersatzrad drei Soldaten mit Gepäck und Bewaffnung gebaut ist, nicht für hunderte KG zusätzliche Dachlast.\nUnd mal schnell ohne größere Vorbereitungen das Fahrerhaus kippen können hat schon auch Vorteile...\nUnd noch ein kleiner Tip eines Jahrelangen KAT 1 Fahrers, lass an dem Fahrzeug so viel Original wie möglich, die Kisten sind schon sehr durchdacht!\nGruß\nund herzlich Wilkommen!\nManny"
     },
     {
-      "post_id": "6260-017",
+      "post_id": "64229",
       "author": "Jache",
-      "date": "Mo 30. Jun 2025, 20:10",
-      "body": "Danke dir.\n\nDas Reserverad soll nicht aufs Dach, sondern hinten an die Kabine.\n\nWahrscheinlich müssen bestimmte Komponenten nicht sofort überholt werden, sondern erst, wenn ein tatsächliches Problem auftritt. Mein Wunsch an das Unternehmen war, ein technisch einwandfreies Fahrgestell bereitzustellen, an dem zunächst nichts mehr gemacht werden muss. Außerdem soll das Fahrgestell aus optischen Gründen schwarz sein.\n\nVielleicht lasse ich zunächst nur die Positionen 1, 6, 7, 8 und 9 ausführen.\n\nDas Fahrerhaus kann ich vermutlich selbst dämmen. Eine spätere Lackierung könnte ich mit einem erfahrenen Freund und einer geeigneten Halle ebenfalls durchführen.\n\nDas Strahlen und schwarze Beschichten des Hauptrahmens könnte später erfolgen, sofern er derzeit gut aussieht.\n\nWie seht ihr das?",
-      "attachments": []
+      "date_raw": "2025-06-30T18:10:34+00:00",
+      "text": "Danke dir.\nReserverad soll nicht aufs Dach, sondern hinten an die Kabine.\nJa, wahrscheinlich müssen die Sachen nicht überholt werden, sondern erst wenn etwas nicht passt. Mein Wunsch in Richtung des Unternehmens war, mir ein Fahrgestell zur Verfügung zu stellen, wo technisch alles 1A ist und nichts mehr gemacht werden muss. Dazu soll das Fahrgestell schwarz sein (Optik)\nVielleicht aber doch erst mal die Postionen 1,6,7,8,9 machen lassen.\nFahrerhaus dämmen kann ich wohl auch selbst und es später einmal neu lackieren würde ich auch hinbekommen bzw. Mit einem Freund, der sich damit auskennt und die entsprechende Halle dazu hat.\nHauptrahmen strahlen und schwarz beschichten kann später auch gemacht werden, sofern er gut ausschaut.\nWie seht ihr das?",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-06-30T18:10:34+00:00",
+      "body": "Danke dir.\nReserverad soll nicht aufs Dach, sondern hinten an die Kabine.\nJa, wahrscheinlich müssen die Sachen nicht überholt werden, sondern erst wenn etwas nicht passt. Mein Wunsch in Richtung des Unternehmens war, mir ein Fahrgestell zur Verfügung zu stellen, wo technisch alles 1A ist und nichts mehr gemacht werden muss. Dazu soll das Fahrgestell schwarz sein (Optik)\nVielleicht aber doch erst mal die Postionen 1,6,7,8,9 machen lassen.\nFahrerhaus dämmen kann ich wohl auch selbst und es später einmal neu lackieren würde ich auch hinbekommen bzw. Mit einem Freund, der sich damit auskennt und die entsprechende Halle dazu hat.\nHauptrahmen strahlen und schwarz beschichten kann später auch gemacht werden, sofern er gut ausschaut.\nWie seht ihr das?"
     },
     {
-      "post_id": "6260-018",
+      "post_id": "64233",
       "author": "ALu",
-      "date": "Di 1. Jul 2025, 09:24",
-      "body": "Interessant wäre auch, wer den Umbau beziehungsweise Service durchführen soll. Hat diese Person oder Firma Erfahrung mit dem KAT, speziell dem A1.1, und gibt es Referenzen?\n\nEinige Mitglieder des Forums mussten bereits teures Lehrgeld bezahlen. Du kannst gern mitteilen, wer die Arbeiten ausführen soll; Antworten oder Empfehlungen können auch per Privatnachricht geschickt werden.\n\nGruß\nAndreas",
-      "attachments": []
+      "date_raw": "2025-07-01T07:24:03+00:00",
+      "text": "Was auch nocht interessant wäre: wer soll den Umbau / Service machen? Hat derjenige Erfahrung mit KAT (speziell dem A1.1) und gibt es evtl. Referenzen? Der eine oder andere hier aus dem Forum hat schon bitter Lehrgeld bezahlen müssen\nDu kannst gerne Schreiben, wer das macht / machen soll. Antworten/Kommentare/Empfehlungen können ja per PN geschickt werden.",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-07-01T07:24:03+00:00",
+      "body": "Was auch nocht interessant wäre: wer soll den Umbau / Service machen? Hat derjenige Erfahrung mit KAT (speziell dem A1.1) und gibt es evtl. Referenzen? Der eine oder andere hier aus dem Forum hat schon bitter Lehrgeld bezahlen müssen\nDu kannst gerne Schreiben, wer das macht / machen soll. Antworten/Kommentare/Empfehlungen können ja per PN geschickt werden."
     },
     {
-      "post_id": "6260-019",
+      "post_id": "64234",
       "author": "Jache",
-      "date": "Di 1. Jul 2025, 11:11",
-      "body": "Für den Service habe ich im Rhein-Main-Gebiet noch niemanden im Auge. Vielleicht gibt es hier im Umkreis gute Empfehlungen.",
-      "attachments": []
+      "date_raw": "2025-07-01T09:11:54+00:00",
+      "text": "Da habe ich für den Service noch keinen im Auge im Rhein Main Gebiet - aber vielleicht gibt es ja gute Empfehlungen hier im Umkreis...",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-07-01T09:11:54+00:00",
+      "body": "Da habe ich für den Service noch keinen im Auge im Rhein Main Gebiet - aber vielleicht gibt es ja gute Empfehlungen hier im Umkreis..."
     },
     {
-      "post_id": "6260-020",
+      "post_id": "64241",
       "author": "Micha25",
-      "date": "Do 3. Jul 2025, 19:53",
-      "body": "Moin,\n\nganz richtig ist die Aussage nicht. Aus der PT-Reihe 4 wurde mindestens ein Fahrzeug direkt zum Wohnmobil umgebaut. Damit sind KAT-1-4x4 grundsätzlich als Wohnmobil mit H-Kennzeichen denkbar.\n\nAuf LED-Beleuchtung, Photovoltaik und Lithiumbatterien sollte man gegebenenfalls verzichten. Dann hat es der Prüfer bei der Eintragung leichter.\n\nSonnige Grüße und viel Erfolg.",
-      "attachments": []
+      "date_raw": "2025-07-03T17:53:32+00:00",
+      "text": "Moin das ist so nicht ganz richtig aus der PT-Reihe 4 ist einer direkt als Wohnmobil umgerüstet worden! Ich hab das Buch nicht zur Hand, sonst würde ich dir genau die  Seite sagen! Somit sind alle KAT1 4x4 eigentlich Womo- tauglich mit H Kennzeichen. Man sollte auf LED Photovoltaik und Lithiumbaterrien verzichten. Dann hat der Prüfer es leichter beim eintragen\nSonnige Grüße und Viel Erfolg!!!!",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-07-03T17:53:32+00:00",
+      "body": "Moin das ist so nicht ganz richtig aus der PT-Reihe 4 ist einer direkt als Wohnmobil umgerüstet worden! Ich hab das Buch nicht zur Hand, sonst würde ich dir genau die  Seite sagen! Somit sind alle KAT1 4x4 eigentlich Womo- tauglich mit H Kennzeichen. Man sollte auf LED Photovoltaik und Lithiumbaterrien verzichten. Dann hat der Prüfer es leichter beim eintragen\nSonnige Grüße und Viel Erfolg!!!!"
     },
     {
-      "post_id": "6260-021",
+      "post_id": "64242",
       "author": "holland",
-      "date": "Do 3. Jul 2025, 20:08",
-      "body": "Rein aus Interesse: Warum eine Wohnmobilzulassung?",
-      "attachments": []
+      "date_raw": "2025-07-03T18:08:55+00:00",
+      "text": "Rein interesshalber\nWarum womo Zulassung.?",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-07-03T18:08:55+00:00",
+      "body": "Rein interesshalber\nWarum womo Zulassung.?"
     },
     {
-      "post_id": "6260-022",
+      "post_id": "64243",
       "author": "Jache",
-      "date": "Do 3. Jul 2025, 21:00",
-      "body": "H-Zulassung wegen der Maut in Deutschland und wegen der Innenstädte.\n\nWohnmobilzulassung wegen günstigerer Versicherung und weil die Maut in manchen Ländern günstiger ist.",
-      "attachments": []
+      "date_raw": "2025-07-03T19:00:41+00:00",
+      "text": "H Zulassung wegen Maut in DE und wegen Innenstädte\nWohnmobilzulassung wegen günstigere Versicherung und in manchen Ländern günstiger in der Maut.",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-07-03T19:00:41+00:00",
+      "body": "H Zulassung wegen Maut in DE und wegen Innenstädte\nWohnmobilzulassung wegen günstigere Versicherung und in manchen Ländern günstiger in der Maut."
     },
     {
-      "post_id": "6260-023",
+      "post_id": "64244",
       "author": "Micha25",
-      "date": "Do 3. Jul 2025, 22:23",
-      "body": "Moin,\n\neine Wohnmobilzulassung hat auch andere Vorteile.\n\nIch rate vom Durchstieg ab. Der KAT ist dafür nicht gemacht. Man muss ohnehin warten, bis der erforderliche Druck aufgebaut ist.\n\nMein KAT 1 8x8 verriegelt die Kupplung bis 6,1 bar. Dieser Druck muss zunächst anliegen. Nach dem Lösen der Feststellbremse und einmaligem Treten des Bremspedals ist die Kupplung schnell wieder verriegelt. Ein schnelles Losfahren ist anders; außerdem bewegt sich ein KAT 1 eher gemütlich.\n\nBeim KAT 1 A1 kann das anders sein.",
-      "attachments": []
+      "date_raw": "2025-07-03T20:23:32+00:00",
+      "text": "Moin Womo hat auch andere Vorteile!\nPS: ich rate dir vom Durchstieg ab! Der KAT ist dafür nicht gemacht! Du mußt eh da stehen bis der Druck aufgebaut ist!\nMein KAT1 8x8 verriegelt die Kupplung bis 6,1 bar. Und die mußt du erstmal anliegen haben. Dann einmal Bremspedal treten weil du die Feststellbremse löst und im Nu ist die Kupplung wieder verriegelt. Schnell losfahren ist anders !!! Mal abgesehen,  daß der KAt 1 sich eher gemütlich von dannen bewegt.\nKann beim KAT1. A1 anders sein !",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-07-03T20:23:32+00:00",
+      "body": "Moin Womo hat auch andere Vorteile!\nPS: ich rate dir vom Durchstieg ab! Der KAT ist dafür nicht gemacht! Du mußt eh da stehen bis der Druck aufgebaut ist!\nMein KAT1 8x8 verriegelt die Kupplung bis 6,1 bar. Und die mußt du erstmal anliegen haben. Dann einmal Bremspedal treten weil du die Feststellbremse löst und im Nu ist die Kupplung wieder verriegelt. Schnell losfahren ist anders !!! Mal abgesehen,  daß der KAt 1 sich eher gemütlich von dannen bewegt.\nKann beim KAT1. A1 anders sein !"
     },
     {
-      "post_id": "6260-024",
+      "post_id": "64246",
       "author": "stahlma",
-      "date": "Fr 4. Jul 2025, 11:27",
-      "body": "Wenn man an Orte fährt, an denen man glaubt, einen Durchstieg für eine schnelle Abfahrt zu benötigen, muss die Druckluftanlage natürlich dicht sein. Das ist machbar.",
-      "attachments": []
+      "date_raw": "2025-07-04T09:27:35+00:00",
+      "text": "Also wenn man irgendwo hinfährt, wo man glaubt einen Durchstieg zu brauchen um schnell weg zu kommen, dann muss natürlich die Luftanlage dicht sein.... Ist auch machbar...",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-07-04T09:27:35+00:00",
+      "body": "Also wenn man irgendwo hinfährt, wo man glaubt einen Durchstieg zu brauchen um schnell weg zu kommen, dann muss natürlich die Luftanlage dicht sein.... Ist auch machbar..."
     },
     {
-      "post_id": "6260-025",
+      "post_id": "64247",
       "author": "urologe",
-      "date": "Fr 4. Jul 2025, 13:06",
-      "body": "Ich sehe das anders.\n\nEin Durchstieg wird bei jeder Fahrt mehrfach genutzt, etwa wenn eine Schublade nicht verriegelt wurde. Mitfahrer können während der Fahrt an Kühlschrank oder WC gelangen. Mit entsprechender TÜV-Abnahme können sie hinten angeschnallt mitfahren. Auch der Hund kann nach hinten zum Wasser.\n\nIm Stand dient die Lkw-Standheizung als Redundanz und funktioniert bei mir bis etwa minus 10 Grad Celsius.\n\nIch könnte den KAT über die Windensteuerung von der Kabine aus starten. Bis ich durch den Durchgang gekrochen bin, ist der notwendige Druck bereits aufgebaut – vorausgesetzt, das Druckluftsystem wird gepflegt.\n\nBei tatsächlicher Gefahr würde ich kein Rennen fahren, sondern die mechanische Stärke und Geländegängigkeit nutzen. Nachts kann der Durchstieg außerdem vermeiden, dass man zum Prüfen einer unklaren Situation aussteigen muss.\n\nIch parke den KAT nachts vorsorglich in eine günstige Vorwärtsrichtung.\n\nDie ideale Kombination ist für mich Durchgang plus Airstair, damit Ein- und Ausstieg auch in Schräglagen möglich bleiben.",
-      "attachments": []
+      "date_raw": "2025-07-04T11:06:43+00:00",
+      "text": "verstehe ich nicht .\nwenn Du einen Durchstieg hättest , würdest Du sicher gaaanz anders schreiben ...\n1. ich liebe den Durchstieg , weil er bei jeder Fahrt mehrfach benutzt wird ,\nmeistens weil man hört , daß eine Schublade nicht verriegelt wurde und in jeder Kehre lautstark auf- und zufährt .\nDie Mitfahrer können während der Fahrt an den Kühlschrank oder WC\nDie Mitfahrer können hinten angeschnallt mitfahren (TÜV-Abnahme vorausgesetzt)\nDer Hund kann zwischendurch einmal nach hinten zum Wasser saufen\nIm Stand dient die Lkw-Standheizung als Redundanz - funktioniert bei mir bis minus 10 Grad Außentemperatur\n2. ich könnte den KAT über die Windensteuerung von der Kabine aus starten ,\nbis ich durch den Durchgang gekrochen bin , ist der notwendige Druck bereits aufgebaut -\nvorausgesetzt man pflegt das Druckluftsystem .\n3. Bei wirklich leiblicher Gefahr will ich mit dem KAT kein Rennen veranstalten , sondern allenfalls durch\nmechanische Stärke und offroad-Fähigkeit die Situation retten -\naber darum geht es doch nicht wirklich , oder ?\nin einer nächtlichen Situation , wo das Eichörnchen oder doch das Wildschwein um das Fahrzeug herumstreicht ,\nwill ich doch nicht aussteigen und nachsehen , ob nicht doch Alkoholisierte eine Bedrohung darstellen könnten .\nDann krabbel ich nach vorne , bringe den Ganghebel mit einem Handschlag in Neutral , drücke den Startknopf und\nfahre geordnet los . Das einzige , was ich wirklich aus Vorsicht in fremden Wäldern , etc. nachts mache ist ,\nden KAT in eine optimale Vorwärtsrichtung zu parken , die mir etwas Bewegungsfreiheit läßt .\nDie wahre Kombi ist natürlich : Durchgang und urologes airstair , die es in  j e d e r  Schräglage ermöglicht im\nDunkeln ein- und auszusteigen , wo sonst nur ein Absprung aus 1,5m ins Dunkle möglich ist",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=0",
+      "date": "2025-07-04T11:06:43+00:00",
+      "body": "verstehe ich nicht .\nwenn Du einen Durchstieg hättest , würdest Du sicher gaaanz anders schreiben ...\n1. ich liebe den Durchstieg , weil er bei jeder Fahrt mehrfach benutzt wird ,\nmeistens weil man hört , daß eine Schublade nicht verriegelt wurde und in jeder Kehre lautstark auf- und zufährt .\nDie Mitfahrer können während der Fahrt an den Kühlschrank oder WC\nDie Mitfahrer können hinten angeschnallt mitfahren (TÜV-Abnahme vorausgesetzt)\nDer Hund kann zwischendurch einmal nach hinten zum Wasser saufen\nIm Stand dient die Lkw-Standheizung als Redundanz - funktioniert bei mir bis minus 10 Grad Außentemperatur\n2. ich könnte den KAT über die Windensteuerung von der Kabine aus starten ,\nbis ich durch den Durchgang gekrochen bin , ist der notwendige Druck bereits aufgebaut -\nvorausgesetzt man pflegt das Druckluftsystem .\n3. Bei wirklich leiblicher Gefahr will ich mit dem KAT kein Rennen veranstalten , sondern allenfalls durch\nmechanische Stärke und offroad-Fähigkeit die Situation retten -\naber darum geht es doch nicht wirklich , oder ?\nin einer nächtlichen Situation , wo das Eichörnchen oder doch das Wildschwein um das Fahrzeug herumstreicht ,\nwill ich doch nicht aussteigen und nachsehen , ob nicht doch Alkoholisierte eine Bedrohung darstellen könnten .\nDann krabbel ich nach vorne , bringe den Ganghebel mit einem Handschlag in Neutral , drücke den Startknopf und\nfahre geordnet los . Das einzige , was ich wirklich aus Vorsicht in fremden Wäldern , etc. nachts mache ist ,\nden KAT in eine optimale Vorwärtsrichtung zu parken , die mir etwas Bewegungsfreiheit läßt .\nDie wahre Kombi ist natürlich : Durchgang und urologes airstair , die es in  j e d e r  Schräglage ermöglicht im\nDunkeln ein- und auszusteigen , wo sonst nur ein Absprung aus 1,5m ins Dunkle möglich ist"
     },
     {
-      "post_id": "6260-026",
+      "post_id": "64248",
       "author": "ALu",
-      "date": "Fr 4. Jul 2025, 13:56",
-      "body": "Während der Fahrt an den Kühlschrank kann ich verstehen. Während der Fahrt auf die Toilette zu gehen, wäre für mich eher ein Argument gegen den Durchstieg.\n\nGruß\nAndreas",
-      "attachments": []
+      "date_raw": "2025-07-04T11:56:26+00:00",
+      "text": "Während der Fahrt an den Kühlschrank: verstehe ich. Während der Fahrt auf´s WC: ich denke, alleine dafür sollte man auf den Durchstieg verzichten",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-04T11:56:26+00:00",
+      "body": "Während der Fahrt an den Kühlschrank: verstehe ich. Während der Fahrt auf´s WC: ich denke, alleine dafür sollte man auf den Durchstieg verzichten"
     },
     {
-      "post_id": "6260-027",
+      "post_id": "64249",
       "author": "urologe",
-      "date": "Fr 4. Jul 2025, 14:11",
-      "body": "Es ist schließlich kein Plumpsklo wie früher bei der Bahn.",
-      "attachments": []
+      "date_raw": "2025-07-04T12:11:47+00:00",
+      "text": "ist doch kein Plumpsklo wie früher bei der Bahn ...",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-04T12:11:47+00:00",
+      "body": "ist doch kein Plumpsklo wie früher bei der Bahn ..."
     },
     {
-      "post_id": "6260-028",
+      "post_id": "64250",
       "author": "ALu",
-      "date": "Fr 4. Jul 2025, 14:14",
-      "body": "Ich bin einmal hinter dir hergefahren und habe gesehen, wie du durch Kreisverkehre fährst. Dabei möchte niemand auf der Toilette sitzen.\n\nGruß\nAndreas",
-      "attachments": []
+      "date_raw": "2025-07-04T12:14:41+00:00",
+      "text": "Ich bin einmal hinter dir her gefahren und habe miterlebt, wie du durch Kreisverkehre bretterst. Da möchte niemand auf dem Klo sitzen",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-04T12:14:41+00:00",
+      "body": "Ich bin einmal hinter dir her gefahren und habe miterlebt, wie du durch Kreisverkehre bretterst. Da möchte niemand auf dem Klo sitzen"
     },
     {
-      "post_id": "6260-029",
+      "post_id": "64251",
       "author": "urologe",
-      "date": "Fr 4. Jul 2025, 14:35",
-      "body": "Ich wüsste nicht, wie man das Problem lösen könnte. Die Dusche hat Fußbodenheizung; dort kann ich keinen Sicherheitsgurt nachrüsten.",
-      "attachments": []
+      "date_raw": "2025-07-04T12:35:56+00:00",
+      "text": "ich wüßte jetzt nicht , wie man das Problem lösen könnte -\ndie Dusche hat Fußbodenheizung , da kann ich keinen Sicherheitsgurt nachrüsten .",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-04T12:35:56+00:00",
+      "body": "ich wüßte jetzt nicht , wie man das Problem lösen könnte -\ndie Dusche hat Fußbodenheizung , da kann ich keinen Sicherheitsgurt nachrüsten ."
     },
     {
-      "post_id": "6260-030",
+      "post_id": "64253",
       "author": "urologe",
-      "date": "Fr 4. Jul 2025, 17:06",
-      "body": "Grundsätzlich ist es sinnvoll, zunächst größere Bundeswehrstandorte mit noch laufenden KAT-Fahrzeugen in der näheren Umgebung zu identifizieren und anschließend die betreuende MAN-Niederlassung zu ermitteln.\n\nWichtiger ist zunächst die Entscheidung, ob das umfangreiche Umbauvorhaben sinnvoll ist und ob dieser oder ein anderer passender KAT gekauft werden soll.\n\nDie laufende Serviceproblematik wird vermutlich frühestens 2027 relevant.\n\nGruß\nRalf",
-      "attachments": []
+      "date_raw": "2025-07-04T15:06:07+00:00",
+      "text": "grundsätzlich ist es sicher sinnvoll , erstmal die größeren Bw-Standorte mit laufenden KATs in der näheren Umgebung zu eruieren und dann die betreuende MAN-Niederlassung zu eruieren .\nAber viel wichtiger ist doch erst einmal die Entscheidung ,\nob das gewaltige Umbauvorhaben sinnvoll ist und dann den oder einen passenden anderen KAT zu kaufen .\nDie laufende Serviceproblematik kommt doch frühestens 2027 zum Tragen , oder ?\nGruß\nRalf",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-04T15:06:07+00:00",
+      "body": "grundsätzlich ist es sicher sinnvoll , erstmal die größeren Bw-Standorte mit laufenden KATs in der näheren Umgebung zu eruieren und dann die betreuende MAN-Niederlassung zu eruieren .\nAber viel wichtiger ist doch erst einmal die Entscheidung ,\nob das gewaltige Umbauvorhaben sinnvoll ist und dann den oder einen passenden anderen KAT zu kaufen .\nDie laufende Serviceproblematik kommt doch frühestens 2027 zum Tragen , oder ?\nGruß\nRalf"
     },
     {
-      "post_id": "6260-031",
+      "post_id": "64254",
       "author": "Jache",
-      "date": "Fr 4. Jul 2025, 22:03",
-      "body": "Da hast du Recht.\n\nEs wird das oben genannte Fahrzeug, aber nicht mit allen Positionen.\n\nZunächst möchte ich mein anderes Auto verkaufen.",
-      "attachments": []
+      "date_raw": "2025-07-04T20:03:22+00:00",
+      "text": "Da hast du Recht!\nnein es wird der obige werden, aber nicht mit allen Positionen.\nMöchte nur erst mein anderes Auto verkaufen",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-04T20:03:22+00:00",
+      "body": "Da hast du Recht!\nnein es wird der obige werden, aber nicht mit allen Positionen.\nMöchte nur erst mein anderes Auto verkaufen"
     },
     {
-      "post_id": "6260-032",
+      "post_id": "64255",
       "author": "holland",
-      "date": "So 6. Jul 2025, 12:33",
-      "body": "Die Begründung mit H-Zulassung und Wohnmobilzulassung habe ich nicht verstanden.",
-      "attachments": []
+      "date_raw": "2025-07-06T10:33:32+00:00",
+      "text": "Gut habe ich nicht verstanden",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-06T10:33:32+00:00",
+      "body": "Gut habe ich nicht verstanden"
     },
     {
-      "post_id": "6260-033",
+      "post_id": "64256",
       "author": "urologe",
-      "date": "So 6. Jul 2025, 15:01",
-      "body": "Maximaler Daumendruck und anschließend viel Freude am Umbau.\n\nIch hatte damals genauso viel Spaß am Umbau wie heute beim Fahren. Das wünsche ich dir ebenfalls.\n\nLiebe Grüße\nRalf",
-      "attachments": []
+      "date_raw": "2025-07-06T13:01:56+00:00",
+      "text": "max. Daumendrück\nund dann viel Freude am Umbau !\nich hatte seinerzeit genau soviel Spaß am Umbau wie jetzt beim Fahren - das wünsche ich Dir .\nLG\nRalf",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-06T13:01:56+00:00",
+      "body": "max. Daumendrück\nund dann viel Freude am Umbau !\nich hatte seinerzeit genau soviel Spaß am Umbau wie jetzt beim Fahren - das wünsche ich Dir .\nLG\nRalf"
     },
     {
-      "post_id": "6260-034",
+      "post_id": "64258",
       "author": "Jache",
-      "date": "So 6. Jul 2025, 20:50",
-      "body": "Danke dir.",
-      "attachments": []
+      "date_raw": "2025-07-06T18:50:46+00:00",
+      "text": "Danke dir",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-06T18:50:46+00:00",
+      "body": "Danke dir"
     },
     {
-      "post_id": "6260-035",
+      "post_id": "64261",
       "author": "supi532",
-      "date": "Mo 7. Jul 2025, 10:09",
-      "body": "Ist der Lkw bereits gekauft?\n\nDas Angebot an A1.1-Fahrzeugen ist überschaubar und endlich.\n\nGruß\nJörg",
-      "attachments": []
+      "date_raw": "2025-07-07T08:09:37+00:00",
+      "text": "Ist der lkw denn schon gekauft?\nDas Angebot an A1.1 ist überschaubar und endlich.......\nGruss\nJörg",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-07T08:09:37+00:00",
+      "body": "Ist der lkw denn schon gekauft?\nDas Angebot an A1.1 ist überschaubar und endlich.......\nGruss\nJörg"
     },
     {
-      "post_id": "6260-036",
+      "post_id": "64262",
       "author": "Jache",
-      "date": "Di 8. Jul 2025, 10:05",
-      "body": "Nein, aber reserviert.",
-      "attachments": []
+      "date_raw": "2025-07-08T08:05:02+00:00",
+      "text": "Nein, aber reserviert.....",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-08T08:05:02+00:00",
+      "body": "Nein, aber reserviert....."
     },
     {
-      "post_id": "6260-037",
+      "post_id": "64263",
       "author": "urologe",
-      "date": "Di 8. Jul 2025, 13:44",
-      "body": "Reserviert ist nicht gekauft.\n\nIch würde Wilmaa bitten, das von dir veröffentlichte Angebot gegen eine bereinigte Version auszutauschen.\n\nDu selbst kannst den Post #42 nicht mehr bearbeiten.\n\nLiebe Grüße\nRalf",
-      "attachments": []
+      "date_raw": "2025-07-08T11:44:37+00:00",
+      "text": "reserviert ist nicht gekauft -\nIch würde an Deiner Stelle Wilmaa bitten ,\nDein gepostetes Angebot gegen das blanke Angebot hier im Forum auszutauschen .\nDu selbst kannst den post #42 nicht mehr bearbeiten .\nLG\nRalf",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-08T11:44:37+00:00",
+      "body": "reserviert ist nicht gekauft -\nIch würde an Deiner Stelle Wilmaa bitten ,\nDein gepostetes Angebot gegen das blanke Angebot hier im Forum auszutauschen .\nDu selbst kannst den post #42 nicht mehr bearbeiten .\nLG\nRalf"
     },
     {
-      "post_id": "6260-038",
+      "post_id": "64264",
       "author": "Jache",
-      "date": "Di 8. Jul 2025, 20:38",
-      "body": "Du meinst das Angebot mit Händler und Preisen?",
-      "attachments": []
+      "date_raw": "2025-07-08T18:38:02+00:00",
+      "text": "Du meinst das Angebot mit Händler und Preisen?",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-08T18:38:02+00:00",
+      "body": "Du meinst das Angebot mit Händler und Preisen?"
     },
     {
-      "post_id": "6260-039",
+      "post_id": "64265",
       "author": "urologe",
-      "date": "Mi 9. Jul 2025, 10:26",
-      "body": "Ja.\n\nJede mögliche Nachfrage beim Händler nach dem von dir reservierten KAT kann später deinen Verhandlungsspielraum bei Zusatzarbeiten einschränken. Ich wäre an dieser Stelle vollkommen eigennützig.",
-      "attachments": []
+      "date_raw": "2025-07-09T08:26:18+00:00",
+      "text": "ja ,\njede eventuelle Nachfrage bei dem Händler nach Deinem reservierten KAT engt doch\nspäter Deinen Verhandlungsspielraum bzgl. Zusatzarbeiten ein -  ich wäre da völlig eigennützig",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=6260&start=25",
+      "date": "2025-07-09T08:26:18+00:00",
+      "body": "ja ,\njede eventuelle Nachfrage bei dem Händler nach Deinem reservierten KAT engt doch\nspäter Deinen Verhandlungsspielraum bzgl. Zusatzarbeiten ein -  ich wäre da völlig eigennützig"
     }
-  ]
+  ],
+  "raw_sources": {
+    "markdown": "---\nthread_id: 6260\ntitle: \"Kat 1A1.1 6x6\"\nsource_url: https://kat-forum.de/viewtopic.php?t=6260\nforum_name: \"Neuanschaffung\"\nforum_url: https://kat-forum.de/viewforum.php?f=12\nsource_language: \"de\"\nprocessing_stage: \"raw_extraction\"\npost_count: 39\nattachment_count: 9\narchival: true\n---\n\n# Kat 1A1.1 6x6\n\n## Post 1\n\n- Post ID: `64202`\n- Author: Jache\n- Date: 2025-06-24T20:20:41+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nHallo,\nIch beabsichtige mir einen Kat 1A1.1 aus dem Jahr 1996 zuzulegen und diesen anschließend mittels einer Leerkabine selbst zu einem Expeditionsmobil auszubauen.\nEin KAT 1 war schon immer mein Traum, nun soll er in Erfüllung gehen.\nIch habe ein Angebot bekommen für Änderungen am Fahrgestell und finaliserung dessen.\nVielleicht kann ja mal jemand von den Profis drüber schauen, ob das so passt oder etwas nicht zusammen passt, bzw. etwas von mir vergessen wurde.\nPreise, Firma, etc. wurde entfernt.\nWürde mich sehr freuen.\nViele Grüße\nJochen\n\n### Attachments\n\n- `image`: [thread_6260_post_64202_image_001_attachment.php](thread_6260/attachments/images/thread_6260_post_64202_image_001_attachment.php)\n- `image`: [thread_6260_post_64202_image_002_attachment.php](thread_6260/attachments/images/thread_6260_post_64202_image_002_attachment.php)\n- `image`: [thread_6260_post_64202_image_003_attachment.php](thread_6260/attachments/images/thread_6260_post_64202_image_003_attachment.php)\n- `image`: [thread_6260_post_64202_image_004_IMG_0235.jpeg](thread_6260/attachments/images/thread_6260_post_64202_image_004_IMG_0235.jpeg)\n- `image`: [thread_6260_post_64202_image_005_IMG_0234.jpeg](thread_6260/attachments/images/thread_6260_post_64202_image_005_IMG_0234.jpeg)\n- `image`: [thread_6260_post_64202_image_006_IMG_0236.jpeg](thread_6260/attachments/images/thread_6260_post_64202_image_006_IMG_0236.jpeg)\n\n## Post 2\n\n- Post ID: `64203`\n- Author: KAT MAN\n- Date: 2025-06-25T07:00:21+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nScreenshot 2025-06-25 085646.png (2.78 KiB) 24423 mal betrachtet\n\n### Attachments\n\n- `image`: [thread_6260_post_64203_image_001_attachment.php](thread_6260/attachments/images/thread_6260_post_64203_image_001_attachment.php)\n- `image`: [thread_6260_post_64203_image_002_Screenshot_2025-06-25_085646.png](thread_6260/attachments/images/thread_6260_post_64203_image_002_Screenshot_2025-06-25_085646.png)\n- `image`: [thread_6260_post_64203_image_003_Screenshot_2025-06-25_085756.png](thread_6260/attachments/images/thread_6260_post_64203_image_003_Screenshot_2025-06-25_085756.png)\n\n## Post 3\n\n- Post ID: `64204`\n- Author: Jache\n- Date: 2025-06-25T07:28:33+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nDanke dir\nSorry, das vergesse ich oft - danke fürs reinkopieren.\nMir wurde in dem anderen Forum empfohlen hier mal reinzuschauen - deshalb bin ich jetzt hier.\n\n## Post 4\n\n- Post ID: `64207`\n- Author: stahlma\n- Date: 2025-06-25T11:27:28+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nHi,\n[*] Der A1.1 braucht keinen gelagerten Zwischenrahmen\n[*] Run-flat in den Hutchinsons ist unsinn, weil dann der Reifen bei niedrigen Drücken nicht mehr funktioniert\n[*] Zweizylindriger Luftkompressor ist sinnvoll\n[*] Lichtanlage?\nWas soll der ganze Umbau kosten?\nViele Grüße\nMartin\n\n## Post 5\n\n- Post ID: `64208`\n- Author: Jache\n- Date: 2025-06-25T11:53:31+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nHallo,\nDanke dir.\nDas mit den Run Flat ein guter Punkt. Das kläre ich nochmal.\nKannst du mir erklären wieso ich keinen Zwischenrahmen brauche. Würde der Aufbau dann direkt auf den Hauptrahmen kommen?\nLichtanlage habe ich nicht drinnen, da ich ein H Kennzeichen möchte.\n\n## Post 6\n\n- Post ID: `64209`\n- Author: stahlma\n- Date: 2025-06-25T12:00:05+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nDer A1.1 Rahmen ist sehr verwindungssteif. Je nachdem wie Du die Kabine baust, brauchst du einen Zwischenrahmen, aberr keinen gelagerten.\nLichtanlage ist nicht grundsätzlich H-schädlich, die gab es 1996 auch schon...\n\n## Post 7\n\n- Post ID: `64210`\n- Author: Jache\n- Date: 2025-06-25T12:04:34+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nJa, der Zwischenrahmen soll auch nicht gelagert montiert werden, sondern fest auf dem Hauptrahmen.\nAber hier bin ich mir selbst noch unsicher, ob ich einen benötige oder nicht…\nWegen dem LED Lichtumbau kläre ich dann auch nochmal. Das wäre sehr gut, wenn es H Kennzeichen tauglich wäre.\n\n## Post 8\n\n- Post ID: `64213`\n- Author: Wolfgang\n- Date: 2025-06-26T11:02:18+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nAls was möchtest du den das Fahrzeug zukünftig anmelden wenn du ein H- Kennzeichen haben möchtest?\nWolfgang\n\n## Post 9\n\n- Post ID: `64214`\n- Author: Jache\n- Date: 2025-06-26T11:28:03+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nAm liebsten als Wohnmobil.\n\n## Post 10\n\n- Post ID: `64215`\n- Author: fun-ski\n- Date: 2025-06-26T14:14:00+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nDer Zwischenrahmen ist deswegen obsolet weil du die originale Prische als zwischenrahmen nutzen könntest\nDieser wäre auch perfekt auf das Fahrzeug abgestimmt.\nContainerlocks könnten bei Bedarf eingebaut werden, also eher ein umbau der vorhandenen Pritsche\n\n## Post 11\n\n- Post ID: `64216`\n- Author: supi532\n- Date: 2025-06-26T19:50:00+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nDer .1 hat doch gar keine Pritsche, sind doch ama's.......\nJörg\n\n## Post 12\n\n- Post ID: `64217`\n- Author: alex30193\n- Date: 2025-06-27T05:35:16+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nHallo,\neinen Kat als Wohnmobil mit H wird schwierig, das gab es nie.\nUnser 4x4 hat das H beim Hutschison eintragen verloren dann habe ich Ihn zum Wohnobil umschreiben lassen.\nDer 6x6 hatte die Hutschison schon eingetragen und es hat bis jetzt niemand am H genörgelt.\n\n## Post 13\n\n- Post ID: `64218`\n- Author: fun-ski\n- Date: 2025-06-27T06:07:21+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nDas stimmt so nicht\nMeiner ist so zugelassen\n\n## Post 14\n\n- Post ID: `64219`\n- Author: fun-ski\n- Date: 2025-06-27T06:08:31+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nSorry\nda bin ich bei dem neumodischen Kram wohl nicht ganz so gut Informiert\n\n## Post 15\n\n- Post ID: `64221`\n- Author: A N D R E A S\n- Date: 2025-06-28T08:10:20+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nManche Arbeiten wie Wechsel aller Buchsen werden den Preis ganz schön treiben. Ob das wirklich notwendig ist?!\nAls Rahmenschutz empfehle ich Ovatrol, frag Dirk/fun-ski dazu. Der Vorbereitungsaufwand ist geringer.\n\n## Post 16\n\n- Post ID: `64225`\n- Author: manny\n- Date: 2025-06-30T09:11:54+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nMoin,\ndas wird ein Großer Umfang...\nVon der Instandhaltung her würde ich mir, wie die Vorschreiber schon anmerken, überlegen ob man alles vorsorglich auseinanderreißen muss. Die Fahrzeuge haben immerhin kaum Laufleistung. Klar wenn die Gummis nicht vertrauenerweckend sind und man sich das Leisten kann... -Man muss auch immer bedenken das die Qualität der heutigen Ersatzteile nicht unbedingt besser sein muss als die Teile die man damals nach langem Testen eingesetzt hat.\nKonzeptionell würde ich mir ernsthaft überlegen ob ich so viel Aufwand für einen kaum nutzbaren Notdurchstieg treiben würde, zumal du dann keinen platzsparenden und durchdachten Lagerort für das riesige 16er Rad hast...\nUnd bedenke bei den Faherhausbeladeüberlegungen dass der Kühler sich von oben versorgt und deine Fahrerhauslagerung genau für das Fahrerhaus mit Ersatzrad drei Soldaten mit Gepäck und Bewaffnung gebaut ist, nicht für hunderte KG zusätzliche Dachlast.\nUnd mal schnell ohne größere Vorbereitungen das Fahrerhaus kippen können hat schon auch Vorteile...\nUnd noch ein kleiner Tip eines Jahrelangen KAT 1 Fahrers, lass an dem Fahrzeug so viel Original wie möglich, die Kisten sind schon sehr durchdacht!\nGruß\nund herzlich Wilkommen!\nManny\n\n## Post 17\n\n- Post ID: `64229`\n- Author: Jache\n- Date: 2025-06-30T18:10:34+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nDanke dir.\nReserverad soll nicht aufs Dach, sondern hinten an die Kabine.\nJa, wahrscheinlich müssen die Sachen nicht überholt werden, sondern erst wenn etwas nicht passt. Mein Wunsch in Richtung des Unternehmens war, mir ein Fahrgestell zur Verfügung zu stellen, wo technisch alles 1A ist und nichts mehr gemacht werden muss. Dazu soll das Fahrgestell schwarz sein (Optik)\nVielleicht aber doch erst mal die Postionen 1,6,7,8,9 machen lassen.\nFahrerhaus dämmen kann ich wohl auch selbst und es später einmal neu lackieren würde ich auch hinbekommen bzw. Mit einem Freund, der sich damit auskennt und die entsprechende Halle dazu hat.\nHauptrahmen strahlen und schwarz beschichten kann später auch gemacht werden, sofern er gut ausschaut.\nWie seht ihr das?\n\n## Post 18\n\n- Post ID: `64233`\n- Author: ALu\n- Date: 2025-07-01T07:24:03+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nWas auch nocht interessant wäre: wer soll den Umbau / Service machen? Hat derjenige Erfahrung mit KAT (speziell dem A1.1) und gibt es evtl. Referenzen? Der eine oder andere hier aus dem Forum hat schon bitter Lehrgeld bezahlen müssen\nDu kannst gerne Schreiben, wer das macht / machen soll. Antworten/Kommentare/Empfehlungen können ja per PN geschickt werden.\n\n## Post 19\n\n- Post ID: `64234`\n- Author: Jache\n- Date: 2025-07-01T09:11:54+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nDa habe ich für den Service noch keinen im Auge im Rhein Main Gebiet - aber vielleicht gibt es ja gute Empfehlungen hier im Umkreis...\n\n## Post 20\n\n- Post ID: `64241`\n- Author: Micha25\n- Date: 2025-07-03T17:53:32+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nMoin das ist so nicht ganz richtig aus der PT-Reihe 4 ist einer direkt als Wohnmobil umgerüstet worden! Ich hab das Buch nicht zur Hand, sonst würde ich dir genau die  Seite sagen! Somit sind alle KAT1 4x4 eigentlich Womo- tauglich mit H Kennzeichen. Man sollte auf LED Photovoltaik und Lithiumbaterrien verzichten. Dann hat der Prüfer es leichter beim eintragen\nSonnige Grüße und Viel Erfolg!!!!\n\n## Post 21\n\n- Post ID: `64242`\n- Author: holland\n- Date: 2025-07-03T18:08:55+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nRein interesshalber\nWarum womo Zulassung.?\n\n## Post 22\n\n- Post ID: `64243`\n- Author: Jache\n- Date: 2025-07-03T19:00:41+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nH Zulassung wegen Maut in DE und wegen Innenstädte\nWohnmobilzulassung wegen günstigere Versicherung und in manchen Ländern günstiger in der Maut.\n\n## Post 23\n\n- Post ID: `64244`\n- Author: Micha25\n- Date: 2025-07-03T20:23:32+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nMoin Womo hat auch andere Vorteile!\nPS: ich rate dir vom Durchstieg ab! Der KAT ist dafür nicht gemacht! Du mußt eh da stehen bis der Druck aufgebaut ist!\nMein KAT1 8x8 verriegelt die Kupplung bis 6,1 bar. Und die mußt du erstmal anliegen haben. Dann einmal Bremspedal treten weil du die Feststellbremse löst und im Nu ist die Kupplung wieder verriegelt. Schnell losfahren ist anders !!! Mal abgesehen,  daß der KAt 1 sich eher gemütlich von dannen bewegt.\nKann beim KAT1. A1 anders sein !\n\n## Post 24\n\n- Post ID: `64246`\n- Author: stahlma\n- Date: 2025-07-04T09:27:35+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nAlso wenn man irgendwo hinfährt, wo man glaubt einen Durchstieg zu brauchen um schnell weg zu kommen, dann muss natürlich die Luftanlage dicht sein.... Ist auch machbar...\n\n## Post 25\n\n- Post ID: `64247`\n- Author: urologe\n- Date: 2025-07-04T11:06:43+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=0\n\n### Original Text\n\nverstehe ich nicht .\nwenn Du einen Durchstieg hättest , würdest Du sicher gaaanz anders schreiben ...\n1. ich liebe den Durchstieg , weil er bei jeder Fahrt mehrfach benutzt wird ,\nmeistens weil man hört , daß eine Schublade nicht verriegelt wurde und in jeder Kehre lautstark auf- und zufährt .\nDie Mitfahrer können während der Fahrt an den Kühlschrank oder WC\nDie Mitfahrer können hinten angeschnallt mitfahren (TÜV-Abnahme vorausgesetzt)\nDer Hund kann zwischendurch einmal nach hinten zum Wasser saufen\nIm Stand dient die Lkw-Standheizung als Redundanz - funktioniert bei mir bis minus 10 Grad Außentemperatur\n2. ich könnte den KAT über die Windensteuerung von der Kabine aus starten ,\nbis ich durch den Durchgang gekrochen bin , ist der notwendige Druck bereits aufgebaut -\nvorausgesetzt man pflegt das Druckluftsystem .\n3. Bei wirklich leiblicher Gefahr will ich mit dem KAT kein Rennen veranstalten , sondern allenfalls durch\nmechanische Stärke und offroad-Fähigkeit die Situation retten -\naber darum geht es doch nicht wirklich , oder ?\nin einer nächtlichen Situation , wo das Eichörnchen oder doch das Wildschwein um das Fahrzeug herumstreicht ,\nwill ich doch nicht aussteigen und nachsehen , ob nicht doch Alkoholisierte eine Bedrohung darstellen könnten .\nDann krabbel ich nach vorne , bringe den Ganghebel mit einem Handschlag in Neutral , drücke den Startknopf und\nfahre geordnet los . Das einzige , was ich wirklich aus Vorsicht in fremden Wäldern , etc. nachts mache ist ,\nden KAT in eine optimale Vorwärtsrichtung zu parken , die mir etwas Bewegungsfreiheit läßt .\nDie wahre Kombi ist natürlich : Durchgang und urologes airstair , die es in  j e d e r  Schräglage ermöglicht im\nDunkeln ein- und auszusteigen , wo sonst nur ein Absprung aus 1,5m ins Dunkle möglich ist\n\n## Post 26\n\n- Post ID: `64248`\n- Author: ALu\n- Date: 2025-07-04T11:56:26+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nWährend der Fahrt an den Kühlschrank: verstehe ich. Während der Fahrt auf´s WC: ich denke, alleine dafür sollte man auf den Durchstieg verzichten\n\n## Post 27\n\n- Post ID: `64249`\n- Author: urologe\n- Date: 2025-07-04T12:11:47+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nist doch kein Plumpsklo wie früher bei der Bahn ...\n\n## Post 28\n\n- Post ID: `64250`\n- Author: ALu\n- Date: 2025-07-04T12:14:41+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nIch bin einmal hinter dir her gefahren und habe miterlebt, wie du durch Kreisverkehre bretterst. Da möchte niemand auf dem Klo sitzen\n\n## Post 29\n\n- Post ID: `64251`\n- Author: urologe\n- Date: 2025-07-04T12:35:56+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nich wüßte jetzt nicht , wie man das Problem lösen könnte -\ndie Dusche hat Fußbodenheizung , da kann ich keinen Sicherheitsgurt nachrüsten .\n\n## Post 30\n\n- Post ID: `64253`\n- Author: urologe\n- Date: 2025-07-04T15:06:07+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\ngrundsätzlich ist es sicher sinnvoll , erstmal die größeren Bw-Standorte mit laufenden KATs in der näheren Umgebung zu eruieren und dann die betreuende MAN-Niederlassung zu eruieren .\nAber viel wichtiger ist doch erst einmal die Entscheidung ,\nob das gewaltige Umbauvorhaben sinnvoll ist und dann den oder einen passenden anderen KAT zu kaufen .\nDie laufende Serviceproblematik kommt doch frühestens 2027 zum Tragen , oder ?\nGruß\nRalf\n\n## Post 31\n\n- Post ID: `64254`\n- Author: Jache\n- Date: 2025-07-04T20:03:22+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nDa hast du Recht!\nnein es wird der obige werden, aber nicht mit allen Positionen.\nMöchte nur erst mein anderes Auto verkaufen\n\n## Post 32\n\n- Post ID: `64255`\n- Author: holland\n- Date: 2025-07-06T10:33:32+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nGut habe ich nicht verstanden\n\n## Post 33\n\n- Post ID: `64256`\n- Author: urologe\n- Date: 2025-07-06T13:01:56+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nmax. Daumendrück\nund dann viel Freude am Umbau !\nich hatte seinerzeit genau soviel Spaß am Umbau wie jetzt beim Fahren - das wünsche ich Dir .\nLG\nRalf\n\n## Post 34\n\n- Post ID: `64258`\n- Author: Jache\n- Date: 2025-07-06T18:50:46+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nDanke dir\n\n## Post 35\n\n- Post ID: `64261`\n- Author: supi532\n- Date: 2025-07-07T08:09:37+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nIst der lkw denn schon gekauft?\nDas Angebot an A1.1 ist überschaubar und endlich.......\nGruss\nJörg\n\n## Post 36\n\n- Post ID: `64262`\n- Author: Jache\n- Date: 2025-07-08T08:05:02+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nNein, aber reserviert.....\n\n## Post 37\n\n- Post ID: `64263`\n- Author: urologe\n- Date: 2025-07-08T11:44:37+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nreserviert ist nicht gekauft -\nIch würde an Deiner Stelle Wilmaa bitten ,\nDein gepostetes Angebot gegen das blanke Angebot hier im Forum auszutauschen .\nDu selbst kannst den post #42 nicht mehr bearbeiten .\nLG\nRalf\n\n## Post 38\n\n- Post ID: `64264`\n- Author: Jache\n- Date: 2025-07-08T18:38:02+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nDu meinst das Angebot mit Händler und Preisen?\n\n## Post 39\n\n- Post ID: `64265`\n- Author: urologe\n- Date: 2025-07-09T08:26:18+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=6260&start=25\n\n### Original Text\n\nja ,\njede eventuelle Nachfrage bei dem Händler nach Deinem reservierten KAT engt doch\nspäter Deinen Verhandlungsspielraum bzgl. Zusatzarbeiten ein -  ich wäre da völlig eigennützig\n",
+    "plain_text": "TITLE: Kat 1A1.1 6x6\nTHREAD ID: 6260\nSOURCE URL: https://kat-forum.de/viewtopic.php?t=6260\nFORUM: Neuanschaffung\n\n========================================================================\nPOST 1\nPOST ID: 64202\nAUTHOR: Jache\nDATE: 2025-06-24T20:20:41+00:00\n\nHallo,\nIch beabsichtige mir einen Kat 1A1.1 aus dem Jahr 1996 zuzulegen und diesen anschließend mittels einer Leerkabine selbst zu einem Expeditionsmobil auszubauen.\nEin KAT 1 war schon immer mein Traum, nun soll er in Erfüllung gehen.\nIch habe ein Angebot bekommen für Änderungen am Fahrgestell und finaliserung dessen.\nVielleicht kann ja mal jemand von den Profis drüber schauen, ob das so passt oder etwas nicht zusammen passt, bzw. etwas von mir vergessen wurde.\nPreise, Firma, etc. wurde entfernt.\nWürde mich sehr freuen.\nViele Grüße\nJochen\n\n========================================================================\nPOST 2\nPOST ID: 64203\nAUTHOR: KAT MAN\nDATE: 2025-06-25T07:00:21+00:00\n\nScreenshot 2025-06-25 085646.png (2.78 KiB) 24423 mal betrachtet\n\n========================================================================\nPOST 3\nPOST ID: 64204\nAUTHOR: Jache\nDATE: 2025-06-25T07:28:33+00:00\n\nDanke dir\nSorry, das vergesse ich oft - danke fürs reinkopieren.\nMir wurde in dem anderen Forum empfohlen hier mal reinzuschauen - deshalb bin ich jetzt hier.\n\n========================================================================\nPOST 4\nPOST ID: 64207\nAUTHOR: stahlma\nDATE: 2025-06-25T11:27:28+00:00\n\nHi,\n[*] Der A1.1 braucht keinen gelagerten Zwischenrahmen\n[*] Run-flat in den Hutchinsons ist unsinn, weil dann der Reifen bei niedrigen Drücken nicht mehr funktioniert\n[*] Zweizylindriger Luftkompressor ist sinnvoll\n[*] Lichtanlage?\nWas soll der ganze Umbau kosten?\nViele Grüße\nMartin\n\n========================================================================\nPOST 5\nPOST ID: 64208\nAUTHOR: Jache\nDATE: 2025-06-25T11:53:31+00:00\n\nHallo,\nDanke dir.\nDas mit den Run Flat ein guter Punkt. Das kläre ich nochmal.\nKannst du mir erklären wieso ich keinen Zwischenrahmen brauche. Würde der Aufbau dann direkt auf den Hauptrahmen kommen?\nLichtanlage habe ich nicht drinnen, da ich ein H Kennzeichen möchte.\n\n========================================================================\nPOST 6\nPOST ID: 64209\nAUTHOR: stahlma\nDATE: 2025-06-25T12:00:05+00:00\n\nDer A1.1 Rahmen ist sehr verwindungssteif. Je nachdem wie Du die Kabine baust, brauchst du einen Zwischenrahmen, aberr keinen gelagerten.\nLichtanlage ist nicht grundsätzlich H-schädlich, die gab es 1996 auch schon...\n\n========================================================================\nPOST 7\nPOST ID: 64210\nAUTHOR: Jache\nDATE: 2025-06-25T12:04:34+00:00\n\nJa, der Zwischenrahmen soll auch nicht gelagert montiert werden, sondern fest auf dem Hauptrahmen.\nAber hier bin ich mir selbst noch unsicher, ob ich einen benötige oder nicht…\nWegen dem LED Lichtumbau kläre ich dann auch nochmal. Das wäre sehr gut, wenn es H Kennzeichen tauglich wäre.\n\n========================================================================\nPOST 8\nPOST ID: 64213\nAUTHOR: Wolfgang\nDATE: 2025-06-26T11:02:18+00:00\n\nAls was möchtest du den das Fahrzeug zukünftig anmelden wenn du ein H- Kennzeichen haben möchtest?\nWolfgang\n\n========================================================================\nPOST 9\nPOST ID: 64214\nAUTHOR: Jache\nDATE: 2025-06-26T11:28:03+00:00\n\nAm liebsten als Wohnmobil.\n\n========================================================================\nPOST 10\nPOST ID: 64215\nAUTHOR: fun-ski\nDATE: 2025-06-26T14:14:00+00:00\n\nDer Zwischenrahmen ist deswegen obsolet weil du die originale Prische als zwischenrahmen nutzen könntest\nDieser wäre auch perfekt auf das Fahrzeug abgestimmt.\nContainerlocks könnten bei Bedarf eingebaut werden, also eher ein umbau der vorhandenen Pritsche\n\n========================================================================\nPOST 11\nPOST ID: 64216\nAUTHOR: supi532\nDATE: 2025-06-26T19:50:00+00:00\n\nDer .1 hat doch gar keine Pritsche, sind doch ama's.......\nJörg\n\n========================================================================\nPOST 12\nPOST ID: 64217\nAUTHOR: alex30193\nDATE: 2025-06-27T05:35:16+00:00\n\nHallo,\neinen Kat als Wohnmobil mit H wird schwierig, das gab es nie.\nUnser 4x4 hat das H beim Hutschison eintragen verloren dann habe ich Ihn zum Wohnobil umschreiben lassen.\nDer 6x6 hatte die Hutschison schon eingetragen und es hat bis jetzt niemand am H genörgelt.\n\n========================================================================\nPOST 13\nPOST ID: 64218\nAUTHOR: fun-ski\nDATE: 2025-06-27T06:07:21+00:00\n\nDas stimmt so nicht\nMeiner ist so zugelassen\n\n========================================================================\nPOST 14\nPOST ID: 64219\nAUTHOR: fun-ski\nDATE: 2025-06-27T06:08:31+00:00\n\nSorry\nda bin ich bei dem neumodischen Kram wohl nicht ganz so gut Informiert\n\n========================================================================\nPOST 15\nPOST ID: 64221\nAUTHOR: A N D R E A S\nDATE: 2025-06-28T08:10:20+00:00\n\nManche Arbeiten wie Wechsel aller Buchsen werden den Preis ganz schön treiben. Ob das wirklich notwendig ist?!\nAls Rahmenschutz empfehle ich Ovatrol, frag Dirk/fun-ski dazu. Der Vorbereitungsaufwand ist geringer.\n\n========================================================================\nPOST 16\nPOST ID: 64225\nAUTHOR: manny\nDATE: 2025-06-30T09:11:54+00:00\n\nMoin,\ndas wird ein Großer Umfang...\nVon der Instandhaltung her würde ich mir, wie die Vorschreiber schon anmerken, überlegen ob man alles vorsorglich auseinanderreißen muss. Die Fahrzeuge haben immerhin kaum Laufleistung. Klar wenn die Gummis nicht vertrauenerweckend sind und man sich das Leisten kann... -Man muss auch immer bedenken das die Qualität der heutigen Ersatzteile nicht unbedingt besser sein muss als die Teile die man damals nach langem Testen eingesetzt hat.\nKonzeptionell würde ich mir ernsthaft überlegen ob ich so viel Aufwand für einen kaum nutzbaren Notdurchstieg treiben würde, zumal du dann keinen platzsparenden und durchdachten Lagerort für das riesige 16er Rad hast...\nUnd bedenke bei den Faherhausbeladeüberlegungen dass der Kühler sich von oben versorgt und deine Fahrerhauslagerung genau für das Fahrerhaus mit Ersatzrad drei Soldaten mit Gepäck und Bewaffnung gebaut ist, nicht für hunderte KG zusätzliche Dachlast.\nUnd mal schnell ohne größere Vorbereitungen das Fahrerhaus kippen können hat schon auch Vorteile...\nUnd noch ein kleiner Tip eines Jahrelangen KAT 1 Fahrers, lass an dem Fahrzeug so viel Original wie möglich, die Kisten sind schon sehr durchdacht!\nGruß\nund herzlich Wilkommen!\nManny\n\n========================================================================\nPOST 17\nPOST ID: 64229\nAUTHOR: Jache\nDATE: 2025-06-30T18:10:34+00:00\n\nDanke dir.\nReserverad soll nicht aufs Dach, sondern hinten an die Kabine.\nJa, wahrscheinlich müssen die Sachen nicht überholt werden, sondern erst wenn etwas nicht passt. Mein Wunsch in Richtung des Unternehmens war, mir ein Fahrgestell zur Verfügung zu stellen, wo technisch alles 1A ist und nichts mehr gemacht werden muss. Dazu soll das Fahrgestell schwarz sein (Optik)\nVielleicht aber doch erst mal die Postionen 1,6,7,8,9 machen lassen.\nFahrerhaus dämmen kann ich wohl auch selbst und es später einmal neu lackieren würde ich auch hinbekommen bzw. Mit einem Freund, der sich damit auskennt und die entsprechende Halle dazu hat.\nHauptrahmen strahlen und schwarz beschichten kann später auch gemacht werden, sofern er gut ausschaut.\nWie seht ihr das?\n\n========================================================================\nPOST 18\nPOST ID: 64233\nAUTHOR: ALu\nDATE: 2025-07-01T07:24:03+00:00\n\nWas auch nocht interessant wäre: wer soll den Umbau / Service machen? Hat derjenige Erfahrung mit KAT (speziell dem A1.1) und gibt es evtl. Referenzen? Der eine oder andere hier aus dem Forum hat schon bitter Lehrgeld bezahlen müssen\nDu kannst gerne Schreiben, wer das macht / machen soll. Antworten/Kommentare/Empfehlungen können ja per PN geschickt werden.\n\n========================================================================\nPOST 19\nPOST ID: 64234\nAUTHOR: Jache\nDATE: 2025-07-01T09:11:54+00:00\n\nDa habe ich für den Service noch keinen im Auge im Rhein Main Gebiet - aber vielleicht gibt es ja gute Empfehlungen hier im Umkreis...\n\n========================================================================\nPOST 20\nPOST ID: 64241\nAUTHOR: Micha25\nDATE: 2025-07-03T17:53:32+00:00\n\nMoin das ist so nicht ganz richtig aus der PT-Reihe 4 ist einer direkt als Wohnmobil umgerüstet worden! Ich hab das Buch nicht zur Hand, sonst würde ich dir genau die  Seite sagen! Somit sind alle KAT1 4x4 eigentlich Womo- tauglich mit H Kennzeichen. Man sollte auf LED Photovoltaik und Lithiumbaterrien verzichten. Dann hat der Prüfer es leichter beim eintragen\nSonnige Grüße und Viel Erfolg!!!!\n\n========================================================================\nPOST 21\nPOST ID: 64242\nAUTHOR: holland\nDATE: 2025-07-03T18:08:55+00:00\n\nRein interesshalber\nWarum womo Zulassung.?\n\n========================================================================\nPOST 22\nPOST ID: 64243\nAUTHOR: Jache\nDATE: 2025-07-03T19:00:41+00:00\n\nH Zulassung wegen Maut in DE und wegen Innenstädte\nWohnmobilzulassung wegen günstigere Versicherung und in manchen Ländern günstiger in der Maut.\n\n========================================================================\nPOST 23\nPOST ID: 64244\nAUTHOR: Micha25\nDATE: 2025-07-03T20:23:32+00:00\n\nMoin Womo hat auch andere Vorteile!\nPS: ich rate dir vom Durchstieg ab! Der KAT ist dafür nicht gemacht! Du mußt eh da stehen bis der Druck aufgebaut ist!\nMein KAT1 8x8 verriegelt die Kupplung bis 6,1 bar. Und die mußt du erstmal anliegen haben. Dann einmal Bremspedal treten weil du die Feststellbremse löst und im Nu ist die Kupplung wieder verriegelt. Schnell losfahren ist anders !!! Mal abgesehen,  daß der KAt 1 sich eher gemütlich von dannen bewegt.\nKann beim KAT1. A1 anders sein !\n\n========================================================================\nPOST 24\nPOST ID: 64246\nAUTHOR: stahlma\nDATE: 2025-07-04T09:27:35+00:00\n\nAlso wenn man irgendwo hinfährt, wo man glaubt einen Durchstieg zu brauchen um schnell weg zu kommen, dann muss natürlich die Luftanlage dicht sein.... Ist auch machbar...\n\n========================================================================\nPOST 25\nPOST ID: 64247\nAUTHOR: urologe\nDATE: 2025-07-04T11:06:43+00:00\n\nverstehe ich nicht .\nwenn Du einen Durchstieg hättest , würdest Du sicher gaaanz anders schreiben ...\n1. ich liebe den Durchstieg , weil er bei jeder Fahrt mehrfach benutzt wird ,\nmeistens weil man hört , daß eine Schublade nicht verriegelt wurde und in jeder Kehre lautstark auf- und zufährt .\nDie Mitfahrer können während der Fahrt an den Kühlschrank oder WC\nDie Mitfahrer können hinten angeschnallt mitfahren (TÜV-Abnahme vorausgesetzt)\nDer Hund kann zwischendurch einmal nach hinten zum Wasser saufen\nIm Stand dient die Lkw-Standheizung als Redundanz - funktioniert bei mir bis minus 10 Grad Außentemperatur\n2. ich könnte den KAT über die Windensteuerung von der Kabine aus starten ,\nbis ich durch den Durchgang gekrochen bin , ist der notwendige Druck bereits aufgebaut -\nvorausgesetzt man pflegt das Druckluftsystem .\n3. Bei wirklich leiblicher Gefahr will ich mit dem KAT kein Rennen veranstalten , sondern allenfalls durch\nmechanische Stärke und offroad-Fähigkeit die Situation retten -\naber darum geht es doch nicht wirklich , oder ?\nin einer nächtlichen Situation , wo das Eichörnchen oder doch das Wildschwein um das Fahrzeug herumstreicht ,\nwill ich doch nicht aussteigen und nachsehen , ob nicht doch Alkoholisierte eine Bedrohung darstellen könnten .\nDann krabbel ich nach vorne , bringe den Ganghebel mit einem Handschlag in Neutral , drücke den Startknopf und\nfahre geordnet los . Das einzige , was ich wirklich aus Vorsicht in fremden Wäldern , etc. nachts mache ist ,\nden KAT in eine optimale Vorwärtsrichtung zu parken , die mir etwas Bewegungsfreiheit läßt .\nDie wahre Kombi ist natürlich : Durchgang und urologes airstair , die es in  j e d e r  Schräglage ermöglicht im\nDunkeln ein- und auszusteigen , wo sonst nur ein Absprung aus 1,5m ins Dunkle möglich ist\n\n========================================================================\nPOST 26\nPOST ID: 64248\nAUTHOR: ALu\nDATE: 2025-07-04T11:56:26+00:00\n\nWährend der Fahrt an den Kühlschrank: verstehe ich. Während der Fahrt auf´s WC: ich denke, alleine dafür sollte man auf den Durchstieg verzichten\n\n========================================================================\nPOST 27\nPOST ID: 64249\nAUTHOR: urologe\nDATE: 2025-07-04T12:11:47+00:00\n\nist doch kein Plumpsklo wie früher bei der Bahn ...\n\n========================================================================\nPOST 28\nPOST ID: 64250\nAUTHOR: ALu\nDATE: 2025-07-04T12:14:41+00:00\n\nIch bin einmal hinter dir her gefahren und habe miterlebt, wie du durch Kreisverkehre bretterst. Da möchte niemand auf dem Klo sitzen\n\n========================================================================\nPOST 29\nPOST ID: 64251\nAUTHOR: urologe\nDATE: 2025-07-04T12:35:56+00:00\n\nich wüßte jetzt nicht , wie man das Problem lösen könnte -\ndie Dusche hat Fußbodenheizung , da kann ich keinen Sicherheitsgurt nachrüsten .\n\n========================================================================\nPOST 30\nPOST ID: 64253\nAUTHOR: urologe\nDATE: 2025-07-04T15:06:07+00:00\n\ngrundsätzlich ist es sicher sinnvoll , erstmal die größeren Bw-Standorte mit laufenden KATs in der näheren Umgebung zu eruieren und dann die betreuende MAN-Niederlassung zu eruieren .\nAber viel wichtiger ist doch erst einmal die Entscheidung ,\nob das gewaltige Umbauvorhaben sinnvoll ist und dann den oder einen passenden anderen KAT zu kaufen .\nDie laufende Serviceproblematik kommt doch frühestens 2027 zum Tragen , oder ?\nGruß\nRalf\n\n========================================================================\nPOST 31\nPOST ID: 64254\nAUTHOR: Jache\nDATE: 2025-07-04T20:03:22+00:00\n\nDa hast du Recht!\nnein es wird der obige werden, aber nicht mit allen Positionen.\nMöchte nur erst mein anderes Auto verkaufen\n\n========================================================================\nPOST 32\nPOST ID: 64255\nAUTHOR: holland\nDATE: 2025-07-06T10:33:32+00:00\n\nGut habe ich nicht verstanden\n\n========================================================================\nPOST 33\nPOST ID: 64256\nAUTHOR: urologe\nDATE: 2025-07-06T13:01:56+00:00\n\nmax. Daumendrück\nund dann viel Freude am Umbau !\nich hatte seinerzeit genau soviel Spaß am Umbau wie jetzt beim Fahren - das wünsche ich Dir .\nLG\nRalf\n\n========================================================================\nPOST 34\nPOST ID: 64258\nAUTHOR: Jache\nDATE: 2025-07-06T18:50:46+00:00\n\nDanke dir\n\n========================================================================\nPOST 35\nPOST ID: 64261\nAUTHOR: supi532\nDATE: 2025-07-07T08:09:37+00:00\n\nIst der lkw denn schon gekauft?\nDas Angebot an A1.1 ist überschaubar und endlich.......\nGruss\nJörg\n\n========================================================================\nPOST 36\nPOST ID: 64262\nAUTHOR: Jache\nDATE: 2025-07-08T08:05:02+00:00\n\nNein, aber reserviert.....\n\n========================================================================\nPOST 37\nPOST ID: 64263\nAUTHOR: urologe\nDATE: 2025-07-08T11:44:37+00:00\n\nreserviert ist nicht gekauft -\nIch würde an Deiner Stelle Wilmaa bitten ,\nDein gepostetes Angebot gegen das blanke Angebot hier im Forum auszutauschen .\nDu selbst kannst den post #42 nicht mehr bearbeiten .\nLG\nRalf\n\n========================================================================\nPOST 38\nPOST ID: 64264\nAUTHOR: Jache\nDATE: 2025-07-08T18:38:02+00:00\n\nDu meinst das Angebot mit Händler und Preisen?\n\n========================================================================\nPOST 39\nPOST ID: 64265\nAUTHOR: urologe\nDATE: 2025-07-09T08:26:18+00:00\n\nja ,\njede eventuelle Nachfrage bei dem Händler nach Deinem reservierten KAT engt doch\nspäter Deinen Verhandlungsspielraum bzgl. Zusatzarbeiten ein -  ich wäre da völlig eigennützig\n"
+  }
 }

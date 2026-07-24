@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "thread_id": 221,
+    "title": "http://www.trialsports.de/",
+    "source_url": "https://kat-forum.de/viewtopic.php?t=221",
+    "forum_name": "Werkstätten mit KAT-Kenntnissen",
+    "forum_url": "https://kat-forum.de/viewforum.php?f=7",
+    "page_starts": [
+      0
+    ],
+    "page_count": 1,
+    "post_count": 1,
+    "attachment_count": 0,
+    "source_language": "de",
+    "processing_stage": "raw_extraction",
+    "raw_directory": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_221",
+    "source_json_path": "E:\\Scraping\\test\\technical-rag-pipeline\\data\\raw\\thread_221\\thread.json"
+  },
+  "posts": [
+    {
+      "post_id": "1677",
+      "author": "egn",
+      "date_raw": "2012-09-28T12:32:57+00:00",
+      "text": "TRIALSPORTS - extreme offroad\nWGS84 N49°00.638' E012°07.346'\nInh. Holger Thome\nGuericke Str. 41\n93053 Regensburg\nTelefon: 0941-80370\nTelefax: 0941-80032\npost@trialsports.de\nhttp://www.trialsports.de/",
+      "attachments": [],
+      "source_page_url": "https://kat-forum.de/viewtopic.php?t=221&start=0",
+      "date": "2012-09-28T12:32:57+00:00",
+      "body": "TRIALSPORTS - extreme offroad\nWGS84 N49°00.638' E012°07.346'\nInh. Holger Thome\nGuericke Str. 41\n93053 Regensburg\nTelefon: 0941-80370\nTelefax: 0941-80032\npost@trialsports.de\nhttp://www.trialsports.de/"
+    }
+  ],
+  "raw_sources": {
+    "markdown": "---\nthread_id: 221\ntitle: \"http://www.trialsports.de/\"\nsource_url: https://kat-forum.de/viewtopic.php?t=221\nforum_name: \"Werkstätten mit KAT-Kenntnissen\"\nforum_url: https://kat-forum.de/viewforum.php?f=7\nsource_language: \"de\"\nprocessing_stage: \"raw_extraction\"\npost_count: 1\nattachment_count: 0\narchival: true\n---\n\n# http://www.trialsports.de/\n\n## Post 1\n\n- Post ID: `1677`\n- Author: egn\n- Date: 2012-09-28T12:32:57+00:00\n- Source page: https://kat-forum.de/viewtopic.php?t=221&start=0\n\n### Original Text\n\nTRIALSPORTS - extreme offroad\nWGS84 N49°00.638' E012°07.346'\nInh. Holger Thome\nGuericke Str. 41\n93053 Regensburg\nTelefon: 0941-80370\nTelefax: 0941-80032\npost@trialsports.de\nhttp://www.trialsports.de/\n",
+    "plain_text": "TITLE: http://www.trialsports.de/\nTHREAD ID: 221\nSOURCE URL: https://kat-forum.de/viewtopic.php?t=221\nFORUM: Werkstätten mit KAT-Kenntnissen\n\n========================================================================\nPOST 1\nPOST ID: 1677\nAUTHOR: egn\nDATE: 2012-09-28T12:32:57+00:00\n\nTRIALSPORTS - extreme offroad\nWGS84 N49°00.638' E012°07.346'\nInh. Holger Thome\nGuericke Str. 41\n93053 Regensburg\nTelefon: 0941-80370\nTelefax: 0941-80032\npost@trialsports.de\nhttp://www.trialsports.de/\n"
+  }
+}
