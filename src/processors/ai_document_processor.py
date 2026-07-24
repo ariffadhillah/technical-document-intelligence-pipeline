@@ -23,7 +23,7 @@ from src.schemas.document_intelligence import (
 )
 
 
-AI_PROCESSING_VERSION = "1.1.0"
+AI_PROCESSING_VERSION = "1.1.1"
 
 
 @dataclass
@@ -64,15 +64,17 @@ class AIDocumentProcessor:
             exist_ok=True,
         )
 
+
     def _sanitize_ai_result(
         self,
         result: DocumentIntelligenceResult,
     ) -> DocumentIntelligenceResult:
         """
-        Remove invalid or no-op OCR correction records.
+        Remove invalid, duplicate, or no-op OCR corrections.
         """
 
         valid_corrections = []
+        seen_corrections: set[tuple[str, str]] = set()
 
         for correction in result.ocr_corrections:
             original = correction.original.strip()
@@ -81,9 +83,16 @@ class AIDocumentProcessor:
             if original.casefold() == corrected.casefold():
                 continue
 
-            valid_corrections.append(
-                correction
+            correction_key = (
+                original.casefold(),
+                corrected.casefold(),
             )
+
+            if correction_key in seen_corrections:
+                continue
+
+            seen_corrections.add(correction_key)
+            valid_corrections.append(correction)
 
         result.ocr_corrections = valid_corrections
 

@@ -2,7 +2,6 @@ from pydantic import (
     BaseModel,
     Field,
     field_validator,
-    model_validator,
 )
 
 class TechnicalEntities(BaseModel):
@@ -92,27 +91,6 @@ class OCRCorrection(BaseModel):
     """
     One traceable OCR correction.
     """
-
-
-    @model_validator(mode="after")
-    def validate_actual_correction(
-        self,
-    ) -> "OCRCorrection":
-        """
-        Ensure the corrected value genuinely differs
-        from the OCR source value.
-        """
-
-        if (
-            self.original.strip().casefold()
-            == self.corrected.strip().casefold()
-        ):
-            raise ValueError(
-                "Corrected text must differ from "
-                "the original OCR text."
-            )
-
-        return self
 
 
     original: str = Field(
