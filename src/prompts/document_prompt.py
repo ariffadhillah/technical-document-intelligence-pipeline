@@ -51,6 +51,17 @@ OCR TEXT RESTORATION RULES
 - Do not rewrite valid source wording merely to improve fluency.
 - OCR correction is restoration, not editorial rewriting.
 
+CONSERVATIVE RESTORATION POLICY
+
+- Prefer leaving uncertain OCR text unchanged rather than guessing.
+- Never invent a plausible technical word simply because it fits
+  the context.
+- Only correct text when the OCR error is visually obvious.
+- If multiple restorations are plausible, preserve the original text
+  and record the uncertainty in warnings.
+- Restoration confidence should reflect visual certainty, not
+  contextual likelihood.
+
 OCR CORRECTION RECORD RULES
 
 - Store genuine OCR recognition errors in ocr_corrections.
@@ -76,6 +87,8 @@ TRANSLATION RULES
 - Prefer established automotive and mechanical terminology.
 - Do not introduce actions, materials, or processes that are not
   explicitly stated in corrected_text_de.
+- Prefer literal technical wording over natural-sounding paraphrases.
+- Preserve unresolved source ambiguity in the translation.
 
 ENTITY EXTRACTION RULES
 
@@ -84,6 +97,8 @@ ENTITY EXTRACTION RULES
 - For German thousands separators such as 12.000 kg, interpret the
   value as 12000 kg when context clearly indicates kilograms.
 - Deduplicate manufacturer and component lists.
+- Do not infer the vehicle model from surrounding forum context unless
+  it is explicitly present in the OCR document.
 """.strip()
 
 
@@ -95,7 +110,15 @@ def build_document_prompt(
     Build the user prompt for one OCR attachment.
     """
 
-    if not raw_ocr_text.strip():
+    cleaned_filename = filename.strip()
+    cleaned_ocr_text = raw_ocr_text.strip()
+
+    if not cleaned_filename:
+        raise ValueError(
+            "filename cannot be empty."
+        )
+
+    if not cleaned_ocr_text:
         raise ValueError(
             "raw_ocr_text cannot be empty."
         )
@@ -104,17 +127,18 @@ def build_document_prompt(
 PROCESS THE FOLLOWING OCR DOCUMENT
 
 Filename:
-{filename}
+{cleaned_filename}
 
 Source language hint:
 German
 
 Raw OCR text:
 --- BEGIN OCR TEXT ---
-{raw_ocr_text}
+{cleaned_ocr_text}
 --- END OCR TEXT ---
 
 Return the corrected German document, faithful English translation,
-English title and summary, technical entities, searchable keywords,
-structured OCR correction records, and warnings.
+English title and summary, explicitly supported technical entities,
+searchable keywords, genuine structured OCR correction records,
+and warnings for unresolved ambiguities.
 """.strip()
