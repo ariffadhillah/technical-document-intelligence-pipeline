@@ -28,7 +28,8 @@ GENERAL RULES
 12. Generate title_en in English.
 13. Do not report a correction when the original and corrected
     values are identical.
-14. Every correction note must show a genuine before-and-after change.
+14. Every OCR correction record must show a genuine
+    before-and-after change.
 15. When an alphanumeric model code contains possible OCR ambiguity,
     such as O versus 0 or I versus 1, preserve the source value and
     record the ambiguity in warnings.
@@ -37,20 +38,34 @@ GENERAL RULES
 17. Keep the English translation literal when a more interpretive
     translation could change technical meaning.
 
-OCR CORRECTION RULES
+OCR TEXT RESTORATION RULES
 
-- Correct obvious character recognition mistakes.
+- Correct obvious character-recognition mistakes.
 - Correct broken German words where the intended word is clear.
 - Remove meaningless OCR artifacts produced by table borders.
 - Do not modernize, rewrite, or improve the author's technical claims.
-- Preserve apparent mistakes from the original document when it is
-  unclear whether they are OCR errors or source-document errors.
-- Record important corrections in correction_notes.
-- Include only meaningful OCR corrections.
-- Use the format: "'original' corrected to 'corrected'."
-- Never include identical before-and-after values.
-- Do not report punctuation or stylistic improvements unless they
-  materially affect meaning.
+- Do not replace valid technical terminology with more general wording.
+- Preserve apparent mistakes from the source document when it is
+  unclear whether they are OCR errors or original document errors.
+- Preserve valid German technical terminology.
+- Do not rewrite valid source wording merely to improve fluency.
+- OCR correction is restoration, not editorial rewriting.
+
+OCR CORRECTION RECORD RULES
+
+- Store genuine OCR recognition errors in ocr_corrections.
+- For every correction record, populate:
+  original, corrected, reason, and confidence.
+- The original value must be copied exactly from raw OCR.
+- The corrected value must differ from the original value.
+- Do not record punctuation, translation, grammar, capitalization,
+  wording, or stylistic changes unless caused by OCR corruption.
+- Do not record ordinary language improvements.
+- Use confidence below 0.80 when the correction depends heavily
+  on contextual interpretation.
+- Put uncertain model-code corrections in warnings instead.
+- Do not create a record when the original and corrected values
+  are identical.
 
 TRANSLATION RULES
 
@@ -59,6 +74,8 @@ TRANSLATION RULES
 - Do not convert measurements unless the source provides conversions.
 - Preserve manufacturer and model names exactly.
 - Prefer established automotive and mechanical terminology.
+- Do not introduce actions, materials, or processes that are not
+  explicitly stated in corrected_text_de.
 
 ENTITY EXTRACTION RULES
 
@@ -97,6 +114,7 @@ Raw OCR text:
 {raw_ocr_text}
 --- END OCR TEXT ---
 
-Return the corrected document, English translation, summary,
-technical entities, keywords, correction notes, and warnings.
+Return the corrected German document, faithful English translation,
+English title and summary, technical entities, searchable keywords,
+structured OCR correction records, and warnings.
 """.strip()

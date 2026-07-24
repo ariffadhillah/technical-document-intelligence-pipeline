@@ -1,5 +1,9 @@
-from pydantic import BaseModel, Field
-
+from pydantic import (
+    BaseModel,
+    Field,
+    field_validator,
+    model_validator,
+)
 
 class TechnicalEntities(BaseModel):
     """
@@ -84,6 +88,80 @@ class TechnicalEntities(BaseModel):
     )
 
 
+class OCRCorrection(BaseModel):
+    """
+    One traceable OCR correction.
+    """
+
+
+    @model_validator(mode="after")
+    def validate_actual_correction(
+        self,
+    ) -> "OCRCorrection":
+        """
+        Ensure the corrected value genuinely differs
+        from the OCR source value.
+        """
+
+        if (
+            self.original.strip().casefold()
+            == self.corrected.strip().casefold()
+        ):
+            raise ValueError(
+                "Corrected text must differ from "
+                "the original OCR text."
+            )
+
+        return self
+
+
+    original: str = Field(
+        description=(
+            "The exact erroneous text found in raw OCR."
+        ),
+    )
+
+    corrected: str = Field(
+        description=(
+            "The corrected text supported by document context."
+        ),
+    )
+
+    reason: str = Field(
+        description=(
+            "A concise explanation of why this is considered "
+            "an OCR correction."
+        ),
+    )
+
+    confidence: float = Field(
+        ge=0.0,
+        le=1.0,
+        description=(
+            "Confidence that this is a genuine OCR error."
+        ),
+    )
+
+    @field_validator(
+        "original",
+        "corrected",
+        "reason",
+    )
+    @classmethod
+    def validate_non_empty_text(
+        cls,
+        value: str,
+    ) -> str:
+        cleaned_value = value.strip()
+
+        if not cleaned_value:
+            raise ValueError(
+                "Correction fields cannot be empty."
+            )
+
+        return cleaned_value
+
+
 class DocumentIntelligenceResult(BaseModel):
     """
     Validated AI output for one OCR document.
@@ -135,11 +213,11 @@ class DocumentIntelligenceResult(BaseModel):
         ),
     )
 
-    correction_notes: list[str] = Field(
+    ocr_corrections: list[OCRCorrection] = Field(
         default_factory=list,
         description=(
-            "Important OCR corrections made with reasonable "
-            "confidence. Do not list stylistic changes."
+            "Traceable corrections of genuine OCR recognition "
+            "errors only."
         ),
     )
 

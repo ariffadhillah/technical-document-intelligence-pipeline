@@ -176,9 +176,10 @@ def main() -> None:
         f"{result.technical_entities.engine}"
     )
     print(
-        f"Correction notes    : "
-        f"{len(result.correction_notes)}"
+        f"OCR corrections     : "
+        f"{len(result.ocr_corrections)}"
     )
+
     print(
         f"Warnings            : "
         f"{len(result.warnings)}"
@@ -189,3 +190,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+

@@ -23,7 +23,7 @@ from src.schemas.document_intelligence import (
 )
 
 
-AI_PROCESSING_VERSION = "1.0.0"
+AI_PROCESSING_VERSION = "1.1.0"
 
 
 @dataclass
@@ -63,6 +63,32 @@ class AIDocumentProcessor:
             parents=True,
             exist_ok=True,
         )
+
+    def _sanitize_ai_result(
+        self,
+        result: DocumentIntelligenceResult,
+    ) -> DocumentIntelligenceResult:
+        """
+        Remove invalid or no-op OCR correction records.
+        """
+
+        valid_corrections = []
+
+        for correction in result.ocr_corrections:
+            original = correction.original.strip()
+            corrected = correction.corrected.strip()
+
+            if original.casefold() == corrected.casefold():
+                continue
+
+            valid_corrections.append(
+                correction
+            )
+
+        result.ocr_corrections = valid_corrections
+
+        return result
+
 
     def process_thread(
         self,
@@ -175,6 +201,7 @@ class AIDocumentProcessor:
 
         parsed_result = (
             self.provider.generate_structured(
+                result=parsed_result,
                 system_prompt=SYSTEM_PROMPT,
                 user_prompt=user_prompt,
                 response_schema=(
