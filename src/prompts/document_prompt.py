@@ -25,6 +25,17 @@ GENERAL RULES
 9. Write summaries, keywords, and translations in English.
 10. Keep corrected_text_de in German.
 11. Do not add commentary outside the requested structured output.
+12. Generate title_en in English.
+13. Do not report a correction when the original and corrected
+    values are identical.
+14. Every correction note must show a genuine before-and-after change.
+15. When an alphanumeric model code contains possible OCR ambiguity,
+    such as O versus 0 or I versus 1, preserve the source value and
+    record the ambiguity in warnings.
+16. Do not add technical actions or processes that are not explicitly
+    stated in the source text.
+17. Keep the English translation literal when a more interpretive
+    translation could change technical meaning.
 
 OCR CORRECTION RULES
 
@@ -35,6 +46,11 @@ OCR CORRECTION RULES
 - Preserve apparent mistakes from the original document when it is
   unclear whether they are OCR errors or source-document errors.
 - Record important corrections in correction_notes.
+- Include only meaningful OCR corrections.
+- Use the format: "'original' corrected to 'corrected'."
+- Never include identical before-and-after values.
+- Do not report punctuation or stylistic improvements unless they
+  materially affect meaning.
 
 TRANSLATION RULES
 

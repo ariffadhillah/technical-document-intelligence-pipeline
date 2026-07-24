@@ -100,10 +100,10 @@ class DocumentIntelligenceResult(BaseModel):
         description="Original language of the document.",
     )
 
-    title: str = Field(
+    title_en: str = Field(
         description=(
-            "A concise descriptive title generated from "
-            "the document contents."
+            "A concise descriptive English title generated "
+            "from the document contents."
         ),
     )
 
