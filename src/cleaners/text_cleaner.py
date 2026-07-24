@@ -71,13 +71,12 @@ def clean_text(text: str) -> str:
 
     return cleaned_text.strip()
 
-
 def clean_post(post: dict) -> dict:
     """
-    Clean one post while preserving the original downloader fields.
+    Membersihkan teks post dan mempertahankan seluruh field asli.
 
-    The new raw dataset uses `text`, while the legacy pipeline used
-    `body`. Both fields are maintained for backward compatibility.
+    Dataset baru menggunakan `text`, sedangkan pipeline lama menggunakan
+    `body`. Keduanya dipertahankan agar backward-compatible.
     """
     cleaned_post = post.copy()
 
@@ -97,18 +96,19 @@ def clean_post(post: dict) -> dict:
 
 def clean_thread(thread_data: dict) -> dict:
     """
-    Membersihkan seluruh post dalam satu thread.
+    Membersihkan seluruh post tanpa membuang raw_sources atau field
+    tingkat thread lainnya.
     """
+    cleaned_thread_data = thread_data.copy()
 
-    cleaned_posts = [
+    cleaned_thread_data["metadata"] = (
+        thread_data.get("metadata", {}).copy()
+    )
+
+    cleaned_thread_data["posts"] = [
         clean_post(post)
         for post in thread_data.get("posts", [])
     ]
-
-    cleaned_thread_data = {
-        "metadata": thread_data.get("metadata", {}).copy(),
-        "posts": cleaned_posts,
-    }
 
     cleaned_thread_data["metadata"]["processing_status"] = "cleaned"
 
