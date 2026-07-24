@@ -8,7 +8,7 @@ PARSER_DIR = PROJECT_ROOT / "src" / "parsers"
 
 sys.path.append(str(PARSER_DIR))
 
-from thread_parser import parse_thread
+from src.parsers.thread_parser import parse_thread
 
 
 def validate_attachments(

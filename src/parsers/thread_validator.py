@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from thread_parser import parse_thread
+from src.parsers.thread_parser import parse_thread
 
 
 REQUIRED_METADATA_FIELDS = [
