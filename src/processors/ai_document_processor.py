@@ -201,7 +201,6 @@ class AIDocumentProcessor:
 
         parsed_result = (
             self.provider.generate_structured(
-                result=parsed_result,
                 system_prompt=SYSTEM_PROMPT,
                 user_prompt=user_prompt,
                 response_schema=(
@@ -210,11 +209,15 @@ class AIDocumentProcessor:
             )
         )
 
+        parsed_result = self._sanitize_ai_result(
+            result=parsed_result,
+        )
+
         result_payload = self._build_success_result(
             filename=filename,
             input_hash=input_hash,
             parsed_result=parsed_result,
-        )
+        )        
 
         self._save_json(
             file_path=cache_path,
