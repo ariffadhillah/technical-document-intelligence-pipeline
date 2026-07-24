@@ -12,6 +12,9 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 
+from src.aggregators.content_aggregator import (
+    ContentAggregator,
+)
 from src.attachments.attachment_processor import (
     AttachmentProcessor,
 )
@@ -24,6 +27,8 @@ PROCESSED_DIRECTORY = PROJECT_ROOT / "data" / "processed"
 
 CLEANED_DIRECTORY = PROJECT_ROOT / "output" / "cleaned"
 MERGED_DIRECTORY = PROJECT_ROOT / "output" / "merged"
+AGGREGATED_DIRECTORY = PROJECT_ROOT / "output" / "aggregated"
+
 OCR_DIRECTORY = PROJECT_ROOT / "output" / "attachments" / "ocr"
 PDF_DIRECTORY = PROJECT_ROOT / "output" / "attachments" / "pdf"
 REPORT_DIRECTORY = PROJECT_ROOT / "output" / "reports"
@@ -59,6 +64,7 @@ def process_thread(
     position: int,
     total: int,
     attachment_processor: AttachmentProcessor,
+    content_aggregator: ContentAggregator,
 ) -> dict[str, Any]:
     metadata = thread_data.get("metadata", {})
 
@@ -130,7 +136,38 @@ def process_thread(
         f"failed={attachment_stats.failed})"
     )
 
-    print(f"    Output      : {merged_output_path}")
+    aggregated_document = content_aggregator.aggregate(
+        thread_data=enriched_thread,
+    )
+
+    aggregated_output_path = (
+        AGGREGATED_DIRECTORY
+        / f"thread_{thread_id}_aggregated.json"
+    )
+
+    save_json(
+        payload=aggregated_document,
+        output_path=aggregated_output_path,
+    )
+
+    aggregation_statistics = (
+        aggregated_document.get("statistics", {})
+    )
+
+    print(
+        "    [OK] Content aggregated "
+        f"(forum_chars="
+        f"{aggregation_statistics.get('forum_character_count', 0)}, "
+        f"ocr_chars="
+        f"{aggregation_statistics.get('ocr_character_count', 0)}, "
+        f"pdf_chars="
+        f"{aggregation_statistics.get('pdf_character_count', 0)}, "
+        f"total_chars="
+        f"{aggregation_statistics.get('combined_character_count', 0)})"
+    )
+
+    print(f"    Merged      : {merged_output_path}")
+    print(f"    Aggregated  : {aggregated_output_path}")
 
     return {
         "thread_id": thread_id,
@@ -140,9 +177,20 @@ def process_thread(
         "attachment_processing": (
             attachment_stats.to_dict()
         ),
+        "aggregation_statistics": (
+            aggregation_statistics
+        ),
         "parsed_output": str(parsed_output_path),
         "cleaned_output": str(cleaned_output_path),
         "merged_output": str(merged_output_path),
+        "aggregated_output": str(
+            aggregated_output_path
+        ),
+        "ready_for_ai": (
+            aggregated_document
+            .get("processing", {})
+            .get("ready_for_ai", False)
+        ),
         "status": (
             "success"
             if attachment_stats.failed == 0
@@ -173,6 +221,8 @@ def main() -> int:
         pdf_output_directory=PDF_DIRECTORY,
     )
 
+    content_aggregator = ContentAggregator()
+
     results: list[dict[str, Any]] = []
     failures: list[dict[str, str]] = []
 
@@ -186,6 +236,7 @@ def main() -> int:
                 position=position,
                 total=len(threads),
                 attachment_processor=attachment_processor,
+                content_aggregator=content_aggregator,
             )
 
             results.append(result)
@@ -211,11 +262,16 @@ def main() -> int:
 
     manifest = {
         "pipeline_stage": (
-            "load_clean_and_attachment_extraction"
+            "load_clean_attachment_extract_and_aggregate"
         ),
         "thread_count": len(threads),
         "successful": len(results),
         "failed": len(failures),
+        "ai_ready_documents": sum(
+            1
+            for result in results
+            if result.get("ready_for_ai")
+        ),
         "threads": results,
         "failures": failures,
     }
@@ -237,6 +293,10 @@ def main() -> int:
     print(f"Threads discovered : {len(threads)}")
     print(f"Successful         : {len(results)}")
     print(f"Failed             : {len(failures)}")
+    print(
+        "AI-ready documents : "
+        f"{manifest['ai_ready_documents']}"
+    )
     print(f"Manifest           : {manifest_path}")
 
     if failures:
