@@ -450,7 +450,7 @@ def main() -> int:
     elif arguments.provider == "openai":
         selected_model = (
             os.getenv("OPENAI_MODEL")
-            or "gpt-5.6-luna"
+            or "gpt-4.1-mini"
         )
 
     else:
@@ -537,6 +537,7 @@ def main() -> int:
 
             results.append(result)
 
+
         except Exception as error:
             thread_id = (
                 thread_data
@@ -548,6 +549,15 @@ def main() -> int:
                 f"    [FAILED] thread_{thread_id}: "
                 f"{error}"
             )
+
+            details = getattr(error, "details", None)
+
+            if details:
+                print(
+                    "    Error details: "
+                    f"{json.dumps(details, ensure_ascii=False)}"
+                )
+
 
             failures.append(
                 {

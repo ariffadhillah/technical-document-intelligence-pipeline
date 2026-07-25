@@ -44,7 +44,7 @@ class OpenAIProvider(BaseProvider):
     """
 
     DEFAULT_PROVIDER_NAME = "openai"
-    DEFAULT_MODEL = "gpt-5.6-luna"
+    DEFAULT_MODEL = "gpt-4.1-mini"
 
     def __init__(
         self,
@@ -214,7 +214,7 @@ class OpenAIProvider(BaseProvider):
             )
 
         if request.response_format in {
-            "json",
+            "json_object",
             "json_schema",
         }:
             try:
@@ -304,7 +304,7 @@ class OpenAIProvider(BaseProvider):
         if request.response_format == "text":
             return None
 
-        if request.response_format == "json":
+        if request.response_format == "json_object":
             return {
                 "format": {
                     "type": "json_object",

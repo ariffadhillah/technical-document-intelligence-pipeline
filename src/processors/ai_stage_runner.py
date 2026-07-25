@@ -284,9 +284,7 @@ class TechnicalAIStageRunner:
         *,
         prompt: Any,
     ) -> ProviderRequest:
-        json_schema = (
-            StructuredTechnicalDocument.model_json_schema()
-        )
+
 
         return ProviderRequest(
             messages=(
@@ -303,14 +301,12 @@ class TechnicalAIStageRunner:
             temperature=self.temperature,
             max_output_tokens=self.max_output_tokens,
             timeout_seconds=self.timeout_seconds,
-            response_format="json_schema",
-            json_schema=json_schema,
+            response_format="json_object",
+            json_schema=None,
             metadata={
                 "document_id": prompt.document_id,
                 "prompt_name": prompt.prompt_name,
-                "prompt_version": (
-                    prompt.prompt_version
-                ),
+                "prompt_version": prompt.prompt_version,
                 "system_prompt_sha256": (
                     prompt.system_prompt_sha256
                 ),
