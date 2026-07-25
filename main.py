@@ -506,7 +506,7 @@ def main() -> int:
         )
 
         print(
-            f"AI model     : {selected_model.model}"
+            f"AI model     : {selected_model}"
         )
 
         if arguments.ai_thread_id:
