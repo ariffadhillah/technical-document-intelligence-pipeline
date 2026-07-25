@@ -66,14 +66,50 @@ class TechnicalPromptBuilder:
 
         self.templates_directory = (
             templates_directory
-            or project_root / "src" / "prompts" / "templates"
+            or project_root
+            / "src"
+            / "prompts"
+            / "templates"
         )
 
-        self.max_content_characters = max_content_characters
+        self.max_content_characters = (
+            max_content_characters
+        )
 
-        self.system_template_path = (
-            self.templates_directory
-            / "technical_extraction_system_v2.md"
+        self.system_modules_directory = (
+            self.templates_directory / "modules"
+        )
+
+        self.system_module_paths: tuple[
+            Path,
+            ...,
+        ] = (
+            self.system_modules_directory
+            / "01_core_rules.md",
+
+            self.system_modules_directory
+            / "02_document_intelligence.md",
+
+            self.system_modules_directory
+            / "03_organization_intelligence.md",
+
+            self.system_modules_directory
+            / "04_vehicle_component_intelligence.md",
+
+            self.system_modules_directory
+            / "05_specification_intelligence.md",
+
+            self.system_modules_directory
+            / "06_maintenance_diagnostic_intelligence.md",
+
+            self.system_modules_directory
+            / "07_reference_intelligence.md",
+
+            self.system_modules_directory
+            / "08_evidence_translation_quality.md",
+
+            self.system_modules_directory
+            / "09_output_contract.md",
         )
 
         self.user_template_path = (
@@ -129,9 +165,7 @@ class TechnicalPromptBuilder:
                 : self.max_content_characters
             ]
 
-        system_template = self._load_template(
-            self.system_template_path
-        )
+        system_template = self._load_system_modules()
 
         user_template = self._load_template(
             self.user_template_path
@@ -355,6 +389,43 @@ class TechnicalPromptBuilder:
         cleaned_value = value.strip()
 
         return cleaned_value or default
+
+
+    def _load_system_modules(self) -> str:
+        """
+        Loads all system prompt modules in a fixed,
+        deterministic order.
+
+        The module order is defined by
+        self.system_module_paths so prompt hashing remains
+        reproducible across runs.
+        """
+
+        if not self.system_module_paths:
+            raise PromptBuilderError(
+                "No system prompt modules were configured."
+            )
+
+        module_contents: list[str] = []
+
+        for module_path in self.system_module_paths:
+            module_content = self._load_template(
+                module_path
+            ).strip()
+
+            module_contents.append(module_content)
+
+        combined_prompt = "\n\n".join(
+            module_contents
+        ).strip()
+
+        if not combined_prompt:
+            raise PromptBuilderError(
+                "Combined system prompt is empty."
+            )
+
+        return combined_prompt
+
 
     @staticmethod
     def _load_template(
