@@ -398,93 +398,13 @@ class OrganizationProfile(StrictBaseModel):
         return result
 
     
-class SupplierDetail(StrictBaseModel):
-    """
-    Supplier, manufacturer, workshop, fabricator, dealer,
-    or technical service organization explicitly mentioned
-    in the source document.
-    """
-
-    organization: str = Field(min_length=1)
-    supplier_type: Literal[
-        "manufacturer",
-        "supplier",
-        "fabricator",
-        "workshop",
-        "dealer",
-        "service_center",
-        "distributor",
-        "unknown",
-    ] = "unknown"
-
-    products_or_services: list[str] = Field(
-        default_factory=list
-    )
-
-    person_name: str | None = None
-    role: str | None = None
-
-    email: str | None = None
-    phone: str | None = None
-    mobile: str | None = None
-    fax: str | None = None
-    website: str | None = None
-    address: str | None = None
-    coordinates: str | None = None
-
-    notes: str | None = None
-    confidence: ConfidenceLevel = "medium"
-
-    evidence: list[SourceEvidence] = Field(
-        default_factory=list
-    )
-
-    @field_validator("products_or_services")
-    @classmethod
-    def deduplicate_products_or_services(
-        cls,
-        values: list[str],
-    ) -> list[str]:
-        result: list[str] = []
-        seen: set[str] = set()
-
-        for value in values:
-            cleaned = value.strip()
-
-            if not cleaned:
-                continue
-
-            key = cleaned.casefold()
-
-            if key not in seen:
-                seen.add(key)
-                result.append(cleaned)
-
-        return result
-    
-
 class TechnicalReference(StrictBaseModel):
     """
     Traceable technical reference explicitly mentioned in
     the source document.
     """
 
-    reference_type: Literal[
-        "manufacturer_document",
-        "service_manual",
-        "parts_catalog",
-        "technical_drawing",
-        "product_datasheet",
-        "regulation",
-        "standard",
-        "book",
-        "website",
-        "forum_thread",
-        "model_reference",
-        "part_reference",
-        "other",
-    ] = "other"
-
+    reference_type: TechnicalReferenceType = "other"
     title: str = Field(min_length=1)
     identifier: str | None = None
     organization: str | None = None
@@ -659,6 +579,9 @@ class StructuredTechnicalDocument(StrictBaseModel):
         default_factory=list
     )
     contacts: list[ContactDetail] = Field(
+        default_factory=list
+    )
+    organizations: list[OrganizationProfile] = Field(
         default_factory=list
     )
     technical_specifications: list[
