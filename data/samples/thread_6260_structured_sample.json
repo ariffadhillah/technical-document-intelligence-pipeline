@@ -170,9 +170,54 @@
     "Evaluate whether a rigid subframe is required for the selected cabin design."
   ],
   "technical_references": [
-    "MAN KAT 1A1.1",
-    "MAN D2866 LFGO4",
-    "ZF WSK 400"
+    {
+      "reference_type": "model_reference",
+      "title": "MAN KAT 1A1.1",
+      "identifier": "KAT 1A1.1",
+      "organization": "MAN",
+      "url": null,
+      "description": "Vehicle model referenced in the source document.",
+      "confidence": "high",
+      "evidence": [
+        {
+          "evidence_type": "ocr",
+          "post_id": "64202",
+          "quote": "MAN KAT 1A1.1 7t MIL GL"
+        }
+      ]
+    },
+    {
+      "reference_type": "model_reference",
+      "title": "MAN D2866 LFGO4",
+      "identifier": "D2866 LFGO4",
+      "organization": "MAN",
+      "url": null,
+      "description": "Engine model referenced in the source document.",
+      "confidence": "high",
+      "evidence": [
+        {
+          "evidence_type": "ocr",
+          "post_id": "64202",
+          "quote": "MAN D2866 LFGO4"
+        }
+      ]
+    },
+    {
+      "reference_type": "model_reference",
+      "title": "ZF WSK 400",
+      "identifier": "WSK 400",
+      "organization": "ZF",
+      "url": null,
+      "description": "Transmission model referenced in the source document.",
+      "confidence": "high",
+      "evidence": [
+        {
+          "evidence_type": "ocr",
+          "post_id": "64202",
+          "quote": "ZF WSK 400"
+        }
+      ]
+    }
   ],
   "translated_markdown_content": null,
   "translation_quality": {
@@ -185,7 +230,7 @@
     "validation_warnings": []
   },
   "processing": {
-    "schema_version": "1.0.0",
+    "schema_version": "2.0.0",
     "extraction_provider": "manual_sample",
     "extraction_model": null,
     "source_stage": "content_aggregated",

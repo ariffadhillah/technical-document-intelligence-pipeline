@@ -397,26 +397,6 @@ class OrganizationProfile(StrictBaseModel):
 
         return result
 
-class TechnicalReference(StrictBaseModel):
-    """
-    Traceable document, model, product, standard, website,
-    or other technical reference explicitly mentioned in
-    the source.
-    """
-
-    reference_type: TechnicalReferenceType = "other"
-    title: str = Field(min_length=1)
-
-    identifier: str | None = None
-    organization: str | None = None
-    url: str | None = None
-    description: str | None = None
-
-    confidence: ConfidenceLevel = "medium"
-    evidence: list[SourceEvidence] = Field(
-        default_factory=list
-    )
-
     
 class SupplierDetail(StrictBaseModel):
     """
@@ -679,12 +659,6 @@ class StructuredTechnicalDocument(StrictBaseModel):
         default_factory=list
     )
     contacts: list[ContactDetail] = Field(
-        default_factory=list
-    )
-    organizations: list[OrganizationProfile] = Field(
-        default_factory=list
-    )
-    supplier_details: list[SupplierDetail] = Field(
         default_factory=list
     )
     technical_specifications: list[
