@@ -20,7 +20,9 @@ from src.providers.provider_models import (
     ProviderResponse,
     ProviderUsage,
 )
-
+from src.providers.openai_provider import (
+    OpenAIProvider,
+)
 
 def _register_builtin_providers() -> None:
     if not ProviderFactory.is_registered("mock"):
@@ -29,11 +31,18 @@ def _register_builtin_providers() -> None:
             MockProvider,
         )
 
+    if not ProviderFactory.is_registered("openai"):
+        ProviderFactory.register(
+            "openai",
+            OpenAIProvider,
+        )
+
 
 _register_builtin_providers()
 
 
 __all__ = [
+    "OpenAIProvider",
     "BaseProvider",
     "MockProvider",
     "ProviderAuthenticationError",

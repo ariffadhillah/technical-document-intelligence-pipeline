@@ -1,13 +1,17 @@
 from __future__ import annotations
-
+import os
 import argparse
 import json
 import sys
 from pathlib import Path
 from typing import Any
-
+from dotenv import load_dotenv
 
 PROJECT_ROOT = Path(__file__).resolve().parent
+
+load_dotenv(
+    PROJECT_ROOT / ".env"
+)
 
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
@@ -133,6 +137,7 @@ def parse_arguments() -> argparse.Namespace:
         choices=(
             "none",
             "mock",
+            "openai",
         ),
         default="none",
         help=(
@@ -161,8 +166,11 @@ def parse_arguments() -> argparse.Namespace:
 
     parser.add_argument(
         "--model",
-        default="mock-technical-extraction-v1",
-        help="Provider model identifier.",
+        default=None,
+        help=(
+            "Provider model identifier. When omitted, "
+            "the provider default is used."
+        ),
     )
 
     parser.add_argument(
@@ -423,6 +431,9 @@ def main() -> int:
 
     print(f"Threads found: {len(threads)}")
 
+
+
+
     attachment_processor = AttachmentProcessor(
         ocr_output_directory=OCR_DIRECTORY,
         pdf_output_directory=PDF_DIRECTORY,
@@ -433,10 +444,24 @@ def main() -> int:
     ai_stage_runner: TechnicalAIStageRunner | None = None
     ai_provider: Any | None = None
 
+    if arguments.model:
+        selected_model = arguments.model
+
+    elif arguments.provider == "openai":
+        selected_model = (
+            os.getenv("OPENAI_MODEL")
+            or "gpt-5.6-luna"
+        )
+
+    else:
+        selected_model = (
+            "mock-technical-extraction-v1"
+        )
+
     if arguments.provider != "none":
         ai_stage_runner = TechnicalAIStageRunner(
             output_directory=AI_OUTPUT_DIRECTORY,
-            model=arguments.model,
+            model=selected_model,
             temperature=arguments.temperature,
             max_output_tokens=(
                 arguments.max_output_tokens
@@ -481,7 +506,7 @@ def main() -> int:
         )
 
         print(
-            f"AI model     : {arguments.model}"
+            f"AI model     : {selected_model.model}"
         )
 
         if arguments.ai_thread_id:
