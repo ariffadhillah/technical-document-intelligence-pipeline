@@ -1,0 +1,196 @@
+{
+  "document_id": "thread_6260",
+  "document_type": "forum_thread",
+  "title": "Kat 1A1.1 6x6",
+  "source_language": "de",
+  "output_language": "en",
+  "source": {
+    "thread_id": 6260,
+    "source_url": "https://kat-forum.de/viewtopic.php?t=6260",
+    "forum_name": "Neuanschaffung"
+  },
+  "summary": "A technical discussion about purchasing, restoring, and converting a 1996 MAN KAT 1A1.1 6x6 into an expedition vehicle.",
+  "topics": [
+    "vehicle restoration",
+    "expedition vehicle conversion",
+    "subframe design",
+    "historic vehicle registration"
+  ],
+  "system_categories": [
+    "vehicle acquisition",
+    "chassis",
+    "drivetrain",
+    "body conversion"
+  ],
+  "entities": [
+    {
+      "entity_type": "manufacturer",
+      "name": "MAN",
+      "normalized_name": "MAN Truck & Bus",
+      "confidence": "high",
+      "evidence": [
+        {
+          "evidence_type": "ocr",
+          "post_id": "64202",
+          "quote": "MAN KAT 1A1.1 7t MIL GL"
+        }
+      ]
+    }
+  ],
+  "vehicles": [
+    {
+      "manufacturer": "MAN",
+      "model": "KAT 1A1.1",
+      "variant": "7t MIL GL",
+      "production_year": 1200,
+      "drive_configuration": "permanent 6x6",
+      "gross_weight_kg": 25000,
+      "empty_weight_kg": 12000,
+      "confidence": "high",
+      "evidence": [
+        {
+          "evidence_type": "ocr",
+          "post_id": "64202",
+          "attachment_filename": "thread_6260_post_64202_image_001_attachment.php"
+        }
+      ]
+    }
+  ],
+  "engines": [
+    {
+      "manufacturer": "MAN",
+      "model": "D2866 LFGO4",
+      "engine_type": "turbo diesel",
+      "cylinder_count": 6,
+      "displacement_cc": 11967,
+      "power_hp": 420,
+      "power_kw": 309,
+      "fuel_type": "diesel",
+      "cooling_type": "water-cooled",
+      "confidence": "high",
+      "evidence": [
+        {
+          "evidence_type": "ocr",
+          "post_id": "64202",
+          "quote": "6 Zylinder Wassergekühlter Turbodiesel (MAN D2866 LFGO4)"
+        }
+      ]
+    }
+  ],
+  "transmissions": [
+    {
+      "manufacturer": "ZF",
+      "model": "WSK 400",
+      "transmission_type": "manual transmission with torque converter and split",
+      "gear_count": 8,
+      "confidence": "high",
+      "evidence": [
+        {
+          "evidence_type": "ocr",
+          "post_id": "64202",
+          "quote": "ZF WSK 400"
+        }
+      ]
+    }
+  ],
+  "contacts": [],
+  "technical_specifications": [
+    {
+      "name": "Engine displacement",
+      "value": 11967,
+      "unit": "cc",
+      "category": "engine",
+      "normalized_value": 11.967,
+      "normalized_unit": "L",
+      "confidence": "high",
+      "evidence": [
+        {
+          "evidence_type": "ocr",
+          "post_id": "64202",
+          "quote": "Hubraum: 11.967ccm"
+        }
+      ]
+    },
+    {
+      "name": "Gross vehicle weight",
+      "value": 25000,
+      "unit": "kg",
+      "category": "weight",
+      "confidence": "high",
+      "evidence": [
+        {
+          "evidence_type": "ocr",
+          "post_id": "64202",
+          "quote": "Zul. Gesamtgewicht: 25.000 kg"
+        }
+      ]
+    }
+  ],
+  "parts": [],
+  "maintenance_tasks": [
+    {
+      "title": "Inspect the vehicle frame",
+      "description": "Remove installed components and inspect lines, cables, fasteners, rubber parts, and steering linkage components for damage.",
+      "system_category": "chassis",
+      "action_type": "inspection",
+      "parts": [
+        "rubber components",
+        "control arm components",
+        "steering rods"
+      ],
+      "warnings": [
+        "The actual effort cannot be determined before inspection."
+      ],
+      "confidence": "high",
+      "evidence": [
+        {
+          "evidence_type": "ocr",
+          "post_id": "64202"
+        }
+      ]
+    }
+  ],
+  "diagnostics": [],
+  "warnings": [
+    {
+      "warning_type": "modification",
+      "description": "Run-flat inserts may prevent the tires from operating correctly at low off-road pressures.",
+      "severity": "caution",
+      "evidence": [
+        {
+          "evidence_type": "forum_post",
+          "post_id": "64207"
+        }
+      ]
+    }
+  ],
+  "recommendations": [
+    "Review whether preventive replacement of all bushings is necessary.",
+    "Preserve as many original vehicle components as practical.",
+    "Evaluate whether a rigid subframe is required for the selected cabin design."
+  ],
+  "technical_references": [
+    "MAN KAT 1A1.1",
+    "MAN D2866 LFGO4",
+    "ZF WSK 400"
+  ],
+  "translated_markdown_content": null,
+  "translation_quality": {
+    "source_language": "de",
+    "target_language": "en",
+    "translated": false,
+    "protected_token_count": 8,
+    "preserved_token_count": 8,
+    "fidelity_score": 1.0,
+    "validation_warnings": []
+  },
+  "processing": {
+    "schema_version": "1.0.0",
+    "extraction_provider": "manual_sample",
+    "extraction_model": null,
+    "source_stage": "content_aggregated",
+    "output_stage": "structured_knowledge",
+    "ready_for_rendering": true,
+    "warnings": []
+  }
+}

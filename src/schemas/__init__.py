@@ -1,0 +1,33 @@
+from src.schemas.technical_knowledge import (
+    ContactDetail,
+    DiagnosticFinding,
+    EngineEntity,
+    ExtractedEntity,
+    MaintenanceTask,
+    PartReference,
+    ProcessingMetadata,
+    SourceEvidence,
+    StructuredTechnicalDocument,
+    TechnicalSpecification,
+    TechnicalWarning,
+    TransmissionEntity,
+    TranslationQuality,
+    VehicleEntity,
+)
+
+__all__ = [
+    "ContactDetail",
+    "DiagnosticFinding",
+    "EngineEntity",
+    "ExtractedEntity",
+    "MaintenanceTask",
+    "PartReference",
+    "ProcessingMetadata",
+    "SourceEvidence",
+    "StructuredTechnicalDocument",
+    "TechnicalSpecification",
+    "TechnicalWarning",
+    "TransmissionEntity",
+    "TranslationQuality",
+    "VehicleEntity",
+]
