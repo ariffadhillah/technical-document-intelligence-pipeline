@@ -10,6 +10,10 @@ from src.providers.exceptions import (
     ProviderTimeoutError,
     UnsupportedProviderError,
 )
+from src.providers.mock_provider import MockProvider
+from src.providers.provider_factory import (
+    ProviderFactory,
+)
 from src.providers.provider_models import (
     ProviderMessage,
     ProviderRequest,
@@ -17,13 +21,27 @@ from src.providers.provider_models import (
     ProviderUsage,
 )
 
+
+def _register_builtin_providers() -> None:
+    if not ProviderFactory.is_registered("mock"):
+        ProviderFactory.register(
+            "mock",
+            MockProvider,
+        )
+
+
+_register_builtin_providers()
+
+
 __all__ = [
     "BaseProvider",
+    "MockProvider",
     "ProviderAuthenticationError",
     "ProviderConfigurationError",
     "ProviderConnectionError",
     "ProviderContentPolicyError",
     "ProviderError",
+    "ProviderFactory",
     "ProviderMessage",
     "ProviderRateLimitError",
     "ProviderRequest",
