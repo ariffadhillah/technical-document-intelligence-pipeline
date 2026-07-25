@@ -1,19 +1,88 @@
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from pathlib import Path
 from typing import Any
-import argparse
 
 
+PROJECT_ROOT = Path(__file__).resolve().parent
+
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+
+from src.aggregators.content_aggregator import (
+    ContentAggregator,
+)
+from src.attachments.attachment_processor import (
+    AttachmentProcessor,
+)
+from src.cleaners.text_cleaner import clean_thread
+from src.loaders.raw_dataset_loader import (
+    load_all_threads,
+)
 from src.processors.ai_stage_runner import (
     TechnicalAIStageRunner,
 )
 from src.providers import ProviderError
 
+
+RAW_DIRECTORY = (
+    PROJECT_ROOT
+    / "data"
+    / "raw"
+)
+
+PROCESSED_DIRECTORY = (
+    PROJECT_ROOT
+    / "data"
+    / "processed"
+)
+
+CLEANED_DIRECTORY = (
+    PROJECT_ROOT
+    / "output"
+    / "cleaned"
+)
+
+MERGED_DIRECTORY = (
+    PROJECT_ROOT
+    / "output"
+    / "merged"
+)
+
+AGGREGATED_DIRECTORY = (
+    PROJECT_ROOT
+    / "output"
+    / "aggregated"
+)
+
+OCR_DIRECTORY = (
+    PROJECT_ROOT
+    / "output"
+    / "attachments"
+    / "ocr"
+)
+
+PDF_DIRECTORY = (
+    PROJECT_ROOT
+    / "output"
+    / "attachments"
+    / "pdf"
+)
+
+REPORT_DIRECTORY = (
+    PROJECT_ROOT
+    / "output"
+    / "reports"
+)
+
 AI_OUTPUT_DIRECTORY = (
-    PROJECT_ROOT / "output" / "ai"
+    PROJECT_ROOT
+    / "output"
+    / "ai"
 )
 
 DEFAULT_MOCK_RESPONSE_PATH = (
@@ -335,7 +404,6 @@ def process_thread(
         ),
     }
 
-
 def main() -> int:
     arguments = parse_arguments()
     print("=" * 72)
@@ -463,18 +531,25 @@ def main() -> int:
                 }
             )
 
+    ai_results = [
+        result["ai_processing"]
+        for result in results
+        if result.get("ai_processing") is not None
+    ]
+
+
+
     manifest = {
         "pipeline_stage": (
-            "load_clean_attachment_extract_and_aggregate"
+            "load_clean_attachment_extract_"
+            "aggregate_and_optional_ai"
         ),
+        "provider": arguments.provider,
+        "ai_thread_id": arguments.ai_thread_id,
         "thread_count": len(threads),
         "successful": len(results),
         "failed": len(failures),
-        "ai_ready_documents": sum(
-            1
-            for result in results
-            if result.get("ready_for_ai")
-        ),
+        "ai_documents_processed": len(ai_results),
         "threads": results,
         "failures": failures,
     }
@@ -493,22 +568,41 @@ def main() -> int:
     print("=" * 72)
     print("PIPELINE SUMMARY")
     print("=" * 72)
-    print(f"Threads discovered : {len(threads)}")
-    print(f"Successful         : {len(results)}")
-    print(f"Failed             : {len(failures)}")
+
     print(
-        "AI-ready documents : "
-        f"{manifest['ai_ready_documents']}"
+        f"Threads discovered : {len(threads)}"
     )
-    print(f"Manifest           : {manifest_path}")
+
+    print(
+        f"Successful         : {len(results)}"
+    )
+
+    print(
+        f"Failed             : {len(failures)}"
+    )
+
+    print(
+        f"AI provider        : "
+        f"{arguments.provider}"
+    )
+
+    print(
+        f"AI documents       : "
+        f"{len(ai_results)}"
+    )
+
+    print(
+        f"Manifest           : "
+        f"{manifest_path}"
+    )
 
     if failures:
-        print("Status             : completed_with_errors")
+        print("Status             : completed with errors")
         return 1
 
     print("Status             : success")
-    return 0
 
+    return 0
 
 if __name__ == "__main__":
     raise SystemExit(main())
