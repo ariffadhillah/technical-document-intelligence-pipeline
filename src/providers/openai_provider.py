@@ -1,107 +1,107 @@
-from typing import TypeVar
+# from typing import TypeVar
 
-from openai import OpenAI
-from pydantic import BaseModel
+# from openai import OpenAI
+# from pydantic import BaseModel
 
-from src.config.settings import Settings
-
-
-SchemaType = TypeVar(
-    "SchemaType",
-    bound=BaseModel,
-)
+# from src.config.settings import Settings
 
 
-class OpenAIProviderError(RuntimeError):
-    """
-    Raised when OpenAI returns an unusable result.
-    """
+# SchemaType = TypeVar(
+#     "SchemaType",
+#     bound=BaseModel,
+# )
 
 
-class OpenAIProvider:
-    """
-    Wrapper around the OpenAI client.
+# class OpenAIProviderError(RuntimeError):
+#     """
+#     Raised when OpenAI returns an unusable result.
+#     """
 
-    All OpenAI communication should happen through
-    this provider.
-    """
 
-    def __init__(
-        self,
-        settings: Settings,
-    ) -> None:
-        self.settings = settings
+# class OpenAIProvider:
+#     """
+#     Wrapper around the OpenAI client.
 
-        self.client = OpenAI(
-            api_key=settings.openai_api_key,
-            timeout=settings.ai_request_timeout,
-            max_retries=settings.ai_max_retries,
-        )
+#     All OpenAI communication should happen through
+#     this provider.
+#     """
 
-    def health_check(self) -> str:
-        """
-        Perform a minimal API connectivity test.
-        """
+#     def __init__(
+#         self,
+#         settings: Settings,
+#     ) -> None:
+#         self.settings = settings
 
-        response = self.client.responses.create(
-            model=self.settings.openai_model,
-            input="Reply using exactly one word: READY",
-            max_output_tokens=32,
-        )
+#         self.client = OpenAI(
+#             api_key=settings.openai_api_key,
+#             timeout=settings.ai_request_timeout,
+#             max_retries=settings.ai_max_retries,
+#         )
 
-        result = response.output_text.strip()
+#     def health_check(self) -> str:
+#         """
+#         Perform a minimal API connectivity test.
+#         """
 
-        if not result:
-            raise OpenAIProviderError(
-                "OpenAI health check returned empty output."
-            )
+#         response = self.client.responses.create(
+#             model=self.settings.openai_model,
+#             input="Reply using exactly one word: READY",
+#             max_output_tokens=32,
+#         )
 
-        return result
+#         result = response.output_text.strip()
 
-    def generate_structured(
-        self,
-        system_prompt: str,
-        user_prompt: str,
-        response_schema: type[SchemaType],
-    ) -> SchemaType:
-        """
-        Generate and validate structured output using
-        a Pydantic schema.
-        """
+#         if not result:
+#             raise OpenAIProviderError(
+#                 "OpenAI health check returned empty output."
+#             )
 
-        if not system_prompt.strip():
-            raise ValueError(
-                "system_prompt cannot be empty."
-            )
+#         return result
 
-        if not user_prompt.strip():
-            raise ValueError(
-                "user_prompt cannot be empty."
-            )
+#     def generate_structured(
+#         self,
+#         system_prompt: str,
+#         user_prompt: str,
+#         response_schema: type[SchemaType],
+#     ) -> SchemaType:
+#         """
+#         Generate and validate structured output using
+#         a Pydantic schema.
+#         """
 
-        response = self.client.responses.parse(
-            model=self.settings.openai_model,
-            input=[
-                {
-                    "role": "system",
-                    "content": system_prompt,
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt,
-                },
-            ],
-            text_format=response_schema,
-            max_output_tokens=(
-                self.settings.ai_max_output_tokens
-            ),
-        )
+#         if not system_prompt.strip():
+#             raise ValueError(
+#                 "system_prompt cannot be empty."
+#             )
 
-        parsed_result = response.output_parsed
+#         if not user_prompt.strip():
+#             raise ValueError(
+#                 "user_prompt cannot be empty."
+#             )
 
-        if parsed_result is None:
-            raise OpenAIProviderError(
-                "OpenAI returned no parsed structured output."
-            )
+#         response = self.client.responses.parse(
+#             model=self.settings.openai_model,
+#             input=[
+#                 {
+#                     "role": "system",
+#                     "content": system_prompt,
+#                 },
+#                 {
+#                     "role": "user",
+#                     "content": user_prompt,
+#                 },
+#             ],
+#             text_format=response_schema,
+#             max_output_tokens=(
+#                 self.settings.ai_max_output_tokens
+#             ),
+#         )
 
-        return parsed_result
+#         parsed_result = response.output_parsed
+
+#         if parsed_result is None:
+#             raise OpenAIProviderError(
+#                 "OpenAI returned no parsed structured output."
+#             )
+
+#         return parsed_result

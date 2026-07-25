@@ -4,7 +4,24 @@ import json
 import sys
 from pathlib import Path
 from typing import Any
+import argparse
 
+
+from src.processors.ai_stage_runner import (
+    TechnicalAIStageRunner,
+)
+from src.providers import ProviderError
+
+AI_OUTPUT_DIRECTORY = (
+    PROJECT_ROOT / "output" / "ai"
+)
+
+DEFAULT_MOCK_RESPONSE_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "samples"
+    / "thread_6260_structured_sample.json"
+)
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 
@@ -32,6 +49,75 @@ AGGREGATED_DIRECTORY = PROJECT_ROOT / "output" / "aggregated"
 OCR_DIRECTORY = PROJECT_ROOT / "output" / "attachments" / "ocr"
 PDF_DIRECTORY = PROJECT_ROOT / "output" / "attachments" / "pdf"
 REPORT_DIRECTORY = PROJECT_ROOT / "output" / "reports"
+
+
+def parse_arguments() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Run the technical document intelligence "
+            "pipeline."
+        )
+    )
+
+    parser.add_argument(
+        "--provider",
+        choices=(
+            "none",
+            "mock",
+        ),
+        default="none",
+        help=(
+            "AI provider to use. The default 'none' "
+            "runs document processing without AI."
+        ),
+    )
+
+    parser.add_argument(
+        "--ai-thread-id",
+        default=None,
+        help=(
+            "Run the AI stage only for this thread ID. "
+            "Example: 6260."
+        ),
+    )
+
+    parser.add_argument(
+        "--mock-response",
+        type=Path,
+        default=DEFAULT_MOCK_RESPONSE_PATH,
+        help=(
+            "Structured response file used by MockProvider."
+        ),
+    )
+
+    parser.add_argument(
+        "--model",
+        default="mock-technical-extraction-v1",
+        help="Provider model identifier.",
+    )
+
+    parser.add_argument(
+        "--temperature",
+        type=float,
+        default=0.0,
+        help="Provider sampling temperature.",
+    )
+
+    parser.add_argument(
+        "--max-output-tokens",
+        type=int,
+        default=16000,
+        help="Maximum provider output tokens.",
+    )
+
+    parser.add_argument(
+        "--timeout-seconds",
+        type=float,
+        default=60.0,
+        help="Provider timeout in seconds.",
+    )
+
+    return parser.parse_args()
 
 
 def save_json(
@@ -65,6 +151,9 @@ def process_thread(
     total: int,
     attachment_processor: AttachmentProcessor,
     content_aggregator: ContentAggregator,
+    ai_stage_runner: TechnicalAIStageRunner | None = None,
+    ai_provider: Any | None = None,
+    ai_thread_id: str | None = None,
 ) -> dict[str, Any]:
     metadata = thread_data.get("metadata", {})
 
@@ -169,6 +258,53 @@ def process_thread(
     print(f"    Merged      : {merged_output_path}")
     print(f"    Aggregated  : {aggregated_output_path}")
 
+
+    ai_result: dict[str, Any] | None = None
+
+    should_run_ai = (
+        ai_stage_runner is not None
+        and ai_provider is not None
+        and (
+            ai_thread_id is None
+            or str(thread_id) == str(ai_thread_id)
+        )
+    )
+
+    if should_run_ai:
+        print(
+            " [AI] Running structured "
+            "technical extraction"
+        )
+
+        result = ai_stage_runner.run(
+            aggregated_document=aggregated_document,
+            provider=ai_provider,
+        )
+
+        ai_result = result.to_dict()
+
+        print(
+            " [OK] AI extraction completed "
+            f"(provider={result.provider}, "
+            f"model={result.model}, "
+            f"tokens={result.total_tokens})"
+        )
+
+        print(
+            " AI output : "
+            f"{result.validated_response_path}"
+        )
+
+    elif (
+        ai_stage_runner is not None
+        and ai_thread_id is not None
+    ):
+        print(
+            " [SKIP] AI stage not selected "
+            f"for thread_{thread_id}"
+        )
+
+
     return {
         "thread_id": thread_id,
         "title": title,
@@ -191,6 +327,7 @@ def process_thread(
             .get("processing", {})
             .get("ready_for_ai", False)
         ),
+        "ai_processing": ai_result,
         "status": (
             "success"
             if attachment_stats.failed == 0
@@ -200,11 +337,13 @@ def process_thread(
 
 
 def main() -> int:
+    arguments = parse_arguments()
     print("=" * 72)
     print("TECHNICAL DOCUMENT INTELLIGENCE PIPELINE")
     print("=" * 72)
     print(f"Project root : {PROJECT_ROOT}")
     print(f"Raw data     : {RAW_DIRECTORY}")
+
 
     try:
         threads = load_all_threads(
@@ -223,6 +362,66 @@ def main() -> int:
 
     content_aggregator = ContentAggregator()
 
+    ai_stage_runner: TechnicalAIStageRunner | None = None
+    ai_provider: Any | None = None
+
+    if arguments.provider != "none":
+        ai_stage_runner = TechnicalAIStageRunner(
+            output_directory=AI_OUTPUT_DIRECTORY,
+            model=arguments.model,
+            temperature=arguments.temperature,
+            max_output_tokens=(
+                arguments.max_output_tokens
+            ),
+            timeout_seconds=(
+                arguments.timeout_seconds
+            ),
+        )
+
+        provider_configuration: dict[str, Any]
+
+        if arguments.provider == "mock":
+            provider_configuration = {
+                "response_file": (
+                    arguments.mock_response.resolve()
+                ),
+            }
+
+        else:
+            provider_configuration = {}
+
+        try:
+            ai_provider = (
+                ai_stage_runner.create_provider(
+                    provider_name=arguments.provider,
+                    configuration=(
+                        provider_configuration
+                    ),
+                )
+            )
+
+        except ProviderError as error:
+            print()
+            print(
+                "AI provider initialization failed:"
+            )
+            print(error)
+            return 1
+
+        print(
+            f"AI provider  : {arguments.provider}"
+        )
+
+        print(
+            f"AI model     : {arguments.model}"
+        )
+
+        if arguments.ai_thread_id:
+            print(
+                "AI thread ID : "
+                f"{arguments.ai_thread_id}"
+            )
+
     results: list[dict[str, Any]] = []
     failures: list[dict[str, str]] = []
 
@@ -231,12 +430,16 @@ def main() -> int:
         start=1,
     ):
         try:
+
             result = process_thread(
                 thread_data=thread_data,
                 position=position,
                 total=len(threads),
                 attachment_processor=attachment_processor,
                 content_aggregator=content_aggregator,
+                ai_stage_runner=ai_stage_runner,
+                ai_provider=ai_provider,
+                ai_thread_id=arguments.ai_thread_id,
             )
 
             results.append(result)
