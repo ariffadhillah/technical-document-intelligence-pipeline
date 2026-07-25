@@ -23,14 +23,17 @@ class StructuredOutputValidator:
         self,
         payload: dict[str, Any],
     ) -> StructuredTechnicalDocument:
+        normalized_payload = self._normalize_payload(
+            payload
+        )
+
         try:
             return StructuredTechnicalDocument.model_validate(
-                payload
+                normalized_payload
             )
 
         except ValidationError as error:
             formatted_errors = self._format_errors(error)
-
             raise StructuredOutputValidationError(
                 "Structured document validation failed:\n"
                 f"{formatted_errors}"
@@ -96,6 +99,82 @@ class StructuredOutputValidator:
         )
 
         temporary_path.replace(output_path)
+
+
+    @staticmethod
+    def _normalize_payload(
+        payload: dict[str, Any],
+    ) -> dict[str, Any]:
+        normalized = dict(payload)
+
+        translation_quality = normalized.get(
+            "translation_quality"
+        )
+
+        if isinstance(translation_quality, dict):
+            normalized_translation_quality = dict(
+                translation_quality
+            )
+
+            protected_count = (
+                normalized_translation_quality.get(
+                    "protected_token_count",
+                    0,
+                )
+            )
+
+            preserved_count = (
+                normalized_translation_quality.get(
+                    "preserved_token_count",
+                    0,
+                )
+            )
+
+            if not isinstance(protected_count, int):
+                protected_count = 0
+
+            if not isinstance(preserved_count, int):
+                preserved_count = 0
+
+            protected_count = max(protected_count, 0)
+            preserved_count = max(preserved_count, 0)
+
+            if preserved_count > protected_count:
+                protected_count = preserved_count
+
+                warnings = (
+                    normalized_translation_quality.get(
+                        "validation_warnings",
+                        []
+                    )
+                )
+
+                if not isinstance(warnings, list):
+                    warnings = []
+
+                warnings.append(
+                    "protected_token_count was increased "
+                    "to match preserved_token_count because "
+                    "the provider returned inconsistent counts."
+                )
+
+                normalized_translation_quality[
+                    "validation_warnings"
+                ] = warnings
+
+            normalized_translation_quality[
+                "protected_token_count"
+            ] = protected_count
+
+            normalized_translation_quality[
+                "preserved_token_count"
+            ] = preserved_count
+
+            normalized[
+                "translation_quality"
+            ] = normalized_translation_quality
+
+        return normalized
 
     @staticmethod
     def _format_errors(

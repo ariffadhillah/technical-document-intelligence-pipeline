@@ -96,6 +96,7 @@ class ExtractedEntity(StrictBaseModel):
     name: str = Field(min_length=1)
     normalized_name: str | None = None
     description: str | None = None
+    role: str | None = None
     aliases: list[str] = Field(default_factory=list)
     confidence: ConfidenceLevel = "medium"
     evidence: list[SourceEvidence] = Field(
