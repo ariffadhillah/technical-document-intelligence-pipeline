@@ -51,7 +51,7 @@ class TechnicalPromptBuilder:
     """
 
     PROMPT_NAME = "technical_extraction"
-    PROMPT_VERSION = "v1"
+    PROMPT_VERSION = "v2"
 
     DEFAULT_SOURCE_LANGUAGE = "de"
     DEFAULT_OUTPUT_LANGUAGE = "en"
@@ -73,12 +73,12 @@ class TechnicalPromptBuilder:
 
         self.system_template_path = (
             self.templates_directory
-            / "technical_extraction_system_v1.md"
+            / "technical_extraction_system_v2.md"
         )
 
         self.user_template_path = (
             self.templates_directory
-            / "technical_extraction_user_v1.md"
+            / "technical_extraction_user_v2.md"
         )
 
     def build(

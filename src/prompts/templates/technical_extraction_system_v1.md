@@ -74,6 +74,108 @@ Evidence guidance:
 - metadata:
   Information obtained from source or attachment metadata.
 
+
+## Evidence and factuality rules
+
+- Extract only information explicitly supported by the supplied content.
+- Do not guess missing company names, personal names, websites, email
+  addresses, telephone numbers, addresses, part numbers, or document
+  identifiers.
+- When the source states that company names, prices, or contact details
+  were removed, do not attempt to reconstruct them.
+- Do not use outside knowledge to complete missing supplier or contact
+  details.
+- Every supplier, contact, technical specification, part, and technical
+  reference should include the strongest available source evidence.
+- Prefer a direct quote when a short supporting quote is available.
+- A summary must describe only claims made in the source. Do not turn
+  suggestions, opinions, or disputed forum statements into confirmed facts.
+
+## Supplier and fabricator extraction
+
+Inspect the entire forum and attachment text for explicitly mentioned:
+
+- manufacturers
+- component suppliers
+- fabricators
+- workshops
+- dealers
+- service centers
+- distributors
+- named technical specialists
+- company websites
+- email addresses
+- phone and fax numbers
+- postal addresses
+- geographic coordinates
+
+Populate `supplier_details` for explicitly named organizations even when
+no direct contact method is present.
+
+Populate `contacts` only when the source contains an actual contact
+person, organization, email, phone, website, address, or coordinate.
+
+For each supplier, describe the products or services associated with
+that organization in the source.
+
+Do not classify a forum participant as a supplier, workshop, or
+fabricator unless the source explicitly identifies them as one.
+
+Do not invent the name of an anonymized supplier or fabricator.
+
+## Technical specification extraction
+
+Extract every explicitly stated technical specification, including:
+
+- dimensions
+- weights
+- capacities
+- displacement
+- engine power
+- torque
+- voltage
+- pressure
+- tire dimensions
+- wheel dimensions
+- tank capacity
+- gear count
+- axle configuration
+- production year
+- quantities
+- part and model identifiers
+
+Create a separate `technical_specifications` record for each distinct
+specification.
+
+Preserve the original value and unit. Add a normalized value only when
+the conversion is deterministic and unambiguous.
+
+Do not omit a specification merely because it also appears in a vehicle,
+engine, transmission, or part entity.
+
+## Technical reference extraction
+
+Populate `technical_references` with explicitly mentioned:
+
+- manuals
+- service documentation
+- books
+- technical drawings
+- product datasheets
+- standards
+- regulations
+- manufacturer documents
+- parts catalogs
+- product or model references
+- source websites
+- linked technical forum threads
+
+Do not convert ordinary organizations into technical references unless
+a specific product, model, document, page, standard, or URL is referenced.
+
+A vague statement such as "there is a book" may be recorded with low
+confidence, but no title or identifier may be invented.
+
 The output will be validated by strict software. Any missing required property,
 unexpected property, invalid enum, malformed JSON, or incompatible value may
 cause the entire response to be rejected.

@@ -39,6 +39,58 @@ EntityType = Literal[
     "technical_reference",
 ]
 
+OrganizationType = Literal[
+    "manufacturer",
+    "supplier",
+    "fabricator",
+    "workshop",
+    "dealer",
+    "distributor",
+    "service_center",
+    "engineering_company",
+    "restoration_company",
+    "coating_company",
+    "government_agency",
+    "military_organization",
+    "standards_organization",
+    "certification_body",
+    "other",
+    "unknown",
+]
+
+OrganizationRelationshipType = Literal[
+    "partner",
+    "supplier",
+    "distributor",
+    "dealer",
+    "service_provider",
+    "manufacturer",
+    "represented_brand",
+    "subsidiary",
+    "parent_company",
+    "customer",
+    "other",
+]
+
+TechnicalReferenceType = Literal[
+    "manufacturer_document",
+    "service_manual",
+    "workshop_manual",
+    "parts_catalog",
+    "product_catalog",
+    "technical_drawing",
+    "product_datasheet",
+    "quotation",
+    "brochure",
+    "regulation",
+    "standard",
+    "book",
+    "website",
+    "forum_thread",
+    "model_reference",
+    "part_reference",
+    "other",
+]
 
 class StrictBaseModel(BaseModel):
     """
@@ -238,6 +290,232 @@ class ContactDetail(StrictBaseModel):
 
         return self
 
+class OrganizationService(StrictBaseModel):
+    """
+    Product, commercial service, or technical capability
+    explicitly associated with an organization.
+    """
+
+    name: str = Field(min_length=1)
+    description: str | None = None
+    category: str | None = None
+
+    price: float | None = Field(
+        default=None,
+        ge=0,
+    )
+    currency: str | None = None
+    price_basis: str | None = None
+
+    confidence: ConfidenceLevel = "medium"
+    evidence: list[SourceEvidence] = Field(
+        default_factory=list
+    )
+
+class OrganizationRelationship(StrictBaseModel):
+    """
+    Explicit relationship between the current organization
+    and another named organization.
+    """
+
+    relationship_type: OrganizationRelationshipType
+    target_organization: str = Field(min_length=1)
+    description: str | None = None
+    confidence: ConfidenceLevel = "medium"
+    evidence: list[SourceEvidence] = Field(
+        default_factory=list
+    )
+
+class OrganizationProfile(StrictBaseModel):
+    """
+    Structured intelligence about a company, workshop,
+    manufacturer, supplier, agency, or other organization.
+    """
+
+    name: str = Field(min_length=1)
+    normalized_name: str | None = None
+    organization_type: OrganizationType = "unknown"
+
+    description: str | None = None
+
+    capabilities: list[str] = Field(
+        default_factory=list
+    )
+    products: list[str] = Field(
+        default_factory=list
+    )
+    services: list[OrganizationService] = Field(
+        default_factory=list
+    )
+    represented_brands: list[str] = Field(
+        default_factory=list
+    )
+    certifications: list[str] = Field(
+        default_factory=list
+    )
+
+    relationships: list[
+        OrganizationRelationship
+    ] = Field(default_factory=list)
+
+    contact: ContactDetail | None = None
+
+    country: str | None = None
+    city: str | None = None
+    notes: str | None = None
+
+    confidence: ConfidenceLevel = "medium"
+    evidence: list[SourceEvidence] = Field(
+        default_factory=list
+    )
+
+    @field_validator(
+        "capabilities",
+        "products",
+        "represented_brands",
+        "certifications",
+    )
+    @classmethod
+    def normalize_organization_string_lists(
+        cls,
+        values: list[str],
+    ) -> list[str]:
+        result: list[str] = []
+        seen: set[str] = set()
+
+        for value in values:
+            cleaned_value = value.strip()
+
+            if not cleaned_value:
+                continue
+
+            key = cleaned_value.casefold()
+
+            if key not in seen:
+                seen.add(key)
+                result.append(cleaned_value)
+
+        return result
+
+class TechnicalReference(StrictBaseModel):
+    """
+    Traceable document, model, product, standard, website,
+    or other technical reference explicitly mentioned in
+    the source.
+    """
+
+    reference_type: TechnicalReferenceType = "other"
+    title: str = Field(min_length=1)
+
+    identifier: str | None = None
+    organization: str | None = None
+    url: str | None = None
+    description: str | None = None
+
+    confidence: ConfidenceLevel = "medium"
+    evidence: list[SourceEvidence] = Field(
+        default_factory=list
+    )
+
+    
+class SupplierDetail(StrictBaseModel):
+    """
+    Supplier, manufacturer, workshop, fabricator, dealer,
+    or technical service organization explicitly mentioned
+    in the source document.
+    """
+
+    organization: str = Field(min_length=1)
+    supplier_type: Literal[
+        "manufacturer",
+        "supplier",
+        "fabricator",
+        "workshop",
+        "dealer",
+        "service_center",
+        "distributor",
+        "unknown",
+    ] = "unknown"
+
+    products_or_services: list[str] = Field(
+        default_factory=list
+    )
+
+    person_name: str | None = None
+    role: str | None = None
+
+    email: str | None = None
+    phone: str | None = None
+    mobile: str | None = None
+    fax: str | None = None
+    website: str | None = None
+    address: str | None = None
+    coordinates: str | None = None
+
+    notes: str | None = None
+    confidence: ConfidenceLevel = "medium"
+
+    evidence: list[SourceEvidence] = Field(
+        default_factory=list
+    )
+
+    @field_validator("products_or_services")
+    @classmethod
+    def deduplicate_products_or_services(
+        cls,
+        values: list[str],
+    ) -> list[str]:
+        result: list[str] = []
+        seen: set[str] = set()
+
+        for value in values:
+            cleaned = value.strip()
+
+            if not cleaned:
+                continue
+
+            key = cleaned.casefold()
+
+            if key not in seen:
+                seen.add(key)
+                result.append(cleaned)
+
+        return result
+    
+
+class TechnicalReference(StrictBaseModel):
+    """
+    Traceable technical reference explicitly mentioned in
+    the source document.
+    """
+
+    reference_type: Literal[
+        "manufacturer_document",
+        "service_manual",
+        "parts_catalog",
+        "technical_drawing",
+        "product_datasheet",
+        "regulation",
+        "standard",
+        "book",
+        "website",
+        "forum_thread",
+        "model_reference",
+        "part_reference",
+        "other",
+    ] = "other"
+
+    title: str = Field(min_length=1)
+    identifier: str | None = None
+    organization: str | None = None
+    url: str | None = None
+    description: str | None = None
+    confidence: ConfidenceLevel = "medium"
+
+    evidence: list[SourceEvidence] = Field(
+        default_factory=list
+    )
+
 
 class TechnicalSpecification(StrictBaseModel):
     name: str = Field(min_length=1)
@@ -349,7 +627,7 @@ class TranslationQuality(StrictBaseModel):
 
 
 class ProcessingMetadata(StrictBaseModel):
-    schema_version: str = "1.0.0"
+    schema_version: str = "2.0.0"
     extraction_provider: str | None = None
     extraction_model: str | None = None
     generated_at: str = Field(
@@ -403,7 +681,12 @@ class StructuredTechnicalDocument(StrictBaseModel):
     contacts: list[ContactDetail] = Field(
         default_factory=list
     )
-
+    organizations: list[OrganizationProfile] = Field(
+        default_factory=list
+    )
+    supplier_details: list[SupplierDetail] = Field(
+        default_factory=list
+    )
     technical_specifications: list[
         TechnicalSpecification
     ] = Field(default_factory=list)
@@ -424,9 +707,10 @@ class StructuredTechnicalDocument(StrictBaseModel):
     recommendations: list[str] = Field(
         default_factory=list
     )
-    technical_references: list[str] = Field(
-        default_factory=list
-    )
+
+    technical_references: list[
+        TechnicalReference
+    ] = Field(default_factory=list)
 
     translated_markdown_content: str | None = None
 
@@ -441,7 +725,6 @@ class StructuredTechnicalDocument(StrictBaseModel):
         "topics",
         "system_categories",
         "recommendations",
-        "technical_references",
     )
     @classmethod
     def normalize_string_lists(
