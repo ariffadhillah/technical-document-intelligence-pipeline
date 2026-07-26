@@ -258,33 +258,17 @@ class RAGChunkBuilder:
                             f"Products: {', '.join(item.products)}. "
                             f"Represented brands: "
                             f"{', '.join(item.represented_brands)}. "
+                            f"Services: "
+                            f"{self._organization_services_text(item)}. "
+                            f"Relationships: "
+                            f"{self._organization_relationships_text(item)}. "
+                            f"Contact: "
+                            f"{self._organization_contact_text(item)}. "
                             f"Country: {item.country}. City: {item.city}. "
                             f"Notes: {item.notes}."
                         ),
                     )
                     for item in document.organizations
-                ],
-            ),
-            (
-                "suppliers_and_fabricators",
-                [
-                    self._model_record(
-                        item,
-                        (
-                            f"Supplier/fabricator: "
-                            f"{item.organization}. "
-                            f"Type: {item.supplier_type}. "
-                            f"Products or services: "
-                            f"{', '.join(item.products_or_services)}. "
-                            f"Contact: {item.person_name}; "
-                            f"{item.role}; {item.email}; "
-                            f"{item.phone}; {item.mobile}; "
-                            f"{item.website}. "
-                            f"Address: {item.address}. "
-                            f"Notes: {item.notes}."
-                        ),
-                    )
-                    for item in document.supplier_details
                 ],
             ),
             (
@@ -338,6 +322,80 @@ class RAGChunkBuilder:
         ]
 
         return sections
+
+    @staticmethod
+    def _organization_services_text(
+        organization: object,
+    ) -> str:
+        services = getattr(organization, "services", [])
+        if not services:
+            return ""
+
+        values: list[str] = []
+        for service in services:
+            details = [service.name]
+            if service.description:
+                details.append(service.description)
+            if service.price is not None:
+                price = f"{service.price:g}"
+                if service.currency:
+                    price = f"{price} {service.currency}"
+                details.append(f"price {price}")
+            if service.price_basis:
+                details.append(f"basis {service.price_basis}")
+            values.append("; ".join(details))
+
+        return " | ".join(values)
+
+    @staticmethod
+    def _organization_relationships_text(
+        organization: object,
+    ) -> str:
+        relationships = getattr(
+            organization,
+            "relationships",
+            [],
+        )
+        if not relationships:
+            return ""
+
+        return " | ".join(
+            (
+                f"{item.relationship_type}: "
+                f"{item.target_organization}"
+                + (
+                    f" ({item.description})"
+                    if item.description
+                    else ""
+                )
+            )
+            for item in relationships
+        )
+
+    @staticmethod
+    def _organization_contact_text(
+        organization: object,
+    ) -> str:
+        contact = getattr(organization, "contact", None)
+        if contact is None:
+            return ""
+
+        values = [
+            contact.person_name,
+            contact.role,
+            contact.email,
+            contact.phone,
+            contact.mobile,
+            contact.fax,
+            contact.website,
+            contact.address,
+            contact.coordinates,
+        ]
+        return "; ".join(
+            str(value)
+            for value in values
+            if value not in (None, "")
+        )
 
     def _model_record(
         self,

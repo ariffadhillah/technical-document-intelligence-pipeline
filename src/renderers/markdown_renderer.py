@@ -235,37 +235,51 @@ class MarkdownRenderer:
                         ("Confidence", item.confidence),
                     ],
                 )
+                if item.services:
+                    lines.extend(["#### Services", ""])
+                    for service in item.services:
+                        lines.append(f"##### {service.name}")
+                        lines.append("")
+                        price = self._format_price(
+                            service.price,
+                            service.currency,
+                        )
+                        self._append_fields(
+                            lines,
+                            [
+                                ("Category", service.category),
+                                ("Description", service.description),
+                                ("Price", price),
+                                ("Price basis", service.price_basis),
+                                ("Confidence", service.confidence),
+                            ],
+                        )
+                        self._append_evidence(
+                            lines,
+                            service.evidence,
+                            heading_level=6,
+                        )
+
+                if item.relationships:
+                    lines.extend(["#### Relationships", ""])
+                    for relationship in item.relationships:
+                        lines.append(
+                            "- "
+                            f"**{relationship.relationship_type}:** "
+                            f"{relationship.target_organization}"
+                            + (
+                                f" — {relationship.description}"
+                                if relationship.description
+                                else ""
+                            )
+                            + f" (confidence: {relationship.confidence})"
+                        )
+                    lines.append("")
+
                 if item.contact:
                     lines.extend(["#### Contact", ""])
                     self._append_contact(lines, item.contact)
-                self._append_evidence(lines, item.evidence)
 
-        if document.supplier_details:
-            lines.extend(["## Suppliers and Fabricators", ""])
-            for item in document.supplier_details:
-                lines.append(f"### {item.organization}")
-                lines.append("")
-                self._append_fields(
-                    lines,
-                    [
-                        ("Type", item.supplier_type),
-                        (
-                            "Products or services",
-                            ", ".join(item.products_or_services) or None,
-                        ),
-                        ("Person", item.person_name),
-                        ("Role", item.role),
-                        ("Email", item.email),
-                        ("Phone", item.phone),
-                        ("Mobile", item.mobile),
-                        ("Fax", item.fax),
-                        ("Website", item.website),
-                        ("Address", item.address),
-                        ("Coordinates", item.coordinates),
-                        ("Notes", item.notes),
-                        ("Confidence", item.confidence),
-                    ],
-                )
                 self._append_evidence(lines, item.evidence)
 
         if document.contacts:
@@ -386,10 +400,17 @@ class MarkdownRenderer:
     def _append_evidence(
         lines: list[str],
         evidence: list[SourceEvidence],
+        *,
+        heading_level: int = 4,
     ) -> None:
         if not evidence:
             return
-        lines.extend(["#### Evidence", ""])
+        lines.extend(
+            [
+                f"{'#' * heading_level} Evidence",
+                "",
+            ]
+        )
         for item in evidence:
             references = [
                 f"type={item.evidence_type}",
@@ -408,6 +429,17 @@ class MarkdownRenderer:
             else:
                 lines.append(f"- {suffix}")
         lines.append("")
+
+    @staticmethod
+    def _format_price(
+        value: float | int | None,
+        currency: str | None,
+    ) -> str | None:
+        if value is None:
+            return None
+
+        number = f"{value:g}"
+        return f"{number} {currency}" if currency else number
 
     @staticmethod
     def _unit(

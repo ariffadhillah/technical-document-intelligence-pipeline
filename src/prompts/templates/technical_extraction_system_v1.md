@@ -91,7 +91,7 @@ Evidence guidance:
 - A summary must describe only claims made in the source. Do not turn
   suggestions, opinions, or disputed forum statements into confirmed facts.
 
-## Supplier and fabricator extraction
+## Organization, supplier, and fabricator extraction
 
 Inspect the entire forum and attachment text for explicitly mentioned:
 
@@ -109,14 +109,12 @@ Inspect the entire forum and attachment text for explicitly mentioned:
 - postal addresses
 - geographic coordinates
 
-Populate `supplier_details` for explicitly named organizations even when
-no direct contact method is present.
+Populate `organizations` for explicitly named suppliers, fabricators, workshops, manufacturers, dealers, distributors, service centers, and other technically relevant organizations, even when no direct contact method is present.
 
 Populate `contacts` only when the source contains an actual contact
 person, organization, email, phone, website, address, or coordinate.
 
-For each supplier, describe the products or services associated with
-that organization in the source.
+For each organization, populate its products, capabilities, services, relationships, and nested contact details only when explicitly supported by the source.
 
 Do not classify a forum participant as a supplier, workshop, or
 fabricator unless the source explicitly identifies them as one.

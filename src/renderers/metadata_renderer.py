@@ -34,7 +34,7 @@ class MetadataRenderer:
             "title": document.title,
             "source_language": document.source_language,
             "output_language": document.output_language,
-            "source": document.source,
+            "source": document.source.model_dump(mode="json"),
             "topics": document.topics,
             "system_categories": document.system_categories,
             "counts": {
@@ -51,9 +51,6 @@ class MetadataRenderer:
                 ),
                 "diagnostics": len(document.diagnostics),
                 "organizations": len(document.organizations),
-                "supplier_details": len(
-                    document.supplier_details
-                ),
                 "contacts": len(document.contacts),
                 "technical_references": len(
                     document.technical_references
@@ -91,7 +88,6 @@ class MetadataRenderer:
             document.transmissions,
             document.contacts,
             document.organizations,
-            document.supplier_details,
             document.technical_specifications,
             document.parts,
             document.maintenance_tasks,
@@ -104,3 +100,28 @@ class MetadataRenderer:
             for item in collection:
                 for evidence in getattr(item, "evidence", []):
                     yield evidence
+
+                for service in getattr(item, "services", []):
+                    for evidence in getattr(service, "evidence", []):
+                        yield evidence
+
+                for relationship in getattr(
+                    item,
+                    "relationships",
+                    [],
+                ):
+                    for evidence in getattr(
+                        relationship,
+                        "evidence",
+                        [],
+                    ):
+                        yield evidence
+
+                contact = getattr(item, "contact", None)
+                if contact is not None:
+                    for evidence in getattr(
+                        contact,
+                        "evidence",
+                        [],
+                    ):
+                        yield evidence
