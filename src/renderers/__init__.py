@@ -1,10 +1,9 @@
-from src.renderers.technical_markdown_renderer import (
-    MarkdownRenderingError,
-    TechnicalMarkdownRenderer,
+from src.renderers.rendering_stage_runner import (
+    RenderingStageResult,
+    RenderingStageRunner,
 )
 
-
 __all__ = [
-    "MarkdownRenderingError",
-    "TechnicalMarkdownRenderer",
+    "RenderingStageResult",
+    "RenderingStageRunner",
 ]
