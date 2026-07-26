@@ -56,7 +56,7 @@ class FinalDeliveryStageRunner:
     def run(
         self,
         *,
-        validated_document: dict[str, Any],
+        validated_document: Any,
         enriched_thread: dict[str, Any],
         aggregated_document: dict[str, Any],
         validated_response_path: Path,
@@ -66,14 +66,29 @@ class FinalDeliveryStageRunner:
         rag_output_path: Path,
         provider_metadata_path: Path | None = None,
     ) -> FinalDeliveryResult:
+        validated_payload = self._to_mapping(
+            validated_document
+        )
+
         document_id = str(
-            validated_document.get("document_id")
-            or enriched_thread.get("metadata", {}).get("thread_id")
+            validated_payload.get("document_id")
+            or enriched_thread.get(
+                "metadata",
+                {},
+            ).get("thread_id")
             or "unknown"
         )
-        safe_document_id = self._safe_name(document_id)
 
-        package_root = self.output_directory / safe_document_id
+        safe_document_id = self._safe_name(
+            document_id
+        )
+
+        package_root = (
+            self.output_directory
+            / safe_document_id
+        )
+
+        # kode berikutnya tetap sama
         if package_root.exists():
             shutil.rmtree(package_root)
 
@@ -128,7 +143,7 @@ class FinalDeliveryStageRunner:
         )
 
         macro_domain = self._select_macro_domain(
-            validated_document
+            validated_payload
         )
         logbook_path = (
             logbooks_dir
@@ -139,7 +154,7 @@ class FinalDeliveryStageRunner:
             output_path=logbook_path,
             document_id=document_id,
             title=str(
-                validated_document.get("title")
+                validated_payload.get("title")
                 or document_id
             ),
             macro_domain=macro_domain,
@@ -174,7 +189,7 @@ class FinalDeliveryStageRunner:
         manifest_path = reports_dir / "delivery_manifest.json"
         manifest = {
             "document_id": document_id,
-            "title": validated_document.get("title"),
+            "title": validated_payload.get("title"),
             "status": "ready_for_delivery",
             "generated_at": datetime.now(
                 timezone.utc
@@ -186,25 +201,25 @@ class FinalDeliveryStageRunner:
                 ),
                 "attachments": len(attachments),
                 "organizations": len(
-                    validated_document.get(
+                    validated_payload.get(
                         "organizations",
                         [],
                     )
                 ),
                 "contacts": len(
-                    validated_document.get(
+                    validated_payload.get(
                         "contacts",
                         [],
                     )
                 ),
                 "technical_references": len(
-                    validated_document.get(
+                    validated_payload.get(
                         "technical_references",
                         [],
                     )
                 ),
                 "technical_specifications": len(
-                    validated_document.get(
+                    validated_payload.get(
                         "technical_specifications",
                         [],
                     )
@@ -228,12 +243,12 @@ class FinalDeliveryStageRunner:
                     .get("thread_id")
                 ),
                 "source_url": (
-                    validated_document
+                    validated_payload
                     .get("source", {})
                     .get("source_url")
                 ),
                 "forum_name": (
-                    validated_document
+                    validated_payload
                     .get("source", {})
                     .get("forum_name")
                 ),
@@ -250,7 +265,7 @@ class FinalDeliveryStageRunner:
             output_path=package_root / "README.md",
             document_id=document_id,
             title=str(
-                validated_document.get("title")
+                validated_payload.get("title")
                 or document_id
             ),
             macro_domain=macro_domain,
@@ -283,6 +298,41 @@ class FinalDeliveryStageRunner:
             attachment_count=len(attachments),
             rag_chunk_count=rag_chunk_count,
         )
+
+    @staticmethod
+    def _to_mapping(
+        value: Any,
+    ) -> dict[str, Any]:
+        if isinstance(value, dict):
+            return value
+
+        model_dump = getattr(
+            value,
+            "model_dump",
+            None,
+        )
+        if callable(model_dump):
+            payload = model_dump(
+                mode="json"
+            )
+            if isinstance(payload, dict):
+                return payload
+
+        legacy_dict = getattr(
+            value,
+            "dict",
+            None,
+        )
+        if callable(legacy_dict):
+            payload = legacy_dict()
+            if isinstance(payload, dict):
+                return payload
+
+        raise TypeError(
+            "validated_document must be a mapping "
+            "or a supported Pydantic model"
+        )
+
 
     @staticmethod
     def _build_attachment_catalog(
