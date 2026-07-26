@@ -183,7 +183,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--max-output-tokens",
         type=int,
-        default=16000,
+        default=6000,
         help="Maximum provider output tokens.",
     )
 

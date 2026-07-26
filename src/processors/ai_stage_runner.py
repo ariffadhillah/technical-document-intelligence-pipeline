@@ -284,7 +284,16 @@ class TechnicalAIStageRunner:
         *,
         prompt: Any,
     ) -> ProviderRequest:
+        """
+        Build a schema-constrained provider request.
 
+        The JSON schema is supplied directly to the provider instead
+        of relying only on instructions written inside the prompt.
+        """
+
+        response_schema = (
+            StructuredTechnicalDocument.model_json_schema()
+        )
 
         return ProviderRequest(
             messages=(
@@ -301,8 +310,8 @@ class TechnicalAIStageRunner:
             temperature=self.temperature,
             max_output_tokens=self.max_output_tokens,
             timeout_seconds=self.timeout_seconds,
-            response_format="json_object",
-            json_schema=None,
+            response_format="json_schema",
+            json_schema=response_schema,
             metadata={
                 "document_id": prompt.document_id,
                 "prompt_name": prompt.prompt_name,
@@ -318,6 +327,7 @@ class TechnicalAIStageRunner:
                 ),
             },
         )
+
 
     @staticmethod
     def _parse_raw_response(
