@@ -1,3 +1,22 @@
-"""Backward-compatible imports for the extraction provider package."""
+from .base_provider import BaseProvider
 
-from src.ai.extraction import *  # noqa: F401,F403
+from .provider_factory import ProviderFactory
+
+from .provider_models import (
+    ProviderMessage,
+    ProviderRequest,
+    ProviderResponse,
+)
+
+from .openai_provider import OpenAIProvider
+from .mock_provider import MockProvider
+
+__all__ = [
+    "BaseProvider",
+    "ProviderFactory",
+    "ProviderMessage",
+    "ProviderRequest",
+    "ProviderResponse",
+    "OpenAIProvider",
+    "MockProvider",
+]
