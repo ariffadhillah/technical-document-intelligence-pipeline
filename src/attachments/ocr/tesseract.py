@@ -38,37 +38,63 @@ class TesseractOCREngine(BaseOCREngine):
     def __init__(
         self,
         *,
+        executable_path: str | Path | None = None,
+        use_cache: bool = True,
         default_language: str = "eng",
         psm: int = 3,
         oem: int = 3,
-        tesseract_cmd: str | None = None,
         extra_config: str = "",
-        use_cache: bool = True,
         cache_dir: str | Path = "output/cache/ocr",
         retry_threshold: float = 0.60,
     ) -> None:
-
         try:
             import pytesseract
+
         except ImportError as exc:
             raise OCRConfigurationError(
                 "pytesseract is not installed. "
-                "Install it using: pip install pytesseract"
+                "Install it using: "
+                "python -m pip install pytesseract"
             ) from exc
 
         self.pytesseract = pytesseract
 
-        if tesseract_cmd:
-            self.pytesseract.pytesseract.tesseract_cmd = (
-                tesseract_cmd
+        resolved_executable = self._resolve_executable(
+            executable_path
+        )
+
+        if resolved_executable is not None:
+            self.pytesseract.pytesseract.tesseract_cmd = str(
+                resolved_executable
             )
 
-        self.default_language = default_language
+        self.default_language = default_language.strip()
+
+        if not self.default_language:
+            raise OCRConfigurationError(
+                "default_language cannot be empty."
+            )
+
+        if psm < 0 or psm > 13:
+            raise OCRConfigurationError(
+                f"Invalid Tesseract PSM value: {psm}. "
+                "Expected a value between 0 and 13."
+            )
+
+        if oem < 0 or oem > 3:
+            raise OCRConfigurationError(
+                f"Invalid Tesseract OEM value: {oem}. "
+                "Expected a value between 0 and 3."
+            )
+
+        if retry_threshold < 0.0 or retry_threshold > 1.0:
+            raise OCRConfigurationError(
+                "retry_threshold must be between "
+                "0.0 and 1.0."
+            )
 
         self.psm = psm
-
         self.oem = oem
-
         self.extra_config = extra_config.strip()
 
         self.cleaner = OCRTextCleaner()
@@ -83,6 +109,100 @@ class TesseractOCREngine(BaseOCREngine):
             cache_dir=cache_dir,
             enabled=use_cache,
         )
+
+        if not self.is_available():
+            configured_path = (
+                self.pytesseract.pytesseract.tesseract_cmd
+            )
+
+            raise OCRConfigurationError(
+                "Tesseract OCR executable could not be started. "
+                f"Configured command: {configured_path!r}. "
+                "Install Tesseract or provide executable_path."
+            )
+
+        logger.info(
+            "Tesseract OCR initialized: executable=%s "
+            "version=%s language=%s psm=%s oem=%s",
+            self.pytesseract.pytesseract.tesseract_cmd,
+            self.get_version(),
+            self.default_language,
+            self.psm,
+            self.oem,
+        )
+
+
+    @staticmethod
+    def _resolve_executable(
+        executable_path: str | Path | None,
+    ) -> Path | None:
+        """
+        Resolve the Tesseract executable.
+
+        Resolution order:
+        1. Explicit executable_path.
+        2. TESSERACT_CMD environment variable.
+        3. Executable available in system PATH.
+        4. Common Windows installation directories.
+        """
+
+        import os
+        import shutil
+
+        if executable_path is not None:
+            candidate = (
+                Path(executable_path)
+                .expanduser()
+                .resolve()
+            )
+
+            if not candidate.is_file():
+                raise OCRConfigurationError(
+                    "Tesseract executable was not found at "
+                    f"the provided path: {candidate}"
+                )
+
+            return candidate
+
+        environment_path = os.getenv("TESSERACT_CMD")
+
+        if environment_path:
+            candidate = (
+                Path(environment_path)
+                .expanduser()
+                .resolve()
+            )
+
+            if not candidate.is_file():
+                raise OCRConfigurationError(
+                    "TESSERACT_CMD points to a file that "
+                    f"does not exist: {candidate}"
+                )
+
+            return candidate
+
+        command_from_path = shutil.which("tesseract")
+
+        if command_from_path:
+            return Path(command_from_path).resolve()
+
+        windows_candidates = [
+            Path(
+                r"C:\Program Files\Tesseract-OCR"
+                r"\tesseract.exe"
+            ),
+            Path(
+                r"C:\Program Files (x86)\Tesseract-OCR"
+                r"\tesseract.exe"
+            ),
+        ]
+
+        for candidate in windows_candidates:
+            if candidate.is_file():
+                return candidate.resolve()
+
+        return None
+
 
     def process_image(
         self,

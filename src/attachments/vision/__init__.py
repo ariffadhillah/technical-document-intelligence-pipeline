@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 from .base import BaseVisionEngine
+from .mock import MockVisionEngine
+from .processor import VisionFallbackProcessor
+from .prompt import VisionPrompt
+
 from .benchmark import (
     VisionBenchmark,
     VisionBenchmarkSummary,
@@ -39,6 +43,9 @@ from .scorer import VisionPageScorer
 
 
 __all__ = [
+    "MockVisionEngine",
+    "VisionFallbackProcessor",
+    "VisionPrompt",
     "BaseVisionEngine",
     "VisionAuditEntry",
     "VisionBatchResult",
@@ -64,3 +71,9 @@ __all__ = [
     "VisionRoutingError",
     "vision_registry",
 ]
+
+if not vision_registry.contains("mock"):
+    vision_registry.register(
+        "mock",
+        MockVisionEngine,
+    )
