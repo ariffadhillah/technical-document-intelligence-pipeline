@@ -516,6 +516,17 @@ class TechnicalWarning(StrictBaseModel):
 
 
 class TranslationQuality(StrictBaseModel):
+    # Translation metrics are updated by the AI stage after the provider
+    # response has already been validated. Disabling assignment validation
+    # here prevents a temporary invalid state when the two counters are
+    # updated sequentially (for example, protected=0 while preserved is
+    # still 5). Full model validation still runs when the object is created.
+    model_config = ConfigDict(
+        extra="forbid",
+        str_strip_whitespace=True,
+        validate_assignment=False,
+    )
+
     source_language: str = "de"
     target_language: str = "en"
     translated: bool = False
