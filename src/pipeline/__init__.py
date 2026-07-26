@@ -13,6 +13,10 @@ from .models import (
     DocumentPipelineResult,
     PreparedPage,
 )
+from .layout_analyzer import (
+    VisualLayoutAnalysis,
+    VisualLayoutAnalyzer,
+)
 from .ocr_runner import OCRRunner
 from .output_writer import PipelineOutputWriter
 from .page_preprocessor import (
@@ -21,6 +25,8 @@ from .page_preprocessor import (
 )
 
 __all__ = [
+    "VisualLayoutAnalysis",
+    "VisualLayoutAnalyzer",
     "DocumentAnalysis",
     "DocumentAnalyzer",
     "DocumentIntelligencePipeline",

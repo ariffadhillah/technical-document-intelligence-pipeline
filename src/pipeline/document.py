@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 import time
 from pathlib import Path
@@ -9,6 +11,11 @@ import numpy as np
 from .analyzer import (
     DocumentAnalysis,
     DocumentAnalyzer,
+)
+
+from .layout_analyzer import (
+    VisualLayoutAnalysis,
+    VisualLayoutAnalyzer,
 )
 
 from src.attachments.image.orientation import (
@@ -91,6 +98,9 @@ class DocumentIntelligencePipeline:
         vision_router: VisionRouter | None = None,
         document_analyzer: DocumentAnalyzer | None = None,
         use_analyzer_vision_recommendation: bool = False,
+        visual_layout_analyzer: (
+            VisualLayoutAnalyzer | None
+        ) = None,
         vision_processor: (
             VisionFallbackProcessor | None
         ) = None,
@@ -113,7 +123,7 @@ class DocumentIntelligencePipeline:
         ) = True,
         orientation_minimum_confidence: (
             float
-        ) = 1.0,
+        ) = 5.0,
         fail_open: bool = True,
     ) -> None:
         self.output_root = Path(output_root)
@@ -124,6 +134,11 @@ class DocumentIntelligencePipeline:
             or TesseractOCREngine(
                 use_cache=use_ocr_cache,
             )
+        )
+
+        self.visual_layout_analyzer = (
+            visual_layout_analyzer
+            or VisualLayoutAnalyzer()
         )
 
         self.document_analyzer = (
@@ -254,6 +269,20 @@ class DocumentIntelligencePipeline:
             preprocessing_result.images
         )
 
+        visual_analyses = {
+            prepared_page.page_number: (
+                self.visual_layout_analyzer.analyze(
+                    image=processed_images[
+                        prepared_page.page_number
+                    ],
+                    page_number=(
+                        prepared_page.page_number
+                    ),
+                )
+            )
+            for prepared_page in prepared_pages
+        }
+
         original_ocr_pages = (
             self.ocr_runner.run(
                 prepared_pages=prepared_pages,
@@ -272,22 +301,30 @@ class DocumentIntelligencePipeline:
             )
         )
 
-        force_pages = (
-            self._resolve_force_pages(
-                original_ocr_pages=(
-                    original_ocr_pages
-                ),
-                force_vision=force_vision,
-                force_vision_pages=(
-                    force_vision_pages
-                ),
-                analyzer_vision_pages=(
-                    document_analysis.vision_pages
-                ),
-                use_analyzer_recommendation=(
-                    self.use_analyzer_vision_recommendation
-                ),
-            )
+        visual_vision_pages = [
+            page_number
+            for (
+                page_number,
+                analysis,
+            ) in visual_analyses.items()
+            if analysis.vision_recommended
+        ]
+
+        force_pages = self._resolve_force_pages(
+            original_ocr_pages=original_ocr_pages,
+            force_vision=force_vision,
+            force_vision_pages=(
+                force_vision_pages
+            ),
+            analyzer_vision_pages=(
+                document_analysis.vision_pages
+            ),
+            visual_vision_pages=(
+                visual_vision_pages
+            ),
+            use_analyzer_recommendation=(
+                self.use_analyzer_vision_recommendation
+            ),
         )
 
         vision_batch = (
@@ -344,6 +381,7 @@ class DocumentIntelligencePipeline:
             ),
             metadata=self._build_metadata(
                 document_analysis=document_analysis,
+                visual_analyses=visual_analyses,
                 prepared_pages=prepared_pages,
                 preprocessing_metadata=(
                     preprocessing_result
@@ -587,8 +625,11 @@ class DocumentIntelligencePipeline:
         *,
         original_ocr_pages: list[OCRPage],
         force_vision: bool,
-        force_vision_pages: set[int] | None,
+        force_vision_pages: (
+            set[int] | None
+        ),
         analyzer_vision_pages: list[int],
+        visual_vision_pages: list[int],
         use_analyzer_recommendation: bool,
     ) -> set[int]:
         force_pages = set(
@@ -606,6 +647,10 @@ class DocumentIntelligencePipeline:
                 analyzer_vision_pages
             )
 
+            force_pages.update(
+                visual_vision_pages
+            )
+
         return force_pages
 
     def _build_metadata(
@@ -615,6 +660,10 @@ class DocumentIntelligencePipeline:
         preprocessing_metadata: Mapping[
             int,
             dict,
+        ],
+        visual_analyses: Mapping[
+            int,
+            VisualLayoutAnalysis,
         ],
         document_analysis: DocumentAnalysis,
         force_vision: bool,
@@ -655,6 +704,15 @@ class DocumentIntelligencePipeline:
                 ) in (
                     preprocessing_metadata.items()
                 )
+            },
+            "visual_layout_analysis": {
+                str(page_number): (
+                    analysis.to_dict()
+                )
+                for (
+                    page_number,
+                    analysis,
+                ) in visual_analyses.items()
             },
         }
 
