@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+from .analyzer import (
+    DocumentAnalysis,
+    DocumentAnalyzer,
+    PageAnalysis,
+)
 from .document import (
     DocumentIntelligencePipeline,
     UnsupportedDocumentTypeError,
@@ -16,9 +21,12 @@ from .page_preprocessor import (
 )
 
 __all__ = [
+    "DocumentAnalysis",
+    "DocumentAnalyzer",
     "DocumentIntelligencePipeline",
     "DocumentPipelineResult",
     "OCRRunner",
+    "PageAnalysis",
     "PagePreprocessingResult",
     "PagePreprocessor",
     "PipelineOutputWriter",

@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import logging
 import time
 from pathlib import Path
@@ -7,6 +5,11 @@ from typing import Mapping
 
 import cv2
 import numpy as np
+
+from .analyzer import (
+    DocumentAnalysis,
+    DocumentAnalyzer,
+)
 
 from src.attachments.image.orientation import (
     ImageOrientationCorrector,
@@ -86,6 +89,8 @@ class DocumentIntelligencePipeline:
         vision_engine: BaseVisionEngine | None = None,
         pdf_renderer: PDFRenderer | None = None,
         vision_router: VisionRouter | None = None,
+        document_analyzer: DocumentAnalyzer | None = None,
+        use_analyzer_vision_recommendation: bool = False,
         vision_processor: (
             VisionFallbackProcessor | None
         ) = None,
@@ -119,6 +124,15 @@ class DocumentIntelligencePipeline:
             or TesseractOCREngine(
                 use_cache=use_ocr_cache,
             )
+        )
+
+        self.document_analyzer = (
+            document_analyzer
+            or DocumentAnalyzer()
+        )
+
+        self.use_analyzer_vision_recommendation = (
+            use_analyzer_vision_recommendation
         )
 
         self.vision_engine = (
@@ -252,6 +266,12 @@ class DocumentIntelligencePipeline:
             )
         )
 
+        document_analysis = (
+            self.document_analyzer.analyze(
+                original_ocr_pages
+            )
+        )
+
         force_pages = (
             self._resolve_force_pages(
                 original_ocr_pages=(
@@ -260,6 +280,12 @@ class DocumentIntelligencePipeline:
                 force_vision=force_vision,
                 force_vision_pages=(
                     force_vision_pages
+                ),
+                analyzer_vision_pages=(
+                    document_analysis.vision_pages
+                ),
+                use_analyzer_recommendation=(
+                    self.use_analyzer_vision_recommendation
                 ),
             )
         )
@@ -317,6 +343,7 @@ class DocumentIntelligencePipeline:
                 document_output_dir
             ),
             metadata=self._build_metadata(
+                document_analysis=document_analysis,
                 prepared_pages=prepared_pages,
                 preprocessing_metadata=(
                     preprocessing_result
@@ -560,9 +587,9 @@ class DocumentIntelligencePipeline:
         *,
         original_ocr_pages: list[OCRPage],
         force_vision: bool,
-        force_vision_pages: (
-            set[int] | None
-        ),
+        force_vision_pages: set[int] | None,
+        analyzer_vision_pages: list[int],
+        use_analyzer_recommendation: bool,
     ) -> set[int]:
         force_pages = set(
             force_vision_pages or set()
@@ -574,15 +601,22 @@ class DocumentIntelligencePipeline:
                 for page in original_ocr_pages
             )
 
+        if use_analyzer_recommendation:
+            force_pages.update(
+                analyzer_vision_pages
+            )
+
         return force_pages
 
     def _build_metadata(
         self,
         *,
         prepared_pages: list[PreparedPage],
-        preprocessing_metadata: (
-            Mapping[int, dict]
-        ),
+        preprocessing_metadata: Mapping[
+            int,
+            dict,
+        ],
+        document_analysis: DocumentAnalysis,
         force_vision: bool,
         force_pages: set[int],
     ) -> dict:
@@ -602,6 +636,12 @@ class DocumentIntelligencePipeline:
             "force_vision": force_vision,
             "force_vision_pages": sorted(
                 force_pages
+            ),
+            "analyzer_vision_routing_enabled": (
+                self.use_analyzer_vision_recommendation
+            ),
+            "document_analysis": (
+                document_analysis.to_dict()
             ),
             "prepared_pages": [
                 page.to_dict()
