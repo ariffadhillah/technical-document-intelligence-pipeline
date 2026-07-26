@@ -1,78 +1,199 @@
 from __future__ import annotations
 
 import logging
-from pathlib import Path
+import re
+from dataclasses import dataclass
+from typing import Any
 
 import cv2
 import numpy as np
 
+from src.attachments.ocr.exceptions import (
+    OCRProcessingError,
+)
+
 logger = logging.getLogger(__name__)
 
 
-class OrientationCorrector:
+@dataclass(slots=True)
+class OrientationResult:
+    image: np.ndarray
+    detected_angle: int
+    applied_rotation: int
+    confidence: float
+    corrected: bool
+    metadata: dict[str, Any]
+
+
+class ImageOrientationCorrector:
     """
-    Correct image orientation before OCR.
+    Detect and correct image orientation using
+    Tesseract OSD.
+
+    Supported detected rotations:
+    0, 90, 180, and 270 degrees.
     """
 
-    def rotate(
+    def __init__(
+        self,
+        *,
+        pytesseract_module: Any,
+        minimum_confidence: float = 1.0,
+        fail_open: bool = True,
+    ) -> None:
+        self.pytesseract = pytesseract_module
+        self.minimum_confidence = (
+            minimum_confidence
+        )
+        self.fail_open = fail_open
+
+    def correct(
         self,
         image: np.ndarray,
-        angle: float,
-    ) -> np.ndarray:
+    ) -> OrientationResult:
+        if image is None or image.size == 0:
+            raise OCRProcessingError(
+                "Cannot detect orientation of an "
+                "empty image."
+            )
 
-        h, w = image.shape[:2]
+        try:
+            osd = self.pytesseract.image_to_osd(
+                image
+            )
 
-        center = (w // 2, h // 2)
+            detected_angle = self._extract_integer(
+                osd,
+                "Orientation in degrees",
+            )
 
-        matrix = cv2.getRotationMatrix2D(
-            center,
-            angle,
-            1.0,
+            rotate_value = self._extract_integer(
+                osd,
+                "Rotate",
+            )
+
+            confidence = self._extract_float(
+                osd,
+                "Orientation confidence",
+            )
+
+        except Exception as exc:
+            if not self.fail_open:
+                raise OCRProcessingError(
+                    "Image orientation detection "
+                    f"failed: {exc}"
+                ) from exc
+
+            logger.warning(
+                "Orientation detection failed; "
+                "keeping original image: %s",
+                exc,
+            )
+
+            return OrientationResult(
+                image=image,
+                detected_angle=0,
+                applied_rotation=0,
+                confidence=0.0,
+                corrected=False,
+                metadata={
+                    "error": str(exc),
+                    "fail_open": True,
+                },
+            )
+
+        should_rotate = (
+            rotate_value in {90, 180, 270}
+            and confidence
+            >= self.minimum_confidence
         )
 
-        return cv2.warpAffine(
-            image,
-            matrix,
-            (w, h),
-            flags=cv2.INTER_LINEAR,
-            borderMode=cv2.BORDER_REPLICATE,
+        corrected_image = image
+
+        if should_rotate:
+            corrected_image = self._rotate(
+                image,
+                rotate_value,
+            )
+
+            logger.info(
+                "Corrected image orientation: "
+                "detected=%s rotate=%s "
+                "confidence=%.2f",
+                detected_angle,
+                rotate_value,
+                confidence,
+            )
+
+        return OrientationResult(
+            image=corrected_image,
+            detected_angle=detected_angle,
+            applied_rotation=(
+                rotate_value
+                if should_rotate
+                else 0
+            ),
+            confidence=confidence,
+            corrected=should_rotate,
+            metadata={
+                "raw_osd": osd,
+            },
         )
 
-    def rotate_90(self, image: np.ndarray):
-
-        return cv2.rotate(
-            image,
-            cv2.ROTATE_90_CLOCKWISE,
-        )
-
-    def rotate_180(self, image):
-
-        return cv2.rotate(
-            image,
-            cv2.ROTATE_180,
-        )
-
-    def rotate_270(self, image):
-
-        return cv2.rotate(
-            image,
-            cv2.ROTATE_90_COUNTERCLOCKWISE,
-        )
-
-    def auto(
-        self,
+    @staticmethod
+    def _rotate(
         image: np.ndarray,
+        angle: int,
     ) -> np.ndarray:
-        """
-        Placeholder.
+        if angle == 90:
+            return cv2.rotate(
+                image,
+                cv2.ROTATE_90_CLOCKWISE,
+            )
 
-        Nanti akan memakai
-        Tesseract OSD atau PaddleOCR
-        orientation detection.
-        """
+        if angle == 180:
+            return cv2.rotate(
+                image,
+                cv2.ROTATE_180,
+            )
 
-        logger.debug(
-            "Auto orientation not enabled yet."
-        )
+        if angle == 270:
+            return cv2.rotate(
+                image,
+                cv2.ROTATE_90_COUNTERCLOCKWISE,
+            )
 
         return image
+
+    @staticmethod
+    def _extract_integer(
+        osd: str,
+        key: str,
+    ) -> int:
+        match = re.search(
+            rf"^{re.escape(key)}:\s*(-?\d+)",
+            osd,
+            flags=re.MULTILINE,
+        )
+
+        if match is None:
+            return 0
+
+        return int(match.group(1))
+
+    @staticmethod
+    def _extract_float(
+        osd: str,
+        key: str,
+    ) -> float:
+        match = re.search(
+            rf"^{re.escape(key)}:\s*"
+            r"(-?\d+(?:\.\d+)?)",
+            osd,
+            flags=re.MULTILINE,
+        )
+
+        if match is None:
+            return 0.0
+
+        return float(match.group(1))

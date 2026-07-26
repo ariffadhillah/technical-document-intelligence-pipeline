@@ -73,6 +73,16 @@ def parse_arguments() -> argparse.Namespace:
         default=400,
     )
 
+    parser.add_argument(
+        "--analyzer-vision-routing",
+        action="store_true",
+        help=(
+            "Automatically send pages recommended by "
+            "the Document Analyzer to Vision."
+        ),
+    )
+
+
     return parser.parse_args()
 
 
@@ -94,8 +104,9 @@ def main() -> None:
         render_dpi=args.render_dpi,
         use_ocr_cache=not args.no_cache,
         use_vision_cache=not args.no_cache,
-        vision_threshold=(
-            args.vision_threshold
+        vision_threshold=args.vision_threshold,
+        use_analyzer_vision_recommendation=(
+            args.analyzer_vision_routing
         ),
     )
 
@@ -173,6 +184,44 @@ def main() -> None:
     print(
         f"Output directory  : "
         f"{result.output_directory}"
+    )
+
+    analysis = result.metadata.get(
+        "document_analysis",
+        {},
+    )
+
+    print("\nDOCUMENT ANALYSIS")
+    print("-" * 72)
+
+    print(
+        f"Document type     : "
+        f"{analysis.get('document_type')}"
+    )
+
+    print(
+        f"Language          : "
+        f"{analysis.get('detected_language')}"
+    )
+
+    print(
+        f"Layout complexity : "
+        f"{analysis.get('layout_complexity')}"
+    )
+
+    print(
+        f"Vision suggested  : "
+        f"{analysis.get('vision_recommended')}"
+    )
+
+    print(
+        f"Vision pages      : "
+        f"{analysis.get('vision_pages')}"
+    )
+
+    print(
+        f"Vision reasons    : "
+        f"{analysis.get('vision_reasons')}"
     )
 
     print("\nPAGE RESULTS")
