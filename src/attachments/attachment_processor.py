@@ -11,6 +11,7 @@ from src.attachments.ocr_engine import (
     select_ocr_language,
 )
 from src.attachments.pdf_extractor import extract_pdf
+from src.pipeline import DocumentIntelligencePipeline
 
 
 @dataclass
@@ -45,9 +46,11 @@ class AttachmentProcessor:
         self,
         ocr_output_directory: Path,
         pdf_output_directory: Path,
+        document_pipeline: DocumentIntelligencePipeline | None = None,
     ) -> None:
         self.ocr_output_directory = ocr_output_directory
         self.pdf_output_directory = pdf_output_directory
+        self.document_pipeline = document_pipeline
 
         self.ocr_output_directory.mkdir(
             parents=True,
@@ -185,6 +188,163 @@ class AttachmentProcessor:
 
             return enriched_attachment
 
+    def _process_with_document_pipeline(
+        self,
+        attachment: dict[str, Any],
+        source_path: Path,
+        thread_id: int | str,
+        post_id: str,
+        stats: AttachmentProcessingStats,
+    ) -> dict[str, Any]:
+        """
+        Jalankan PDF/image melalui DocumentIntelligencePipeline yang
+        sama dengan scripts.run_document_pipeline.
+
+        `result.merged_text` ditempatkan ke `extracted_text`, yaitu
+        field yang sudah dikonsumsi ContentAggregator. Dengan begitu
+        seluruh hasil OCR atau Vision mengalir ke AI extraction,
+        renderer, dan RAG tanpa mengubah tahap-tahap tersebut.
+        """
+        if self.document_pipeline is None:
+            raise RuntimeError(
+                "DocumentIntelligencePipeline is not configured"
+            )
+
+        language = self._get_ocr_language()
+
+        output_directory = (
+            self.document_pipeline.output_root
+            / f"thread_{thread_id}"
+            / f"post_{post_id}"
+            / source_path.stem
+        )
+
+        result = self.document_pipeline.process(
+            source_path,
+            output_dir=output_directory,
+            language=language,
+            force_vision=False,
+            write_outputs=True,
+        )
+
+        extracted_text = result.merged_text.strip()
+        analysis = result.metadata.get(
+            "document_analysis",
+            {},
+        )
+
+        attachment["extracted_text"] = extracted_text
+        attachment["extraction_method"] = (
+            "document_intelligence_pipeline"
+        )
+        attachment["processing_status"] = (
+            "document_pipeline_completed"
+            if extracted_text
+            else "document_pipeline_empty"
+        )
+        attachment["processing_error"] = None
+
+        attachment["document_intelligence"] = {
+            "success": result.success,
+            "source_type": result.source_type,
+            "total_pages": result.total_pages,
+            "vision_pages": result.vision_pages,
+            "vision_cache_hits": result.vision_cache_hits,
+            "vision_failures": result.vision_failures,
+            "vision_usage_ratio": result.vision_usage_ratio,
+            "average_confidence": result.average_confidence,
+            "average_quality": result.average_quality,
+            "processing_time": result.processing_time,
+            "estimated_cost": result.estimated_cost,
+            "output_directory": (
+                str(result.output_directory)
+                if result.output_directory is not None
+                else None
+            ),
+            "document_analysis": analysis,
+            "pages": [page.to_dict() for page in result.pages],
+            "vision_results": [
+                {
+                    "success": item.success,
+                    "from_cache": item.from_cache,
+                    "error": item.error,
+                    "text": item.text,
+                    "provider": item.decision.provider,
+                    "model": item.decision.model,
+                    "reasons": [
+                        reason.value
+                        for reason in item.decision.reasons
+                    ],
+                    "metadata": item.metadata,
+                }
+                for item in result.vision_results
+            ],
+        }
+
+        if result.source_type == "image":
+            attachment["ocr"] = {
+                "engine": (
+                    result.pages[0].engine_name
+                    if result.pages
+                    else "document_intelligence_pipeline"
+                ),
+                "language": analysis.get(
+                    "detected_language",
+                    language,
+                ),
+                "confidence": result.average_confidence,
+                "character_count": len(extracted_text),
+                "word_count": len(extracted_text.split()),
+                "has_extracted_text": bool(extracted_text),
+                "processing_status": attachment[
+                    "processing_status"
+                ],
+                "raw_text": extracted_text,
+                "result_path": (
+                    str(result.output_directory)
+                    if result.output_directory is not None
+                    else None
+                ),
+                "vision_used": result.vision_pages > 0,
+            }
+
+        if result.source_type == "pdf":
+            attachment["pdf_extraction"] = {
+                "page_count": result.total_pages,
+                "successful_pages": sum(
+                    1 for page in result.pages if page.text.strip()
+                ),
+                "empty_pages": sum(
+                    1 for page in result.pages if not page.text.strip()
+                ),
+                "character_count": len(extracted_text),
+                "classification": analysis.get(
+                    "document_type",
+                    "unknown",
+                ),
+                "requires_ocr": True,
+                "processing_status": attachment[
+                    "processing_status"
+                ],
+                "pages": [
+                    page.to_dict() for page in result.pages
+                ],
+                "raw_text": extracted_text,
+                "result_path": (
+                    str(result.output_directory)
+                    if result.output_directory is not None
+                    else None
+                ),
+                "vision_used": result.vision_pages > 0,
+            }
+
+        if extracted_text:
+            stats.completed += 1
+        else:
+            stats.empty += 1
+
+        return attachment
+
     def _process_image_attachment(
         self,
         attachment: dict[str, Any],
@@ -194,8 +354,20 @@ class AttachmentProcessor:
         stats: AttachmentProcessingStats,
     ) -> dict[str, Any]:
         """
-        Menjalankan OCR untuk satu image.
+        Menjalankan pipeline dokumen lengkap untuk satu image.
+
+        Jika DocumentIntelligencePipeline belum dikonfigurasi,
+        gunakan OCR lama sebagai fallback agar pipeline lama tetap aman.
         """
+        if self.document_pipeline is not None:
+            return self._process_with_document_pipeline(
+                attachment=attachment,
+                source_path=image_path,
+                thread_id=thread_id,
+                post_id=post_id,
+                stats=stats,
+            )
+
         language = self._get_ocr_language()
 
         output_directory = (
@@ -260,8 +432,20 @@ class AttachmentProcessor:
         stats: AttachmentProcessingStats,
     ) -> dict[str, Any]:
         """
-        Mengekstrak seluruh halaman dari satu PDF.
+        Menjalankan pipeline dokumen lengkap untuk satu PDF.
+
+        Jika DocumentIntelligencePipeline belum dikonfigurasi,
+        gunakan ekstraksi pypdf lama sebagai fallback.
         """
+        if self.document_pipeline is not None:
+            return self._process_with_document_pipeline(
+                attachment=attachment,
+                source_path=pdf_path,
+                thread_id=thread_id,
+                post_id=post_id,
+                stats=stats,
+            )
+
         result = extract_pdf(pdf_path)
 
         output_directory = (

@@ -20,10 +20,16 @@ load_dotenv(PROJECT_ROOT / ".env")
 
 from src.aggregators.content_aggregator import ContentAggregator
 from src.attachments.attachment_processor import AttachmentProcessor
+from src.attachments.vision import (
+    BaseVisionEngine,
+    MockVisionEngine,
+    OpenAIVisionEngine,
+)
 from src.cleaners.text_cleaner import clean_thread
 from src.loaders.raw_dataset_loader import load_all_threads
 from src.processors.ai_stage_runner import TechnicalAIStageRunner
 from src.providers import ProviderError
+from src.pipeline import DocumentIntelligencePipeline
 from src.rag import RAGStageRunner
 from src.renderers import RenderingStageRunner
 
@@ -37,6 +43,9 @@ AGGREGATED_DIRECTORY = PROJECT_ROOT / "output" / "aggregated"
 
 OCR_DIRECTORY = PROJECT_ROOT / "output" / "attachments" / "ocr"
 PDF_DIRECTORY = PROJECT_ROOT / "output" / "attachments" / "pdf"
+DOCUMENT_PIPELINE_DIRECTORY = (
+    PROJECT_ROOT / "output" / "document_pipeline"
+)
 
 AI_OUTPUT_DIRECTORY = PROJECT_ROOT / "output" / "ai"
 RENDERED_OUTPUT_DIRECTORY = PROJECT_ROOT / "output" / "rendered"
@@ -156,6 +165,35 @@ def save_json(
     )
 
     temporary_path.replace(output_path)
+
+
+def build_attachment_vision_engine(
+    *,
+    provider: str,
+    model: str | None,
+) -> BaseVisionEngine:
+    """
+    Gunakan provider CLI yang sama untuk attachment Vision.
+
+    `openai` mengaktifkan OpenAI Vision. `mock` dan `none`
+    mempertahankan mode lokal/deterministik tanpa API Vision.
+    """
+    selected_provider = provider.strip().lower()
+
+    if selected_provider == "openai":
+        return OpenAIVisionEngine(
+            model=(
+                model
+                or os.getenv("OPENAI_MODEL")
+                or "gpt-4.1-mini"
+            ),
+            detail=(
+                os.getenv("OPENAI_VISION_DETAIL")
+                or "high"
+            ),
+        )
+
+    return MockVisionEngine()
 
 
 def process_thread(
@@ -413,9 +451,34 @@ def main() -> int:
 
     print(f"Threads found: {len(threads)}")
 
+    try:
+        attachment_vision_engine = (
+            build_attachment_vision_engine(
+                provider=arguments.provider,
+                model=arguments.model,
+            )
+        )
+    except Exception as error:
+        print()
+        print("Attachment Vision initialization failed:")
+        print(error)
+        return 1
+
+    document_pipeline = DocumentIntelligencePipeline(
+        vision_engine=attachment_vision_engine,
+        output_root=DOCUMENT_PIPELINE_DIRECTORY,
+        render_dpi=400,
+        use_ocr_cache=True,
+        use_vision_cache=True,
+        vision_threshold=0.60,
+        use_analyzer_vision_recommendation=True,
+        fail_open=True,
+    )
+
     attachment_processor = AttachmentProcessor(
         ocr_output_directory=OCR_DIRECTORY,
         pdf_output_directory=PDF_DIRECTORY,
+        document_pipeline=document_pipeline,
     )
 
     content_aggregator = ContentAggregator()
