@@ -10,13 +10,10 @@ from pydantic import (
     field_validator,
     model_validator,
 )
+from pydantic.json_schema import JsonSchemaValue
 
 
-ConfidenceLevel = Literal[
-    "low",
-    "medium",
-    "high",
-]
+ConfidenceLevel = Literal["low", "medium", "high"]
 
 EvidenceType = Literal[
     "forum_post",
@@ -92,12 +89,48 @@ TechnicalReferenceType = Literal[
     "other",
 ]
 
+
+def _make_openai_schema_strict(
+    schema: Any,
+) -> Any:
+    """
+    Convert Pydantic JSON Schema into the strict subset required by
+    OpenAI Structured Outputs.
+
+    OpenAI requires every object property to appear in ``required``.
+    Optional values therefore remain required keys whose value can be
+    null. Defaults are removed because the Structured Outputs subset
+    does not use them.
+    """
+    if isinstance(schema, dict):
+        schema.pop("default", None)
+
+        properties = schema.get("properties")
+
+        if isinstance(properties, dict):
+            schema["required"] = list(properties.keys())
+            schema["additionalProperties"] = False
+
+        for key, value in list(schema.items()):
+            schema[key] = _make_openai_schema_strict(value)
+
+        return schema
+
+    if isinstance(schema, list):
+        return [
+            _make_openai_schema_strict(item)
+            for item in schema
+        ]
+
+    return schema
+
+
 class StrictBaseModel(BaseModel):
     """
-    Base model shared by every structured AI output model.
+    Base class for canonical structured extraction models.
 
-    Unknown fields are rejected so malformed or unexpected AI output
-    cannot silently enter downstream renderers or databases.
+    Runtime validation remains strict, while the generated JSON Schema
+    is normalized for OpenAI Structured Outputs.
     """
 
     model_config = ConfigDict(
@@ -106,12 +139,38 @@ class StrictBaseModel(BaseModel):
         validate_assignment=True,
     )
 
+    @classmethod
+    def __get_pydantic_json_schema__(
+        cls,
+        core_schema: Any,
+        handler: Any,
+    ) -> JsonSchemaValue:
+        schema = handler(core_schema)
+        return _make_openai_schema_strict(schema)
+
+
+class DocumentSource(StrictBaseModel):
+    """
+    Stable source metadata supplied by the extraction model.
+
+    The previous ``dict[str, Any]`` field was intentionally replaced:
+    unrestricted dictionaries are not compatible with strict Structured
+    Outputs schemas.
+    """
+
+    document_id: str | None = None
+    thread_id: str | None = None
+    thread_url: str | None = None
+    source_url: str | None = None
+    forum_name: str | None = None
+    title: str | None = None
+    author: str | None = None
+    created_at: str | None = None
+    post_count: int | None = Field(default=None, ge=0)
+    attachment_count: int | None = Field(default=None, ge=0)
+
 
 class SourceEvidence(StrictBaseModel):
-    """
-    Traceable evidence supporting an extracted fact.
-    """
-
     evidence_type: EvidenceType
     post_id: str | None = None
     attachment_filename: str | None = None
@@ -123,27 +182,22 @@ class SourceEvidence(StrictBaseModel):
         self,
     ) -> SourceEvidence:
         if not any(
-            [
+            (
                 self.post_id,
                 self.attachment_filename,
                 self.source_url,
                 self.quote,
-            ]
+            )
         ):
             raise ValueError(
-                "Evidence must contain at least one reference "
-                "such as post_id, attachment_filename, "
-                "source_url, or quote."
+                "Evidence must contain at least one reference: "
+                "post_id, attachment_filename, source_url, or quote."
             )
 
         return self
 
 
 class ExtractedEntity(StrictBaseModel):
-    """
-    Generic named entity found in a technical document.
-    """
-
     entity_type: EntityType
     name: str = Field(min_length=1)
     normalized_name: str | None = None
@@ -269,7 +323,7 @@ class ContactDetail(StrictBaseModel):
     def validate_contact_content(
         self,
     ) -> ContactDetail:
-        meaningful_fields = [
+        meaningful_fields = (
             self.organization,
             self.person_name,
             self.email,
@@ -279,45 +333,31 @@ class ContactDetail(StrictBaseModel):
             self.website,
             self.address,
             self.coordinates,
-        ]
+        )
 
         if not any(meaningful_fields):
             raise ValueError(
                 "Contact detail must contain at least one "
-                "organization, person, email, phone, website, "
-                "address, or coordinate value."
+                "meaningful contact value."
             )
 
         return self
 
-class OrganizationService(StrictBaseModel):
-    """
-    Product, commercial service, or technical capability
-    explicitly associated with an organization.
-    """
 
+class OrganizationService(StrictBaseModel):
     name: str = Field(min_length=1)
     description: str | None = None
     category: str | None = None
-
-    price: float | None = Field(
-        default=None,
-        ge=0,
-    )
+    price: float | None = Field(default=None, ge=0)
     currency: str | None = None
     price_basis: str | None = None
-
     confidence: ConfidenceLevel = "medium"
     evidence: list[SourceEvidence] = Field(
         default_factory=list
     )
 
-class OrganizationRelationship(StrictBaseModel):
-    """
-    Explicit relationship between the current organization
-    and another named organization.
-    """
 
+class OrganizationRelationship(StrictBaseModel):
     relationship_type: OrganizationRelationshipType
     target_organization: str = Field(min_length=1)
     description: str | None = None
@@ -326,16 +366,11 @@ class OrganizationRelationship(StrictBaseModel):
         default_factory=list
     )
 
-class OrganizationProfile(StrictBaseModel):
-    """
-    Structured intelligence about a company, workshop,
-    manufacturer, supplier, agency, or other organization.
-    """
 
+class OrganizationProfile(StrictBaseModel):
     name: str = Field(min_length=1)
     normalized_name: str | None = None
     organization_type: OrganizationType = "unknown"
-
     description: str | None = None
 
     capabilities: list[str] = Field(
@@ -353,17 +388,14 @@ class OrganizationProfile(StrictBaseModel):
     certifications: list[str] = Field(
         default_factory=list
     )
-
     relationships: list[
         OrganizationRelationship
     ] = Field(default_factory=list)
 
     contact: ContactDetail | None = None
-
     country: str | None = None
     city: str | None = None
     notes: str | None = None
-
     confidence: ConfidenceLevel = "medium"
     evidence: list[SourceEvidence] = Field(
         default_factory=list
@@ -397,13 +429,8 @@ class OrganizationProfile(StrictBaseModel):
 
         return result
 
-    
-class TechnicalReference(StrictBaseModel):
-    """
-    Traceable technical reference explicitly mentioned in
-    the source document.
-    """
 
+class TechnicalReference(StrictBaseModel):
     reference_type: TechnicalReferenceType = "other"
     title: str = Field(min_length=1)
     identifier: str | None = None
@@ -411,7 +438,6 @@ class TechnicalReference(StrictBaseModel):
     url: str | None = None
     description: str | None = None
     confidence: ConfidenceLevel = "medium"
-
     evidence: list[SourceEvidence] = Field(
         default_factory=list
     )
@@ -527,7 +553,7 @@ class TranslationQuality(StrictBaseModel):
 
 
 class ProcessingMetadata(StrictBaseModel):
-    schema_version: str = "2.0.0"
+    schema_version: str = "2.1.0"
     extraction_provider: str | None = None
     extraction_model: str | None = None
     generated_at: str = Field(
@@ -544,9 +570,6 @@ class ProcessingMetadata(StrictBaseModel):
 class StructuredTechnicalDocument(StrictBaseModel):
     """
     Canonical structured output produced after AI extraction.
-
-    Markdown, CSV, PostgreSQL, and future API renderers should
-    consume this model rather than raw model-provider output.
     """
 
     document_id: str = Field(min_length=1)
@@ -556,8 +579,8 @@ class StructuredTechnicalDocument(StrictBaseModel):
     source_language: str = "de"
     output_language: str = "en"
 
-    source: dict[str, Any] = Field(
-        default_factory=dict
+    source: DocumentSource = Field(
+        default_factory=DocumentSource
     )
 
     summary: str = Field(min_length=1)
@@ -587,7 +610,6 @@ class StructuredTechnicalDocument(StrictBaseModel):
     technical_specifications: list[
         TechnicalSpecification
     ] = Field(default_factory=list)
-
     parts: list[PartReference] = Field(
         default_factory=list
     )
@@ -600,11 +622,9 @@ class StructuredTechnicalDocument(StrictBaseModel):
     warnings: list[TechnicalWarning] = Field(
         default_factory=list
     )
-
     recommendations: list[str] = Field(
         default_factory=list
     )
-
     technical_references: list[
         TechnicalReference
     ] = Field(default_factory=list)
