@@ -7,10 +7,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from src.schemas.technical_knowledge import (
-    StructuredTechnicalDocument,
-)
-
 
 class PromptBuilderError(ValueError):
     """
@@ -171,21 +167,12 @@ class TechnicalPromptBuilder:
             self.user_template_path
         )
 
-        json_schema = (
-            StructuredTechnicalDocument.model_json_schema()
-        )
 
         source_metadata_text = json.dumps(
             source,
             ensure_ascii=False,
             indent=2,
             default=str,
-        )
-
-        json_schema_text = json.dumps(
-            json_schema,
-            ensure_ascii=False,
-            indent=2,
         )
 
         user_prompt = self._render_template(
@@ -197,7 +184,6 @@ class TechnicalPromptBuilder:
                 "SOURCE_LANGUAGE": source_language,
                 "OUTPUT_LANGUAGE": output_language,
                 "SOURCE_METADATA": source_metadata_text,
-                "JSON_SCHEMA": json_schema_text,
                 "DOCUMENT_CONTENT": document_content,
             },
         )
@@ -469,7 +455,6 @@ class TechnicalPromptBuilder:
                 "{{SOURCE_LANGUAGE}}",
                 "{{OUTPUT_LANGUAGE}}",
                 "{{SOURCE_METADATA}}",
-                "{{JSON_SCHEMA}}",
                 "{{DOCUMENT_CONTENT}}",
             )
             if token in rendered

@@ -4,7 +4,7 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
-
+from datetime import datetime, timezone
 from src.processors.structured_output_validator import (
     StructuredOutputValidator,
 )
@@ -205,6 +205,14 @@ class TechnicalAIStageRunner:
             )
         )
 
+        validated_document = (
+            self._apply_pipeline_metadata(
+                document=validated_document,
+                prompt=prompt,
+                response=response,
+            )
+        )
+
         self.validator.save_validated_document(
             document=validated_document,
             output_path=validated_response_path,
@@ -278,6 +286,116 @@ class TechnicalAIStageRunner:
             provider_name,
             **configuration,
         )
+
+    @staticmethod
+    def _apply_pipeline_metadata(
+        *,
+        document: StructuredTechnicalDocument,
+        prompt: Any,
+        response: ProviderResponse,
+    ) -> StructuredTechnicalDocument:
+        """
+        Replace model-generated pipeline metadata with
+        deterministic values supplied by Python.
+
+        Translation preservation metrics are reset because they are
+        not currently calculated programmatically.
+        """
+
+        document.document_id = prompt.document_id
+        document.document_type = prompt.document_type
+        document.title = prompt.title
+
+        document.processing.schema_version = "2.0.0"
+        document.processing.extraction_provider = (
+            response.provider
+        )
+        document.processing.extraction_model = (
+            response.model
+        )
+        document.processing.generated_at = (
+            datetime.now(timezone.utc).isoformat()
+        )
+        document.processing.source_stage = (
+            "content_aggregated"
+        )
+        document.processing.output_stage = (
+            "structured_knowledge"
+        )
+
+        document.processing.ready_for_rendering = (
+            TechnicalAIStageRunner
+            ._is_ready_for_rendering(document)
+        )
+
+        # These values must not be estimated by the model.
+        document.translation_quality.source_language = (
+            document.source_language
+        )
+        document.translation_quality.target_language = (
+            document.output_language
+        )
+        document.translation_quality.translated = (
+            document.source_language.casefold()
+            != document.output_language.casefold()
+        )
+        document.translation_quality.protected_token_count = 0
+        document.translation_quality.preserved_token_count = 0
+        document.translation_quality.fidelity_score = None
+
+        warning = (
+            "Translation preservation metrics were not "
+            "calculated programmatically."
+        )
+
+        existing_warnings = list(
+            document.translation_quality.validation_warnings
+        )
+
+        if warning not in existing_warnings:
+            existing_warnings.append(warning)
+
+        document.translation_quality.validation_warnings = (
+            existing_warnings
+        )
+
+        return document
+
+
+    @staticmethod
+    def _is_ready_for_rendering(
+        document: StructuredTechnicalDocument,
+    ) -> bool:
+        """
+        Return True when the validated document contains a summary
+        and at least one useful structured extraction.
+        """
+
+        has_structured_content = any(
+            (
+                document.entities,
+                document.vehicles,
+                document.engines,
+                document.transmissions,
+                document.contacts,
+                document.organizations,
+                document.technical_specifications,
+                document.parts,
+                document.maintenance_tasks,
+                document.diagnostics,
+                document.warnings,
+                document.recommendations,
+                document.technical_references,
+            )
+        )
+
+        return bool(
+            document.document_id
+            and document.title
+            and document.summary
+            and has_structured_content
+        )
+
 
     def _build_request(
         self,
