@@ -27,7 +27,10 @@ from src.attachments.vision import (
 )
 from src.cleaners.text_cleaner import clean_thread
 from src.loaders.raw_dataset_loader import load_all_threads
-from src.processors.ai_stage_runner import TechnicalAIStageRunner
+from src.processors import (
+    FinalDeliveryStageRunner,
+    TechnicalAIStageRunner,
+)
 from src.providers import ProviderError
 from src.pipeline import DocumentIntelligencePipeline
 from src.rag import RAGStageRunner
@@ -50,7 +53,7 @@ DOCUMENT_PIPELINE_DIRECTORY = (
 AI_OUTPUT_DIRECTORY = PROJECT_ROOT / "output" / "ai"
 RENDERED_OUTPUT_DIRECTORY = PROJECT_ROOT / "output" / "rendered"
 RAG_OUTPUT_DIRECTORY = PROJECT_ROOT / "output" / "rag"
-
+FINAL_OUTPUT_DIRECTORY = PROJECT_ROOT / "output" / "final"
 REPORT_DIRECTORY = PROJECT_ROOT / "output" / "reports"
 
 DEFAULT_MOCK_RESPONSE_PATH = (
@@ -207,6 +210,7 @@ def process_thread(
     ai_provider: Any | None,
     rendering_stage_runner: RenderingStageRunner | None,
     rag_stage_runner: RAGStageRunner | None,
+    final_delivery_runner: FinalDeliveryStageRunner | None,
     ai_thread_id: str | None,
 ) -> dict[str, Any]:
     metadata = thread_data.get("metadata", {})
@@ -313,6 +317,7 @@ def process_thread(
     ai_result: dict[str, Any] | None = None
     rendering_result: dict[str, Any] | None = None
     rag_result: dict[str, Any] | None = None
+    final_delivery_result: dict[str, Any] | None = None
 
     should_run_ai = (
         ai_stage_runner is not None
@@ -390,6 +395,61 @@ def process_thread(
                 f"{rag.output_path}"
             )
 
+        if (
+            final_delivery_runner is not None
+            and rendering_result is not None
+            and rag_result is not None
+        ):
+            provider_metadata_value = getattr(
+                result,
+                "provider_metadata_path",
+                None,
+            )
+
+            final_delivery = final_delivery_runner.run(
+                validated_document=validated_document,
+                enriched_thread=enriched_thread,
+                aggregated_document=aggregated_document,
+                validated_response_path=Path(
+                    result.validated_response_path
+                ),
+                rendered_markdown_path=Path(
+                    rendered.markdown_path
+                ),
+                rendered_text_path=Path(
+                    rendered.text_path
+                ),
+                rendered_metadata_path=Path(
+                    rendered.metadata_path
+                ),
+                rag_output_path=Path(
+                    rag.output_path
+                ),
+                provider_metadata_path=(
+                    Path(provider_metadata_value)
+                    if provider_metadata_value
+                    else None
+                ),
+            )
+
+            final_delivery_result = final_delivery.to_dict()
+
+            print(
+                "    [OK] Final delivery package created"
+            )
+            print(
+                "    Final folder: "
+                f"{final_delivery.output_directory}"
+            )
+
+            if final_delivery.archive_path is not None:
+                print(
+                    "    Final ZIP   : "
+                    f"{final_delivery.archive_path}"
+                )
+
+
+
     elif (
         ai_stage_runner is not None
         and ai_thread_id is not None
@@ -424,6 +484,7 @@ def process_thread(
         "ai_processing": ai_result,
         "rendering": rendering_result,
         "rag": rag_result,
+        "final_delivery": final_delivery_result,
         "status": (
             "success"
             if attachment_stats.failed == 0
@@ -491,6 +552,11 @@ def main() -> int:
         output_directory=RAG_OUTPUT_DIRECTORY,
         max_chars=arguments.rag_max_chars,
         overlap_chars=arguments.rag_overlap_chars,
+    )
+
+    final_delivery_runner = FinalDeliveryStageRunner(
+        output_directory=FINAL_OUTPUT_DIRECTORY,
+        create_zip=True,
     )
 
     ai_stage_runner: TechnicalAIStageRunner | None = None
@@ -571,13 +637,11 @@ def main() -> int:
                 content_aggregator=content_aggregator,
                 ai_stage_runner=ai_stage_runner,
                 ai_provider=ai_provider,
-                rendering_stage_runner=(
-                    rendering_stage_runner
-                ),
+                rendering_stage_runner=rendering_stage_runner,
                 rag_stage_runner=rag_stage_runner,
+                final_delivery_runner=final_delivery_runner,
                 ai_thread_id=arguments.ai_thread_id,
             )
-
             results.append(result)
 
         except Exception as error:
