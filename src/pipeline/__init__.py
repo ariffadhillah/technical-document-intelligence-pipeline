@@ -8,10 +8,20 @@ from .models import (
     DocumentPipelineResult,
     PreparedPage,
 )
+from .ocr_runner import OCRRunner
+from .output_writer import PipelineOutputWriter
+from .page_preprocessor import (
+    PagePreprocessingResult,
+    PagePreprocessor,
+)
 
 __all__ = [
     "DocumentIntelligencePipeline",
     "DocumentPipelineResult",
+    "OCRRunner",
+    "PagePreprocessingResult",
+    "PagePreprocessor",
+    "PipelineOutputWriter",
     "PreparedPage",
     "UnsupportedDocumentTypeError",
 ]

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import logging
 import time
 from pathlib import Path
@@ -9,10 +8,14 @@ from typing import Mapping
 import cv2
 import numpy as np
 
+from src.attachments.image.orientation import (
+    ImageOrientationCorrector,
+)
 from src.attachments.ocr import (
     BaseOCREngine,
     TesseractOCREngine,
 )
+from src.attachments.ocr.models import OCRPage
 from src.attachments.pdf.renderer import PDFRenderer
 from src.attachments.vision import (
     BaseVisionEngine,
@@ -27,6 +30,9 @@ from .models import (
     DocumentPipelineResult,
     PreparedPage,
 )
+from .ocr_runner import OCRRunner
+from .output_writer import PipelineOutputWriter
+from .page_preprocessor import PagePreprocessor
 
 logger = logging.getLogger(__name__)
 
@@ -47,11 +53,13 @@ class DocumentIntelligencePipeline:
             ↓
         Prepare page images
             ↓
+        Page preprocessing
+            ↓
         OCR
             ↓
         Vision routing and fallback
             ↓
-        Final normalized pages
+        Final document result
             ↓
         JSON and Markdown output
     """
@@ -67,7 +75,8 @@ class DocumentIntelligencePipeline:
     }
 
     SUPPORTED_DOCUMENT_EXTENSIONS = (
-        SUPPORTED_IMAGE_EXTENSIONS | {".pdf"}
+        SUPPORTED_IMAGE_EXTENSIONS
+        | {".pdf"}
     )
 
     def __init__(
@@ -80,6 +89,13 @@ class DocumentIntelligencePipeline:
         vision_processor: (
             VisionFallbackProcessor | None
         ) = None,
+        page_preprocessor: (
+            PagePreprocessor | None
+        ) = None,
+        ocr_runner: OCRRunner | None = None,
+        output_writer: (
+            PipelineOutputWriter | None
+        ) = None,
         output_root: str | Path = (
             "output/document_pipeline"
         ),
@@ -87,10 +103,15 @@ class DocumentIntelligencePipeline:
         use_ocr_cache: bool = True,
         use_vision_cache: bool = True,
         vision_threshold: float = 0.60,
+        enable_orientation_correction: (
+            bool
+        ) = True,
+        orientation_minimum_confidence: (
+            float
+        ) = 1.0,
         fail_open: bool = True,
     ) -> None:
         self.output_root = Path(output_root)
-
         self.render_dpi = render_dpi
 
         self.ocr_engine = (
@@ -110,22 +131,29 @@ class DocumentIntelligencePipeline:
             or PDFRenderer()
         )
 
+        self.page_preprocessor = (
+            page_preprocessor
+            or self._build_page_preprocessor(
+                enabled=(
+                    enable_orientation_correction
+                ),
+                minimum_confidence=(
+                    orientation_minimum_confidence
+                ),
+            )
+        )
+
+        self.ocr_runner = (
+            ocr_runner
+            or OCRRunner(
+                engine=self.ocr_engine
+            )
+        )
+
         self.vision_router = (
             vision_router
-            or VisionRouter(
-                config=VisionRouterConfig(
-                    default_provider=(
-                        self.vision_engine
-                        .get_provider_name()
-                    ),
-                    default_model=(
-                        self.vision_engine
-                        .get_model_name()
-                    ),
-                    vision_threshold=(
-                        vision_threshold
-                    ),
-                )
+            or self._build_vision_router(
+                vision_threshold
             )
         )
 
@@ -141,6 +169,11 @@ class DocumentIntelligencePipeline:
             )
         )
 
+        self.output_writer = (
+            output_writer
+            or PipelineOutputWriter()
+        )
+
     def process(
         self,
         source_path: str | Path,
@@ -154,70 +187,90 @@ class DocumentIntelligencePipeline:
     ) -> DocumentPipelineResult:
         """
         Process one PDF or image through the complete
-        OCR and Vision pipeline.
+        document intelligence pipeline.
         """
 
         started_at = time.perf_counter()
 
-        source = Path(source_path).expanduser().resolve()
+        source = (
+            Path(source_path)
+            .expanduser()
+            .resolve()
+        )
 
         self._validate_source(source)
 
+        source_type = (
+            self._detect_source_type(source)
+        )
+
         document_output_dir = (
-            Path(output_dir).expanduser().resolve()
-            if output_dir is not None
-            else self._build_output_directory(source)
-        )
-
-        document_output_dir.mkdir(
-            parents=True,
-            exist_ok=True,
-        )
-
-        source_type = self._detect_source_type(
-            source
+            self._resolve_output_directory(
+                source=source,
+                output_dir=output_dir,
+            )
         )
 
         logger.info(
-            "Starting document pipeline: source=%s "
-            "type=%s",
+            "Starting document pipeline: "
+            "source=%s type=%s",
             source,
             source_type,
         )
 
-        prepared_pages, images = (
+        prepared_pages, original_images = (
             self._prepare_pages(
                 source=source,
                 source_type=source_type,
-                output_dir=document_output_dir,
+                output_dir=(
+                    document_output_dir
+                ),
             )
         )
 
-        original_ocr_pages = self._run_ocr(
-            prepared_pages=prepared_pages,
-            images=images,
-            language=language,
-        )
-
-        resolved_image_types = dict(
-            image_types or {}
-        )
-
-        force_pages = set(
-            force_vision_pages or set()
-        )
-
-        if force_vision:
-            force_pages.update(
-                page.page_number
-                for page in original_ocr_pages
+        preprocessing_result = (
+            self.page_preprocessor
+            .process_pages(
+                prepared_pages=prepared_pages,
+                images=original_images,
             )
+        )
+
+        processed_images = (
+            preprocessing_result.images
+        )
+
+        original_ocr_pages = (
+            self.ocr_runner.run(
+                prepared_pages=prepared_pages,
+                images=processed_images,
+                language=language,
+                preprocessing_metadata=(
+                    preprocessing_result
+                    .metadata_by_page
+                ),
+            )
+        )
+
+        force_pages = (
+            self._resolve_force_pages(
+                original_ocr_pages=(
+                    original_ocr_pages
+                ),
+                force_vision=force_vision,
+                force_vision_pages=(
+                    force_vision_pages
+                ),
+            )
+        )
 
         vision_batch = (
             self.vision_processor.process_pages(
                 pages=original_ocr_pages,
-                images=images,
-                image_types=resolved_image_types,
+                images=processed_images,
+                image_types=dict(
+                    image_types or {}
+                ),
                 force_pages=force_pages,
             )
         )
@@ -225,10 +278,6 @@ class DocumentIntelligencePipeline:
         final_pages = sorted(
             vision_batch.pages,
             key=lambda page: page.page_number,
-        )
-
-        merged_text = self._merge_pages(
-            final_pages
         )
 
         result = DocumentPipelineResult(
@@ -242,9 +291,15 @@ class DocumentIntelligencePipeline:
                 vision_batch.results
             ),
             audits=vision_batch.audits,
-            merged_text=merged_text,
-            total_pages=vision_batch.total_pages,
-            vision_pages=vision_batch.vision_pages,
+            merged_text=self._merge_pages(
+                final_pages
+            ),
+            total_pages=(
+                vision_batch.total_pages
+            ),
+            vision_pages=(
+                vision_batch.vision_pages
+            ),
             vision_cache_hits=(
                 vision_batch.cache_hits
             ),
@@ -261,28 +316,15 @@ class DocumentIntelligencePipeline:
             output_directory=(
                 document_output_dir
             ),
-            metadata={
-                "render_dpi": self.render_dpi,
-                "ocr_engine": (
-                    self.ocr_engine.engine_name
+            metadata=self._build_metadata(
+                prepared_pages=prepared_pages,
+                preprocessing_metadata=(
+                    preprocessing_result
+                    .metadata_by_page
                 ),
-                "vision_provider": (
-                    self.vision_engine
-                    .get_provider_name()
-                ),
-                "vision_model": (
-                    self.vision_engine
-                    .get_model_name()
-                ),
-                "force_vision": force_vision,
-                "force_vision_pages": sorted(
-                    force_pages
-                ),
-                "prepared_pages": [
-                    page.to_dict()
-                    for page in prepared_pages
-                ],
-            },
+                force_vision=force_vision,
+                force_pages=force_pages,
+            ),
         )
 
         if write_outputs:
@@ -304,95 +346,73 @@ class DocumentIntelligencePipeline:
         self,
         result: DocumentPipelineResult,
     ) -> None:
-        """
-        Write the standard pipeline artifacts.
-        """
+        self.output_writer.write(result)
 
-        output_dir = result.output_directory
-
-        if output_dir is None:
-            raise ValueError(
-                "Result output_directory is not set."
+    def _build_page_preprocessor(
+        self,
+        *,
+        enabled: bool,
+        minimum_confidence: float,
+    ) -> PagePreprocessor:
+        if not enabled:
+            logger.info(
+                "Image orientation correction "
+                "is disabled."
             )
 
-        output_dir.mkdir(
-            parents=True,
-            exist_ok=True,
+            return PagePreprocessor()
+
+        pytesseract_module = getattr(
+            self.ocr_engine,
+            "pytesseract",
+            None,
         )
 
-        result_json_path = (
-            output_dir / "result.json"
+        if pytesseract_module is None:
+            logger.warning(
+                "OCR engine does not expose "
+                "pytesseract; orientation "
+                "correction is disabled."
+            )
+
+            return PagePreprocessor()
+
+        orientation_corrector = (
+            ImageOrientationCorrector(
+                pytesseract_module=(
+                    pytesseract_module
+                ),
+                minimum_confidence=(
+                    minimum_confidence
+                ),
+                fail_open=True,
+            )
         )
 
-        result_json_path.write_text(
-            json.dumps(
-                result.to_dict(),
-                ensure_ascii=False,
-                indent=2,
-                default=str,
-            ),
-            encoding="utf-8",
+        return PagePreprocessor(
+            orientation_corrector=(
+                orientation_corrector
+            )
         )
 
-        markdown_path = (
-            output_dir / "final_text.md"
-        )
-
-        markdown_path.write_text(
-            result.merged_text,
-            encoding="utf-8",
-        )
-
-        summary_path = (
-            output_dir / "summary.json"
-        )
-
-        summary_payload = {
-            "source_path": str(
-                result.source_path
-            ),
-            "source_type": result.source_type,
-            "success": result.success,
-            "total_pages": result.total_pages,
-            "vision_pages": (
-                result.vision_pages
-            ),
-            "vision_cache_hits": (
-                result.vision_cache_hits
-            ),
-            "vision_failures": (
-                result.vision_failures
-            ),
-            "vision_usage_ratio": (
-                result.vision_usage_ratio
-            ),
-            "average_confidence": (
-                result.average_confidence
-            ),
-            "average_quality": (
-                result.average_quality
-            ),
-            "processing_time": (
-                result.processing_time
-            ),
-            "estimated_cost": (
-                result.estimated_cost
-            ),
-        }
-
-        summary_path.write_text(
-            json.dumps(
-                summary_payload,
-                ensure_ascii=False,
-                indent=2,
-                default=str,
-            ),
-            encoding="utf-8",
-        )
-
-        logger.info(
-            "Pipeline outputs written to %s",
-            output_dir,
+    def _build_vision_router(
+        self,
+        vision_threshold: float,
+    ) -> VisionRouter:
+        return VisionRouter(
+            config=VisionRouterConfig(
+                default_provider=(
+                    self.vision_engine
+                    .get_provider_name()
+                ),
+                default_model=(
+                    self.vision_engine
+                    .get_model_name()
+                ),
+                vision_threshold=(
+                    vision_threshold
+                ),
+            )
         )
 
     def _prepare_pages(
@@ -440,7 +460,10 @@ class DocumentIntelligencePipeline:
             PreparedPage
         ] = []
 
-        images: dict[int, np.ndarray] = {}
+        images: dict[
+            int,
+            np.ndarray,
+        ] = {}
 
         for rendered_page in rendered_pages:
             image = self._load_image(
@@ -473,7 +496,7 @@ class DocumentIntelligencePipeline:
 
         if not prepared_pages:
             raise ValueError(
-                f"PDF produced no rendered pages: "
+                "PDF produced no rendered pages: "
                 f"{source}"
             )
 
@@ -509,62 +532,99 @@ class DocumentIntelligencePipeline:
             {1: image},
         )
 
-    def _run_ocr(
+    def _resolve_output_directory(
+        self,
+        *,
+        source: Path,
+        output_dir: str | Path | None,
+    ) -> Path:
+        resolved_output_dir = (
+            Path(output_dir)
+            .expanduser()
+            .resolve()
+            if output_dir is not None
+            else self._build_output_directory(
+                source
+            )
+        )
+
+        resolved_output_dir.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+        return resolved_output_dir
+
+    @staticmethod
+    def _resolve_force_pages(
+        *,
+        original_ocr_pages: list[OCRPage],
+        force_vision: bool,
+        force_vision_pages: (
+            set[int] | None
+        ),
+    ) -> set[int]:
+        force_pages = set(
+            force_vision_pages or set()
+        )
+
+        if force_vision:
+            force_pages.update(
+                page.page_number
+                for page in original_ocr_pages
+            )
+
+        return force_pages
+
+    def _build_metadata(
         self,
         *,
         prepared_pages: list[PreparedPage],
-        images: Mapping[int, np.ndarray],
-        language: str | None,
-    ) -> list:
-        pages = []
-
-        for prepared_page in sorted(
-            prepared_pages,
-            key=lambda page: page.page_number,
-        ):
-            image = images.get(
-                prepared_page.page_number
-            )
-
-            if image is None:
-                raise ValueError(
-                    "Prepared image is missing for "
-                    f"page "
-                    f"{prepared_page.page_number}."
+        preprocessing_metadata: (
+            Mapping[int, dict]
+        ),
+        force_vision: bool,
+        force_pages: set[int],
+    ) -> dict:
+        return {
+            "render_dpi": self.render_dpi,
+            "ocr_engine": (
+                self.ocr_engine.engine_name
+            ),
+            "vision_provider": (
+                self.vision_engine
+                .get_provider_name()
+            ),
+            "vision_model": (
+                self.vision_engine
+                .get_model_name()
+            ),
+            "force_vision": force_vision,
+            "force_vision_pages": sorted(
+                force_pages
+            ),
+            "prepared_pages": [
+                page.to_dict()
+                for page in prepared_pages
+            ],
+            "preprocessing": {
+                str(page_number): metadata
+                for (
+                    page_number,
+                    metadata,
+                ) in (
+                    preprocessing_metadata.items()
                 )
-
-            page = self.ocr_engine.process_image(
-                image,
-                page_number=(
-                    prepared_page.page_number
-                ),
-                source_path=(
-                    prepared_page.image_path
-                ),
-                language=language,
-            )
-
-            pages.append(page)
-
-            logger.info(
-                "OCR page completed: page=%s "
-                "confidence=%.3f quality=%.3f "
-                "words=%s",
-                page.page_number,
-                page.confidence,
-                page.quality_score,
-                page.word_count,
-            )
-
-        return pages
+            },
+        }
 
     @staticmethod
     def _load_image(
         path: Path,
     ) -> np.ndarray:
         """
-        Load an image safely on Windows, including
-        file paths containing non-ASCII characters.
+        Load images safely on Windows, including paths
+        containing non-ASCII characters.
         """
 
         raw_bytes = np.fromfile(
@@ -586,7 +646,7 @@ class DocumentIntelligencePipeline:
 
     @staticmethod
     def _merge_pages(
-        pages: list,
+        pages: list[OCRPage],
     ) -> str:
         return "\n\n".join(
             (
@@ -624,9 +684,10 @@ class DocumentIntelligencePipeline:
             for character in value
         )
 
-        normalized = normalized.strip("_")
-
-        return normalized or "document"
+        return (
+            normalized.strip("_")
+            or "document"
+        )
 
     def _validate_source(
         self,
@@ -639,7 +700,7 @@ class DocumentIntelligencePipeline:
 
         if not source.is_file():
             raise ValueError(
-                f"Document path is not a file: "
+                "Document path is not a file: "
                 f"{source}"
             )
 
@@ -656,7 +717,7 @@ class DocumentIntelligencePipeline:
             )
 
             raise UnsupportedDocumentTypeError(
-                f"Unsupported document type: "
+                "Unsupported document type: "
                 f"{suffix or '<no extension>'}. "
                 f"Supported types: {supported}"
             )
