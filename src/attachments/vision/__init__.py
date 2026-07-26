@@ -5,6 +5,9 @@ from .mock import MockVisionEngine
 from .processor import VisionFallbackProcessor
 from .prompt import VisionPrompt
 
+from .openai_engine import (
+    OpenAIVisionEngine,
+)
 from .benchmark import (
     VisionBenchmark,
     VisionBenchmarkSummary,
@@ -44,6 +47,7 @@ from .scorer import VisionPageScorer
 
 __all__ = [
     "MockVisionEngine",
+    "OpenAIVisionEngine",
     "VisionFallbackProcessor",
     "VisionPrompt",
     "BaseVisionEngine",
@@ -76,4 +80,10 @@ if not vision_registry.contains("mock"):
     vision_registry.register(
         "mock",
         MockVisionEngine,
+    )
+
+if not vision_registry.contains("openai"):
+    vision_registry.register(
+        "openai",
+        OpenAIVisionEngine,
     )

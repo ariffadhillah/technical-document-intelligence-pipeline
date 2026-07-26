@@ -3,14 +3,18 @@ from __future__ import annotations
 import argparse
 import logging
 from pathlib import Path
-
+from dotenv import load_dotenv
 from src.attachments.vision import (
+    BaseVisionEngine,
     MockVisionEngine,
+    OpenAIVisionEngine,
 )
+
 from src.pipeline import (
     DocumentIntelligencePipeline,
 )
 
+load_dotenv()
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -82,9 +86,71 @@ def parse_arguments() -> argparse.Namespace:
         ),
     )
 
+    parser.add_argument(
+        "--vision-provider",
+        choices=[
+            "mock",
+            "openai",
+        ],
+        default=None,
+        help=(
+            "Vision provider. Defaults to AI_PROVIDER "
+            "from .env, or mock when not configured."
+        ),
+    )
+
+    parser.add_argument(
+        "--vision-model",
+        type=str,
+        default=None,
+        help=(
+            "Optional OpenAI model override."
+        ),
+    )
+
+    parser.add_argument(
+        "--vision-detail",
+        choices=[
+            "low",
+            "high",
+            "original",
+            "auto",
+        ],
+        default=None,
+        help=(
+            "OpenAI image detail level."
+        ),
+    )
 
     return parser.parse_args()
 
+def build_vision_engine(
+    *,
+    provider: str | None,
+    model: str | None,
+    detail: str | None,
+) -> BaseVisionEngine:
+    selected_provider = (
+        provider
+        or os.getenv(
+            "AI_PROVIDER",
+            "mock",
+        )
+    ).strip().lower()
+
+    if selected_provider == "mock":
+        return MockVisionEngine()
+
+    if selected_provider == "openai":
+        return OpenAIVisionEngine(
+            model=model,
+            detail=detail,
+        )
+
+    raise ValueError(
+        "Unsupported Vision provider: "
+        f"{selected_provider}"
+    )
 
 def main() -> None:
     args = parse_arguments()
@@ -97,7 +163,11 @@ def main() -> None:
         ),
     )
 
-    vision_engine = MockVisionEngine()
+    vision_engine = build_vision_engine(
+        provider=args.vision_provider,
+        model=args.vision_model,
+        detail=args.vision_detail,
+    )
 
     pipeline = DocumentIntelligencePipeline(
         vision_engine=vision_engine,
@@ -175,10 +245,20 @@ def main() -> None:
         f"Processing time   : "
         f"{result.processing_time:.2f}s"
     )
+    
+    print(
+        f"Vision provider   : "
+        f"{vision_engine.get_provider_name()}"
+    )
 
     print(
-        f"Mock API calls    : "
-        f"{vision_engine.call_count}"
+        f"Vision model      : "
+        f"{vision_engine.get_model_name()}"
+    )
+
+    print(
+        f"Vision API calls  : "
+        f"{getattr(vision_engine, 'call_count', 0)}"
     )
 
     print(
