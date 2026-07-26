@@ -35,10 +35,13 @@ from src.attachments.vision import (
     VisionRouter,
     VisionRouterConfig,
 )
-
 from .models import (
     DocumentPipelineResult,
     PreparedPage,
+)
+from .layout import (
+    PageLayoutAnalyzer,
+    PageLayoutResult,
 )
 from .ocr_runner import OCRRunner
 from .output_writer import PipelineOutputWriter
@@ -98,6 +101,9 @@ class DocumentIntelligencePipeline:
         vision_router: VisionRouter | None = None,
         document_analyzer: DocumentAnalyzer | None = None,
         use_analyzer_vision_recommendation: bool = False,
+        page_layout_analyzer: (
+            PageLayoutAnalyzer | None
+        ) = None,
         visual_layout_analyzer: (
             VisualLayoutAnalyzer | None
         ) = None,
@@ -139,6 +145,11 @@ class DocumentIntelligencePipeline:
         self.visual_layout_analyzer = (
             visual_layout_analyzer
             or VisualLayoutAnalyzer()
+        )
+
+        self.page_layout_analyzer = (
+            page_layout_analyzer
+            or PageLayoutAnalyzer()
         )
 
         self.document_analyzer = (
@@ -269,6 +280,20 @@ class DocumentIntelligencePipeline:
             preprocessing_result.images
         )
 
+        page_layout_results = {
+            prepared_page.page_number: (
+                self.page_layout_analyzer.analyze(
+                    image=processed_images[
+                        prepared_page.page_number
+                    ],
+                    page_number=(
+                        prepared_page.page_number
+                    ),
+                )
+            )
+            for prepared_page in prepared_pages
+        }
+
         visual_analyses = {
             prepared_page.page_number: (
                 self.visual_layout_analyzer.analyze(
@@ -382,6 +407,9 @@ class DocumentIntelligencePipeline:
             metadata=self._build_metadata(
                 document_analysis=document_analysis,
                 visual_analyses=visual_analyses,
+                page_layout_results=(
+                    page_layout_results
+                ),
                 prepared_pages=prepared_pages,
                 preprocessing_metadata=(
                     preprocessing_result
@@ -665,6 +693,10 @@ class DocumentIntelligencePipeline:
             int,
             VisualLayoutAnalysis,
         ],
+        page_layout_results: Mapping[
+            int,
+            PageLayoutResult,
+        ],
         document_analysis: DocumentAnalysis,
         force_vision: bool,
         force_pages: set[int],
@@ -713,6 +745,15 @@ class DocumentIntelligencePipeline:
                     page_number,
                     analysis,
                 ) in visual_analyses.items()
+            },
+            "page_layout": {
+                str(page_number): (
+                    layout_result.to_dict()
+                )
+                for (
+                    page_number,
+                    layout_result,
+                ) in page_layout_results.items()
             },
         }
 
