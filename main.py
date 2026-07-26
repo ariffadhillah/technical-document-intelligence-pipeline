@@ -1,115 +1,31 @@
 from __future__ import annotations
-import os
+
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any
+
 from dotenv import load_dotenv
 
-PROJECT_ROOT = Path(__file__).resolve().parent
-
-load_dotenv(
-    Path(".env")
-)
-
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
-
-
-from src.aggregators.content_aggregator import (
-    ContentAggregator,
-)
-from src.attachments.attachment_processor import (
-    AttachmentProcessor,
-)
-from src.cleaners.text_cleaner import clean_thread
-from src.loaders.raw_dataset_loader import (
-    load_all_threads,
-)
-from src.processors.ai_stage_runner import (
-    TechnicalAIStageRunner,
-)
-from src.providers import ProviderError
-
-
-RAW_DIRECTORY = (
-    PROJECT_ROOT
-    / "data"
-    / "raw"
-)
-
-PROCESSED_DIRECTORY = (
-    PROJECT_ROOT
-    / "data"
-    / "processed"
-)
-
-CLEANED_DIRECTORY = (
-    PROJECT_ROOT
-    / "output"
-    / "cleaned"
-)
-
-MERGED_DIRECTORY = (
-    PROJECT_ROOT
-    / "output"
-    / "merged"
-)
-
-AGGREGATED_DIRECTORY = (
-    PROJECT_ROOT
-    / "output"
-    / "aggregated"
-)
-
-OCR_DIRECTORY = (
-    PROJECT_ROOT
-    / "output"
-    / "attachments"
-    / "ocr"
-)
-
-PDF_DIRECTORY = (
-    PROJECT_ROOT
-    / "output"
-    / "attachments"
-    / "pdf"
-)
-
-REPORT_DIRECTORY = (
-    PROJECT_ROOT
-    / "output"
-    / "reports"
-)
-
-AI_OUTPUT_DIRECTORY = (
-    PROJECT_ROOT
-    / "output"
-    / "ai"
-)
-
-DEFAULT_MOCK_RESPONSE_PATH = (
-    PROJECT_ROOT
-    / "data"
-    / "samples"
-    / "thread_6260_structured_sample.json"
-)
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+load_dotenv(PROJECT_ROOT / ".env")
 
-from src.aggregators.content_aggregator import (
-    ContentAggregator,
-)
-from src.attachments.attachment_processor import (
-    AttachmentProcessor,
-)
+
+from src.aggregators.content_aggregator import ContentAggregator
+from src.attachments.attachment_processor import AttachmentProcessor
 from src.cleaners.text_cleaner import clean_thread
 from src.loaders.raw_dataset_loader import load_all_threads
+from src.processors.ai_stage_runner import TechnicalAIStageRunner
+from src.providers import ProviderError
+from src.rag import RAGStageRunner
+from src.renderers import RenderingStageRunner
 
 
 RAW_DIRECTORY = PROJECT_ROOT / "data" / "raw"
@@ -121,28 +37,36 @@ AGGREGATED_DIRECTORY = PROJECT_ROOT / "output" / "aggregated"
 
 OCR_DIRECTORY = PROJECT_ROOT / "output" / "attachments" / "ocr"
 PDF_DIRECTORY = PROJECT_ROOT / "output" / "attachments" / "pdf"
+
+AI_OUTPUT_DIRECTORY = PROJECT_ROOT / "output" / "ai"
+RENDERED_OUTPUT_DIRECTORY = PROJECT_ROOT / "output" / "rendered"
+RAG_OUTPUT_DIRECTORY = PROJECT_ROOT / "output" / "rag"
+
 REPORT_DIRECTORY = PROJECT_ROOT / "output" / "reports"
+
+DEFAULT_MOCK_RESPONSE_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "samples"
+    / "thread_6260_structured_sample.json"
+)
 
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Run the technical document intelligence "
-            "pipeline."
+            "Run the end-to-end technical document "
+            "intelligence pipeline."
         )
     )
 
     parser.add_argument(
         "--provider",
-        choices=(
-            "none",
-            "mock",
-            "openai",
-        ),
+        choices=("none", "mock", "openai"),
         default="none",
         help=(
-            "AI provider to use. The default 'none' "
-            "runs document processing without AI."
+            "AI provider to use. 'none' runs only the "
+            "deterministic document-processing stages."
         ),
     )
 
@@ -150,8 +74,8 @@ def parse_arguments() -> argparse.Namespace:
         "--ai-thread-id",
         default=None,
         help=(
-            "Run the AI stage only for this thread ID. "
-            "Example: 6260."
+            "Run AI, rendering, and RAG only for this "
+            "thread ID. Example: 6260."
         ),
     )
 
@@ -159,9 +83,7 @@ def parse_arguments() -> argparse.Namespace:
         "--mock-response",
         type=Path,
         default=DEFAULT_MOCK_RESPONSE_PATH,
-        help=(
-            "Structured response file used by MockProvider."
-        ),
+        help="Structured response file used by MockProvider.",
     )
 
     parser.add_argument(
@@ -194,6 +116,20 @@ def parse_arguments() -> argparse.Namespace:
         help="Provider timeout in seconds.",
     )
 
+    parser.add_argument(
+        "--rag-max-chars",
+        type=int,
+        default=1800,
+        help="Maximum character count per RAG chunk.",
+    )
+
+    parser.add_argument(
+        "--rag-overlap-chars",
+        type=int,
+        default=180,
+        help="Character overlap between oversized RAG chunks.",
+    )
+
     return parser.parse_args()
 
 
@@ -223,20 +159,24 @@ def save_json(
 
 
 def process_thread(
+    *,
     thread_data: dict[str, Any],
     position: int,
     total: int,
     attachment_processor: AttachmentProcessor,
     content_aggregator: ContentAggregator,
-    ai_stage_runner: TechnicalAIStageRunner | None = None,
-    ai_provider: Any | None = None,
-    ai_thread_id: str | None = None,
+    ai_stage_runner: TechnicalAIStageRunner | None,
+    ai_provider: Any | None,
+    rendering_stage_runner: RenderingStageRunner | None,
+    rag_stage_runner: RAGStageRunner | None,
+    ai_thread_id: str | None,
 ) -> dict[str, Any]:
     metadata = thread_data.get("metadata", {})
 
-    thread_id = metadata.get("thread_id", "unknown")
+    thread_id = str(
+        metadata.get("thread_id", "unknown")
+    )
     title = metadata.get("title", "Untitled thread")
-
     posts = thread_data.get("posts", [])
 
     attachment_count = sum(
@@ -245,10 +185,7 @@ def process_thread(
     )
 
     print()
-    print(
-        f"[{position}/{total}] "
-        f"thread_{thread_id}"
-    )
+    print(f"[{position}/{total}] thread_{thread_id}")
     print(f"    Title       : {title}")
     print(f"    Posts       : {len(posts)}")
     print(f"    Attachments : {attachment_count}")
@@ -335,21 +272,22 @@ def process_thread(
     print(f"    Merged      : {merged_output_path}")
     print(f"    Aggregated  : {aggregated_output_path}")
 
-
     ai_result: dict[str, Any] | None = None
+    rendering_result: dict[str, Any] | None = None
+    rag_result: dict[str, Any] | None = None
 
     should_run_ai = (
         ai_stage_runner is not None
         and ai_provider is not None
         and (
             ai_thread_id is None
-            or str(thread_id) == str(ai_thread_id)
+            or thread_id == str(ai_thread_id)
         )
     )
 
     if should_run_ai:
         print(
-            " [AI] Running structured "
+            "    [AI] Running structured "
             "technical extraction"
         )
 
@@ -361,26 +299,67 @@ def process_thread(
         ai_result = result.to_dict()
 
         print(
-            " [OK] AI extraction completed "
+            "    [OK] AI extraction completed "
             f"(provider={result.provider}, "
             f"model={result.model}, "
             f"tokens={result.total_tokens})"
         )
-
         print(
-            " AI output : "
+            "    AI output   : "
             f"{result.validated_response_path}"
         )
+
+        validated_document = (
+            RenderingStageRunner.load_validated_document(
+                Path(result.validated_response_path)
+            )
+        )
+
+        if rendering_stage_runner is not None:
+            rendered = rendering_stage_runner.run(
+                document=validated_document,
+            )
+            rendering_result = rendered.to_dict()
+
+            print(
+                "    [OK] Rendered outputs created"
+            )
+            print(
+                "    Markdown    : "
+                f"{rendered.markdown_path}"
+            )
+            print(
+                "    Plain text  : "
+                f"{rendered.text_path}"
+            )
+            print(
+                "    Metadata    : "
+                f"{rendered.metadata_path}"
+            )
+
+        if rag_stage_runner is not None:
+            rag = rag_stage_runner.run(
+                document=validated_document,
+            )
+            rag_result = rag.to_dict()
+
+            print(
+                "    [OK] RAG chunks created "
+                f"(chunks={rag.chunk_count})"
+            )
+            print(
+                "    RAG output  : "
+                f"{rag.output_path}"
+            )
 
     elif (
         ai_stage_runner is not None
         and ai_thread_id is not None
     ):
         print(
-            " [SKIP] AI stage not selected "
-            f"for thread_{thread_id}"
+            "    [SKIP] AI, rendering, and RAG "
+            f"not selected for thread_{thread_id}"
         )
-
 
     return {
         "thread_id": thread_id,
@@ -405,6 +384,8 @@ def process_thread(
             .get("ready_for_ai", False)
         ),
         "ai_processing": ai_result,
+        "rendering": rendering_result,
+        "rag": rag_result,
         "status": (
             "success"
             if attachment_stats.failed == 0
@@ -412,14 +393,15 @@ def process_thread(
         ),
     }
 
+
 def main() -> int:
     arguments = parse_arguments()
+
     print("=" * 72)
     print("TECHNICAL DOCUMENT INTELLIGENCE PIPELINE")
     print("=" * 72)
     print(f"Project root : {PROJECT_ROOT}")
     print(f"Raw data     : {RAW_DIRECTORY}")
-
 
     try:
         threads = load_all_threads(
@@ -431,9 +413,6 @@ def main() -> int:
 
     print(f"Threads found: {len(threads)}")
 
-
-
-
     attachment_processor = AttachmentProcessor(
         ocr_output_directory=OCR_DIRECTORY,
         pdf_output_directory=PDF_DIRECTORY,
@@ -441,18 +420,26 @@ def main() -> int:
 
     content_aggregator = ContentAggregator()
 
+    rendering_stage_runner = RenderingStageRunner(
+        output_directory=RENDERED_OUTPUT_DIRECTORY,
+    )
+
+    rag_stage_runner = RAGStageRunner(
+        output_directory=RAG_OUTPUT_DIRECTORY,
+        max_chars=arguments.rag_max_chars,
+        overlap_chars=arguments.rag_overlap_chars,
+    )
+
     ai_stage_runner: TechnicalAIStageRunner | None = None
     ai_provider: Any | None = None
 
     if arguments.model:
         selected_model = arguments.model
-
     elif arguments.provider == "openai":
         selected_model = (
             os.getenv("OPENAI_MODEL")
             or "gpt-4.1-mini"
         )
-
     else:
         selected_model = (
             "mock-technical-extraction-v1"
@@ -471,49 +458,39 @@ def main() -> int:
             ),
         )
 
-        provider_configuration: dict[str, Any]
-
         if arguments.provider == "mock":
-            provider_configuration = {
+            provider_configuration: dict[str, Any] = {
                 "response_file": (
                     arguments.mock_response.resolve()
                 ),
             }
-
         else:
             provider_configuration = {}
 
         try:
-            ai_provider = (
-                ai_stage_runner.create_provider(
-                    provider_name=arguments.provider,
-                    configuration=(
-                        provider_configuration
-                    ),
-                )
+            ai_provider = ai_stage_runner.create_provider(
+                provider_name=arguments.provider,
+                configuration=provider_configuration,
             )
-
         except ProviderError as error:
             print()
-            print(
-                "AI provider initialization failed:"
-            )
+            print("AI provider initialization failed:")
             print(error)
             return 1
 
-        print(
-            f"AI provider  : {arguments.provider}"
-        )
-
-        print(
-            f"AI model     : {selected_model}"
-        )
+        print(f"AI provider  : {arguments.provider}")
+        print(f"AI model     : {selected_model}")
 
         if arguments.ai_thread_id:
             print(
                 "AI thread ID : "
                 f"{arguments.ai_thread_id}"
             )
+    else:
+        print(
+            "AI provider  : none "
+            "(rendering and RAG will not run)"
+        )
 
     results: list[dict[str, Any]] = []
     failures: list[dict[str, str]] = []
@@ -523,7 +500,6 @@ def main() -> int:
         start=1,
     ):
         try:
-
             result = process_thread(
                 thread_data=thread_data,
                 position=position,
@@ -532,14 +508,17 @@ def main() -> int:
                 content_aggregator=content_aggregator,
                 ai_stage_runner=ai_stage_runner,
                 ai_provider=ai_provider,
+                rendering_stage_runner=(
+                    rendering_stage_runner
+                ),
+                rag_stage_runner=rag_stage_runner,
                 ai_thread_id=arguments.ai_thread_id,
             )
 
             results.append(result)
 
-
         except Exception as error:
-            thread_id = (
+            thread_id = str(
                 thread_data
                 .get("metadata", {})
                 .get("thread_id", "unknown")
@@ -558,10 +537,9 @@ def main() -> int:
                     f"{json.dumps(details, ensure_ascii=False)}"
                 )
 
-
             failures.append(
                 {
-                    "thread_id": str(thread_id),
+                    "thread_id": thread_id,
                     "error": str(error),
                 }
             )
@@ -572,12 +550,22 @@ def main() -> int:
         if result.get("ai_processing") is not None
     ]
 
+    rendered_results = [
+        result["rendering"]
+        for result in results
+        if result.get("rendering") is not None
+    ]
 
+    rag_results = [
+        result["rag"]
+        for result in results
+        if result.get("rag") is not None
+    ]
 
     manifest = {
         "pipeline_stage": (
             "load_clean_attachment_extract_"
-            "aggregate_and_optional_ai"
+            "aggregate_ai_render_rag"
         ),
         "provider": arguments.provider,
         "ai_thread_id": arguments.ai_thread_id,
@@ -585,6 +573,12 @@ def main() -> int:
         "successful": len(results),
         "failed": len(failures),
         "ai_documents_processed": len(ai_results),
+        "rendered_documents": len(rendered_results),
+        "rag_documents": len(rag_results),
+        "rag_chunks": sum(
+            item.get("chunk_count", 0)
+            for item in rag_results
+        ),
         "threads": results,
         "failures": failures,
     }
@@ -603,41 +597,26 @@ def main() -> int:
     print("=" * 72)
     print("PIPELINE SUMMARY")
     print("=" * 72)
-
+    print(f"Threads discovered : {len(threads)}")
+    print(f"Successful         : {len(results)}")
+    print(f"Failed             : {len(failures)}")
+    print(f"AI provider        : {arguments.provider}")
+    print(f"AI documents       : {len(ai_results)}")
+    print(f"Rendered documents : {len(rendered_results)}")
+    print(f"RAG documents      : {len(rag_results)}")
     print(
-        f"Threads discovered : {len(threads)}"
+        "RAG chunks         : "
+        f"{manifest['rag_chunks']}"
     )
-
-    print(
-        f"Successful         : {len(results)}"
-    )
-
-    print(
-        f"Failed             : {len(failures)}"
-    )
-
-    print(
-        f"AI provider        : "
-        f"{arguments.provider}"
-    )
-
-    print(
-        f"AI documents       : "
-        f"{len(ai_results)}"
-    )
-
-    print(
-        f"Manifest           : "
-        f"{manifest_path}"
-    )
+    print(f"Manifest           : {manifest_path}")
 
     if failures:
         print("Status             : completed with errors")
         return 1
 
     print("Status             : success")
-
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
