@@ -107,21 +107,25 @@ class VisionRouter:
             use_vision=use_vision,
         )
 
+
+
+        selected_provider = (
+            provider or self.config.default_provider
+            if use_vision
+            else None
+        )
+
+        selected_model = (
+            model or self.config.default_model
+            if use_vision
+            else None
+        )
+
         return VisionDecision(
             page_number=page.page_number,
             use_vision=use_vision,
-            provider=(
-                provider
-                or self.config.default_provider
-                if use_vision
-                else None
-            ),
-            model=(
-                model
-                or self.config.default_model
-                if use_vision
-                else None
-            ),
+            provider=selected_provider,
+            model=selected_model,
             priority=priority,
             reasons=reasons,
             score=score,
@@ -131,6 +135,7 @@ class VisionRouter:
                 "force_vision": force_vision,
             },
         )
+
 
     def route_pages(
         self,
